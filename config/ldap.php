@@ -143,7 +143,8 @@ return [
                 |
                 */
 
-                'hosts' => explode(' ', env('LDAP_HOSTS', 'corp-dc1.corp.acme.org corp-dc2.corp.acme.org')),
+                'hosts' => explode(' ', env('LDAP_HOSTS', 'cdc1.utcc-net.utcc-domain.local')),
+                // 'hosts' => explode(' ', env('LDAP_HOSTS', 'corp-dc1.corp.acme.org corp-dc2.corp.acme.org')),
 
                 /*
                 |--------------------------------------------------------------------------
@@ -183,7 +184,7 @@ return [
                 |
                 */
 
-                'base_dn' => env('LDAP_BASE_DN', 'dc=corp,dc=acme,dc=org'),
+                'base_dn' => env('LDAP_BASE_DN', 'OU=UTCC Organization Units,DC=utcc-net,DC=utcc-domain,DC=local'),
 
                 /*
                 |--------------------------------------------------------------------------
@@ -198,8 +199,8 @@ return [
                 |
                 */
 
-                'username' => env('LDAP_USERNAME', 'username'),
-                'password' => env('LDAP_PASSWORD', 'secret'),
+                'username' => env('LDAP_USERNAME', 'komsan_aia@utcc.ac.th'),
+                'password' => env('LDAP_PASSWORD', 'KA423244055'),
 
                 /*
                 |--------------------------------------------------------------------------

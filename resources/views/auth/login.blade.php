@@ -8,13 +8,16 @@
                     <h1>{{ __('Login') }}</h1>
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
-                        <div class="input-group mb-3"><span class="input-group-text">
-                      <svg class="icon">
-                        <use xlink:href="{{ asset('icons/coreui.svg#cil-envelope-open') }}"></use>
-                      </svg></span>
-                            <input class="form-control @error('email') is-invalid @enderror" type="text" name="email"
-                                   placeholder="{{ __('Email') }}" required autofocus>
-                            @error('email')
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                {{-- <svg class="icon">
+                                    <use xlink:href="{{ asset('icons/coreui.svg#cil-envelope-open') }}"></use>
+                                </svg> --}}
+                                <i class="bi bi-person"></i>
+                            </span>
+                            <input class="form-control @error('username') is-invalid @enderror" type="text" name="username"
+                                   placeholder="{{ __('User Name') }}" required autofocus>
+                            @error('username')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -49,11 +52,11 @@
             </div>
             <div class="card col-md-5 text-white bg-primary py-5">
                 <div class="card-body text-center">
-                    <div>
+                    {{-- <div>
                         <h2>{{ __('Sign up') }}</h2>
                         <a href="{{ route('register') }}"
                            class="btn btn-lg btn-outline-light mt-3">{{ __('Register') }}</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

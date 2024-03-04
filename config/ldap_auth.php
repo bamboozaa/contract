@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'model' => App\User::class,
+    'model' => App\Models\User::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -133,7 +133,8 @@ return [
 
         'ldap' => [
 
-            'locate_users_by' => 'userprincipalname',
+            // 'locate_users_by' => 'userprincipalname',
+            'locate_users_by' => 'samaccountname',
 
             'bind_users_by' => 'distinguishedname',
 
@@ -171,7 +172,8 @@ return [
             |
             */
 
-            'username_column' => 'email',
+            // 'username_column' => 'email',
+            'username_column' => 'username',
 
         ],
 
@@ -290,8 +292,10 @@ return [
     'sync_attributes' => [
 
         'email' => 'userprincipalname',
-
+        'username' => 'samaccountname',
         'name' => 'cn',
+        'fullname' => 'description',
+        'department' => 'department',
 
     ],
 

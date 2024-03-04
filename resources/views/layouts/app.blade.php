@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <meta name="theme-color" content="#ffffff">
-    @vite('resources/sass/app.scss')
+
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    {{-- @vite('resources/sass/app.scss') --}}
 </head>
 <body>
 <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
@@ -69,8 +72,9 @@
             </ul>
         </div>
     </header>
+    {{-- <div class="body flex-grow-1 px-3"> --}}
     <div class="body flex-grow-1 px-3">
-        <div class="container-lg">
+        <div class="container-fluid">
             @yield('content')
         </div>
     </div>
