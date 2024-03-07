@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('contracts', function (Blueprint $table) {
-            $table->id('contract_id')->comment('รหัสสัญญา');
-            $table->string('contract_name')->comment('ชื่อสัญญา');
+            $table->id('contract_id')->comment('(รหัสสัญญา): รหัสที่ระบุสัญญา');
+            $table->string('contract_name')->comment(' (ชื่อสัญญา): ชื่อหรือคำอธิบายของสัญญา');
+            $table->date('start_date')->comment('(วันที่เริ่มสัญญา): วันที่สัญญาเริ่มต้น');
+            $table->date('end_date')->comment('(วันที่สิ้นสุดสัญญา): วันที่สัญญาสิ้นสุด');
+            $table->string('parties_involved')->comment(' (ฝ่ายที่เกี่ยวข้อง): ฝ่ายหรือบุคคลที่เกี่ยวข้องกับสัญญา');
             $table->timestamps();
         });
     }
