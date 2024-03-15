@@ -6,7 +6,8 @@
             {{ __('My profile') }}
         </div>
 
-        <form action="{{ route('profile.update') }}" method="POST">
+        {{-- <form action="{{ route('profile.update') }}" method="POST"> --}}
+        <form action="#" method="POST">
             @csrf
             @method('PUT')
 
@@ -42,7 +43,7 @@
                     @enderror
                 </div>
 
-                <div class="input-group mb-3"><span class="input-group-text">
+                {{-- <div class="input-group mb-3"><span class="input-group-text">
                     <svg class="icon">
                       <use xlink:href="{{ asset('icons/coreui.svg#cil-lock-locked') }}"></use>
                     </svg></span>
@@ -53,21 +54,21 @@
                             {{ $message }}
                         </span>
                     @enderror
-                </div>
+                </div> --}}
 
-                <div class="input-group mb-4"><span class="input-group-text">
+                {{-- <div class="input-group mb-4"><span class="input-group-text">
                     <svg class="icon">
                       <use xlink:href="{{ asset('icons/coreui.svg#cil-lock-locked') }}"></use>
                     </svg></span>
                     <input class="form-control @error('password_confirmation') is-invalid @enderror" type="password"
                            name="password_confirmation" placeholder="{{ __('New password confirmation') }}" required>
-                </div>
+                </div> --}}
 
             </div>
 
-            <div class="card-footer">
+            {{-- <div class="card-footer">
                 <button class="btn btn-sm btn-primary" type="submit">{{ __('Submit') }}</button>
-            </div>
+            </div> --}}
 
         </form>
 

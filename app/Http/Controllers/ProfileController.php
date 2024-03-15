@@ -12,17 +12,17 @@ class ProfileController extends Controller
         return view('auth.profile');
     }
 
-    public function update(ProfileUpdateRequest $request)
-    {
-        if ($request->password) {
-            auth()->user()->update(['password' => Hash::make($request->password)]);
-        }
+    // public function update(ProfileUpdateRequest $request)
+    // {
+    //     if ($request->password) {
+    //         auth()->user()->update(['password' => Hash::make($request->password)]);
+    //     }
 
-        auth()->user()->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
+    //     auth()->user()->update([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //     ]);
 
-        return redirect()->back()->with('success', 'Profile updated.');
-    }
+    //     return redirect()->back()->with('success', 'Profile updated.');
+    // }
 }

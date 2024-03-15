@@ -8,25 +8,34 @@
         </a>
     </li>
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="{{ route('users.index') }}">
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
             </svg>
             {{ __('Users') }}
         </a>
-    </li>
+    </li> --}}
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="{{ route('about') }}">
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-speedometer') }}"></use>
             </svg>
             {{ __('About us') }}
         </a>
+    </li> --}}
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('contracts.index') }}">
+            <svg class="nav-icon">
+                <use xlink:href="{{ asset('icons/coreui.svg#cil-credit-card') }}"></use>
+            </svg>
+            {{ __('Contract') }}
+        </a>
     </li>
 
-    <li class="nav-group" aria-expanded="false">
+    {{-- <li class="nav-group" aria-expanded="false">
         <a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-star') }}"></use>
@@ -43,5 +52,5 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 </ul>

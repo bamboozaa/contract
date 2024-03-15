@@ -13,7 +13,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-        //
+        return view('contracts.index');
     }
 
     /**
