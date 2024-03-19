@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreContractRequest;
 use App\Http\Requests\UpdateContractRequest;
 use App\Models\Contract;
+use App\Models\Department;
 
 class ContractController extends Controller
 {
@@ -21,7 +22,8 @@ class ContractController extends Controller
      */
     public function create()
     {
-        return view('contracts.create');
+        $departments = Department::pluck('dep_name', 'id');
+        return view('contracts.create', compact('departments'));
     }
 
     /**

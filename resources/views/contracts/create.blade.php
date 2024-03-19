@@ -33,38 +33,62 @@
             <div class="col-1">
                 {!! Form::date('contract_date', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}
             </div> --}}
+            {{-- <div class="form-floating mb-3">
+                <input type="text" name="department" class="form-control" id="department"
+                    placeholder={{ __('หน่วยงานต้นเรื่อง') }}>
+                <label for="department">{{ __('หน่วยงานต้นเรื่อง') }}</label>
+            </div> --}}
+
+            <div class="row mb-3">
+                <div class="col-auto">
+                    <label for="floatingSelectCol1">หน่วยงานต้นเรื่อง</label>
+                    <div class="form-floating">
+                        {!! Form::select('dep_id', $departments, null, [
+                                'class' => 'form-select form-select-sm',
+                                'placeholder' => 'Please Select ...',
+                                'id' => 'dep_id',
+                                'aria-label' => 'Floating label select departments',
+                            ]) !!}
+                    </div>
+                </div>
+            </div>
+
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="contract_name"
-                    placeholder={{ __('ชื่อสัญญา') }}>
+                <input type="text" class="form-control" id="contract_name" placeholder={{ __('ชื่อสัญญา') }}>
                 <label for="contract_name">{{ __('ชื่อสัญญา') }}</label>
             </div>
 
-            <div class="form-floating">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="vendor" placeholder={{ __('ชื่อคู่สัญญา') }}>
+                <label for="vendor">{{ __('ชื่อคู่สัญญา') }}</label>
+            </div>
+
+            {{-- <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="contract_detail" style="height: 100px"></textarea>
                 <label for="contract_detail">{{ __('รายละเอียดสัญญา') }}</label>
-            </div>
+            </div> --}}
 
             <div class="row my-3">
-                <div class="col">
+                <div class="col-auto">
                     <label for="start_date" class="form-label">{{ __('วันที่ลงนามสัญญา') }}</label>
-                    <div class="col-3">
+
                         {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
-                    </div>
+
                 </div>
-                <div class="col">
+                <div class="col-auto">
                     <label for="end_date" class="form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
-                    <div class="col-3">
+
                         {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
-                    </div>
+
                 </div>
-                <div class="col">
+                {{-- <div class="col">
                     <label for="value_contract" class="form-label">{{ __('มูลค่าวงเงินตามสัญญา') }}</label>
                     <input type="text" name="value_contract" class="form-control" placeholder="$B">
-                </div>
+                </div> --}}
             </div>
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col">
                     <label for="value_contract" class="form-label">{{ __('ผู้จัดทำโครงการ') }}</label>
                     <input type="text" name="value_contract" class="form-control">
@@ -73,13 +97,9 @@
                     <label for="value_contract" class="form-label">{{ __('หน่วยงาน') }}</label>
                     <input type="text" name="value_contract" class="form-control">
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="form-floating my-3">
-                <input type="text" class="form-control" id="vendor"
-                    placeholder={{ __('ชื่อคู่สัญญา') }}>
-                <label for="vendor">{{ __('ชื่อคู่สัญญา') }}</label>
-            </div>
+
 
         </div>
 
