@@ -36,8 +36,8 @@
 
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="contract_name"
-                    placeholder={{ __('วัตถุประสงค์ดำเนินการ จัดซื้อ/จ้าง') }}>
-                <label for="contract_name">{{ __('วัตถุประสงค์ดำเนินการ จัดซื้อ/จ้าง') }}</label>
+                    placeholder={{ __('ชื่อสัญญา') }}>
+                <label for="contract_name">{{ __('ชื่อสัญญา') }}</label>
             </div>
 
             <div class="form-floating">
@@ -77,8 +77,8 @@
 
             <div class="form-floating my-3">
                 <input type="text" class="form-control" id="vendor"
-                    placeholder={{ __('ชื่อผู้ประกอบการ') }}>
-                <label for="vendor">{{ __('ชื่อผู้ประกอบการ') }}</label>
+                    placeholder={{ __('ชื่อคู่สัญญา') }}>
+                <label for="vendor">{{ __('ชื่อคู่สัญญา') }}</label>
             </div>
 
         </div>
