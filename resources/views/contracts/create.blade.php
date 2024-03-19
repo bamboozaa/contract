@@ -39,20 +39,28 @@
                 <label for="department">{{ __('หน่วยงานต้นเรื่อง') }}</label>
             </div> --}}
 
-            <div class="row mb-3">
+            <div class="form-group row mb-3">
+                <label for="dep_id" class="col-auto col-form-label">หน่วยงานต้นเรื่อง : </label>
                 <div class="col-auto">
-                    <label for="floatingSelectCol1">หน่วยงานต้นเรื่อง</label>
-                    <div class="form-floating">
-                        {!! Form::select('dep_id', $departments, null, [
-                                'class' => 'form-select form-select-sm',
-                                'placeholder' => 'Please Select ...',
-                                'id' => 'dep_id',
-                                'aria-label' => 'Floating label select departments',
-                            ]) !!}
-                    </div>
+                    {!! Form::select('dep_id', $departments, null, [
+                        'class' => 'form-select',
+                        'placeholder' => 'Please Select ...',
+                        'id' => 'dep_id',
+                        'aria-label' => 'Floating label select departments',
+                    ]) !!}
                 </div>
             </div>
 
+            {{-- <div class="form-row mb-3">
+                <div class="form-group col-auto">
+                    <label for="dep_id">หน่วยงานต้นเรื่อง</label>
+                    {!! Form::select('dep_id', $departments, null, [
+                        'class' => 'form-select w-auto',
+                        'placeholder' => 'Please Select ...',
+                        'id' => 'dep_id',
+                    ]) !!}
+                </div>
+            </div> --}}
 
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="contract_name" placeholder={{ __('ชื่อสัญญา') }}>
@@ -69,24 +77,38 @@
                 <label for="contract_detail">{{ __('รายละเอียดสัญญา') }}</label>
             </div> --}}
 
-            <div class="row my-3">
+            <div class="form-group row mb-3">
+                <label for="start_date" class="col-md-1 col-form-label">{{ __('วันที่ลงนามสัญญา') }}</label>
+                <div class="col-auto">
+                    {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="end_date" class="col-md-1 col-form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
+                <div class="col-auto">
+                    {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+
+            {{-- <div class="row my-3">
                 <div class="col-auto">
                     <label for="start_date" class="form-label">{{ __('วันที่ลงนามสัญญา') }}</label>
 
-                        {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
+                    {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
 
                 </div>
                 <div class="col-auto">
                     <label for="end_date" class="form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
 
-                        {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
+                    {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
 
                 </div>
-                {{-- <div class="col">
+                <div class="col">
                     <label for="value_contract" class="form-label">{{ __('มูลค่าวงเงินตามสัญญา') }}</label>
                     <input type="text" name="value_contract" class="form-control" placeholder="$B">
-                </div> --}}
-            </div>
+                </div>
+            </div> --}}
 
             {{-- <div class="row">
                 <div class="col">
