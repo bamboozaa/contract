@@ -42,7 +42,7 @@
 
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="contract_detail" style="height: 100px"></textarea>
-                <label for="contract_detail">{{ __('รายละเอียด') }}</label>
+                <label for="contract_detail">{{ __('รายละเอียดสัญญา') }}</label>
             </div>
 
             <div class="row my-3">
