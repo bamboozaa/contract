@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'All Contracts')
 
 @section('content')
     <div class="row justify-content-center">
@@ -30,8 +31,12 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">#</th>
+                    <th scope="col">หน่วยงาน</th>
+                    <th scope="col">วัตถุประสงค์</th>
+                    <th scope="col">ประเภท</th>
+                    <th scope="col">สถานะ</th>
+                    <th scope="col">จัดการ</th>
                 </tr>
                 </thead>
                 <tbody>

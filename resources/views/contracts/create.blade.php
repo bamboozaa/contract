@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Create Contract')
 
 @section('content')
     <div class="row justify-content-center">
@@ -28,7 +29,57 @@
 
         <div class="card-body">
 
+            {{-- {!! Form::label('contract_date', __('วันเดือนปี ที่บันทึก'), ['class' => 'col col-form-label']) !!}
+            <div class="col-1">
+                {!! Form::date('contract_date', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}
+            </div> --}}
 
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="contract_name"
+                    placeholder={{ __('วัตถุประสงค์ดำเนินการ จัดซื้อ/จ้าง') }}>
+                <label for="contract_name">{{ __('วัตถุประสงค์ดำเนินการ จัดซื้อ/จ้าง') }}</label>
+            </div>
+
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="contract_detail" style="height: 100px"></textarea>
+                <label for="contract_detail">{{ __('รายละเอียด') }}</label>
+            </div>
+
+            <div class="row my-3">
+                <div class="col">
+                    <label for="start_date" class="form-label">{{ __('วันที่ลงนามสัญญา') }}</label>
+                    <div class="col-3">
+                        {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="end_date" class="form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
+                    <div class="col-3">
+                        {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="value_contract" class="form-label">{{ __('มูลค่าวงเงินตามสัญญา') }}</label>
+                    <input type="text" name="value_contract" class="form-control" placeholder="$B">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="value_contract" class="form-label">{{ __('ผู้จัดทำโครงการ') }}</label>
+                    <input type="text" name="value_contract" class="form-control">
+                </div>
+                <div class="col">
+                    <label for="value_contract" class="form-label">{{ __('หน่วยงาน') }}</label>
+                    <input type="text" name="value_contract" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-floating my-3">
+                <input type="text" class="form-control" id="vendor"
+                    placeholder={{ __('ชื่อผู้ประกอบการ') }}>
+                <label for="vendor">{{ __('ชื่อผู้ประกอบการ') }}</label>
+            </div>
 
         </div>
 
