@@ -103,7 +103,7 @@
             </div>
 
             <div class="form-group row mb-3">
-                <label for="category" class="col-auto col-form-label">ประเภทสัญญา : </label>
+                <label for="category" class="col-auto col-form-label">{{ __('ประเภทสัญญา : ') }}</label>
                 <div class="col-auto">
                     {!! Form::select('category', [1 => 'สัญญาซื้อขาย', 2 => "สัญญาจ้าง", 3 => "สัญาเช่า", 4 => "สัญญาอนุมัติให้ใช้สิทธิ์"], null, [
                         'class' => 'form-select',
