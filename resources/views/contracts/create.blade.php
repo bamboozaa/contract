@@ -39,6 +39,24 @@
                 <label for="department">{{ __('หน่วยงานต้นเรื่อง') }}</label>
             </div> --}}
 
+            <div class="form-group row my-3">
+                <label for="contract_no" class="col-auto col-form-label">เลขที่สัญญา นตก. (ส) :</label>
+                <div class="col-auto">
+                    {!! Form::text('contract_no', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="col-auto">
+                    <span class="form-label">
+                        /
+                    </span>
+                </div>
+                <div class="col-auto">
+                    @php
+                        $currentYear = \Carbon\Carbon::now()->year;
+                    @endphp
+                    {!! Form::text('contract_no_year', $currentYear, ['class' => 'form-control', 'readonly']) !!}
+                </div>
+            </div>
+
             <div class="form-group row mb-3">
                 <label for="dep_id" class="col-auto col-form-label">หน่วยงานต้นเรื่อง : </label>
                 <div class="col-auto">
