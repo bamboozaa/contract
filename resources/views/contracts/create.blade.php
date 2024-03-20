@@ -122,25 +122,18 @@
                 </div>
             </div>
 
-
-            {{-- <div class="row my-3">
+            <div class="form-group row mb-3">
+                <label for="category" class="col-auto col-form-label">ประเภทสัญญา : </label>
                 <div class="col-auto">
-                    <label for="start_date" class="form-label">{{ __('วันที่ลงนามสัญญา') }}</label>
-
-                    {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
-
+                    {!! Form::select('category', [1 => 'สัญญาซื้อขาย', 2 => "สัญญาจ้าง", 3 => "สัญาเช่า", 4 => "สัญญาอนุมัติให้ใช้สิทธิ์"], null, [
+                        'class' => 'form-select',
+                        'placeholder' => 'Please Select ...',
+                        'id' => 'category',
+                        'aria-label' => 'Floating label select categories',
+                    ]) !!}
                 </div>
-                <div class="col-auto">
-                    <label for="end_date" class="form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
+            </div>
 
-                    {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
-
-                </div>
-                <div class="col">
-                    <label for="value_contract" class="form-label">{{ __('มูลค่าวงเงินตามสัญญา') }}</label>
-                    <input type="text" name="value_contract" class="form-control" placeholder="$B">
-                </div>
-            </div> --}}
 
             {{-- <div class="row">
                 <div class="col">
