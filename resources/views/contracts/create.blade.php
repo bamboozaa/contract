@@ -29,16 +29,6 @@
 
         <div class="card-body">
 
-            {{-- {!! Form::label('contract_date', __('วันเดือนปี ที่บันทึก'), ['class' => 'col col-form-label']) !!}
-            <div class="col-1">
-                {!! Form::date('contract_date', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}
-            </div> --}}
-            {{-- <div class="form-floating mb-3">
-                <input type="text" name="department" class="form-control" id="department"
-                    placeholder={{ __('หน่วยงานต้นเรื่อง') }}>
-                <label for="department">{{ __('หน่วยงานต้นเรื่อง') }}</label>
-            </div> --}}
-
             <div class="form-group row mb-3">
                 <label for="contract_no" class="col-auto col-form-label">เลขที่สัญญา นตก. (ส) :</label>
                 <div class="col-auto">
@@ -69,17 +59,6 @@
                 </div>
             </div>
 
-            {{-- <div class="form-row mb-3">
-                <div class="form-group col-auto">
-                    <label for="dep_id">หน่วยงานต้นเรื่อง</label>
-                    {!! Form::select('dep_id', $departments, null, [
-                        'class' => 'form-select w-auto',
-                        'placeholder' => 'Please Select ...',
-                        'id' => 'dep_id',
-                    ]) !!}
-                </div>
-            </div> --}}
-
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="contract_name" placeholder={{ __('ชื่อสัญญา') }}>
                 <label for="contract_name">{{ __('ชื่อสัญญา') }}</label>
@@ -90,35 +69,36 @@
                 <label for="vendor">{{ __('ชื่อคู่สัญญา') }}</label>
             </div>
 
-            {{-- <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="contract_detail" style="height: 100px"></textarea>
-                <label for="contract_detail">{{ __('รายละเอียดสัญญา') }}</label>
-            </div> --}}
             <div class="row mb-3">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label for="start_date" class="col-auto col-form-label">{{ __('วันเริ่มสัญญา') }}</label>
-                        <div class="col-auto">
-                            {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
+                        <div class="form-floating">
+                            {!! Form::text('value', null, ['class' => 'form-control', 'id' => 'value', 'placeholder' => 'มูลค่างานตามสัญญา (จำนวนเงิน)']) !!}
+                            <label for="value">{{ __('มูลค่างานตามสัญญา (จำนวนเงิน)') }}</label>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            {!! Form::text('fund', null, ['class' => 'form-control', 'id' => 'fund', 'placeholder' => 'กองทุน']) !!}
+                            <label for="fund" class="form-label">{{ __('กองทุน') }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    <div class="form-group">
-                        <label for="end_date" class="col-auto col-form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
-                        <div class="col-auto">
-                            {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
-                        </div>
-                    </div>
+            <div class="form-group row mb-3">
+                <label for="start_date" class="col-md-1 col-form-label text-nowrap">{{ __('วันเริ่มสัญญา') }}</label>
+                <div class="col-auto">
+                    {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="value" class="col-auto col-form-label">{{ __('มูลค่างานตามสัญญา (จำนวนเงิน)') }}</label>
-                        <div class="col-auto">
-                            {!! Form::text('value', null, ['class' => 'form-control']) !!}
-                        </div>
-                    </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="end_date" class="col-md-1 col-form-label text-nowrap">{{ __('วันสิ้นสุดสัญญา') }}</label>
+                <div class="col-auto">
+                    {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
                 </div>
             </div>
 
@@ -133,19 +113,6 @@
                     ]) !!}
                 </div>
             </div>
-
-
-            {{-- <div class="row">
-                <div class="col">
-                    <label for="value_contract" class="form-label">{{ __('ผู้จัดทำโครงการ') }}</label>
-                    <input type="text" name="value_contract" class="form-control">
-                </div>
-                <div class="col">
-                    <label for="value_contract" class="form-label">{{ __('หน่วยงาน') }}</label>
-                    <input type="text" name="value_contract" class="form-control">
-                </div>
-            </div> --}}
-
 
 
         </div>
