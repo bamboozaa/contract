@@ -39,7 +39,7 @@
                 <label for="department">{{ __('หน่วยงานต้นเรื่อง') }}</label>
             </div> --}}
 
-            <div class="form-group row my-3">
+            <div class="form-group row mb-3">
                 <label for="contract_no" class="col-auto col-form-label">เลขที่สัญญา นตก. (ส) :</label>
                 <div class="col-auto">
                     {!! Form::text('contract_no', null, ['class' => 'form-control']) !!}
@@ -94,20 +94,34 @@
                 <textarea class="form-control" placeholder="Leave a comment here" id="contract_detail" style="height: 100px"></textarea>
                 <label for="contract_detail">{{ __('รายละเอียดสัญญา') }}</label>
             </div> --}}
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="start_date" class="col-auto col-form-label">{{ __('วันเริ่มสัญญา') }}</label>
+                        <div class="col-auto">
+                            {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
 
-            <div class="form-group row mb-3">
-                <label for="start_date" class="col-md-1 col-form-label">{{ __('วันที่ลงนามสัญญา') }}</label>
-                <div class="col-auto">
-                    {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
+                    <div class="form-group">
+                        <label for="end_date" class="col-auto col-form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
+                        <div class="col-auto">
+                            {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="value" class="col-auto col-form-label">{{ __('มูลค่างานตามสัญญา (จำนวนเงิน)') }}</label>
+                        <div class="col-auto">
+                            {!! Form::text('value', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group row mb-3">
-                <label for="end_date" class="col-md-1 col-form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
-                <div class="col-auto">
-                    {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
-                </div>
-            </div>
 
             {{-- <div class="row my-3">
                 <div class="col-auto">
