@@ -12,6 +12,9 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     {{-- @vite('resources/sass/app.scss') --}}
+
+    <!-- Custom Style -->
+    @yield('importcss')
 </head>
 <body>
 <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">

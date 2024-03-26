@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('title', 'Create Contract')
 
+@section('importcss')
+    @parent
+    {{ Html::style('css/custom.css') }}
+@stop
+
 @section('content')
     <div class="row justify-content-center">
         <nav aria-label="breadcrumb">
@@ -73,7 +78,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="form-floating">
-                            {!! Form::text('value', null, ['class' => 'form-control', 'id' => 'value', 'placeholder' => 'มูลค่างานตามสัญญา (จำนวนเงิน)']) !!}
+                            {!! Form::text('value', null, [
+                                'class' => 'form-control',
+                                'id' => 'value',
+                                'placeholder' => 'มูลค่างานตามสัญญา (จำนวนเงิน)',
+                            ]) !!}
                             <label for="value">{{ __('มูลค่างานตามสัญญา (จำนวนเงิน)') }}</label>
                         </div>
                     </div>
@@ -88,32 +97,53 @@
                 </div>
             </div>
 
-            <div class="form-group row mb-3">
-                <label for="start_date" class="col-md-1 col-form-label text-nowrap">{{ __('วันเริ่มสัญญา') }}</label>
-                <div class="col-auto">
-                    {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
+            <fieldset class="border rounded-3 p-3 mb-3">
+                <legend class="float-none fs-5 w-auto px-3">{{ __('รายละเอียดในสัญญา') }}</legend>
+                <div class="form-group row mb-3">
+                    <label for="start_date" class="col-md-1 col-form-label text-nowrap">{{ __('วันเริ่มสัญญา') }}</label>
+                    <div class="col-auto">
+                        {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row mb-3">
-                <label for="end_date" class="col-md-1 col-form-label text-nowrap">{{ __('วันสิ้นสุดสัญญา') }}</label>
-                <div class="col-auto">
-                    {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
+                <div class="form-group row mb-3">
+                    <label for="end_date" class="col-md-1 col-form-label text-nowrap">{{ __('วันสิ้นสุดสัญญา') }}</label>
+                    <div class="col-auto">
+                        {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row mb-3">
-                <label for="category" class="col-auto col-form-label">{{ __('ประเภทสัญญา : ') }}</label>
-                <div class="col-auto">
-                    {!! Form::select('category', [1 => 'สัญญาซื้อขาย', 2 => "สัญญาจ้าง", 3 => "สัญาเช่า", 4 => "สัญญาอนุมัติให้ใช้สิทธิ์"], null, [
-                        'class' => 'form-select',
-                        'placeholder' => 'Please Select ...',
-                        'id' => 'category',
-                        'aria-label' => 'Floating label select categories',
-                    ]) !!}
+                <div class="form-group row mb-3">
+                    <label for="category" class="col-auto col-form-label">{{ __('ประเภทสัญญา : ') }}</label>
+                    <div class="col-auto">
+                        {!! Form::select(
+                            'category',
+                            [1 => 'สัญญาซื้อขาย', 2 => 'สัญญาจ้าง', 3 => 'สัญาเช่า', 4 => 'สัญญาอนุมัติให้ใช้สิทธิ์'],
+                            null,
+                            [
+                                'class' => 'form-select',
+                                'placeholder' => 'Please Select ...',
+                                'id' => 'category',
+                                'aria-label' => 'Floating label select categories',
+                            ],
+                        ) !!}
+                    </div>
                 </div>
-            </div>
+            </fieldset>
 
+            <fieldset class="border rounded-3 p-3">
+                <legend class="float-none fs-5 w-auto px-3">{{ __('ข้อมูลหลักประกันสัญญา') }}</legend>
+
+            </fieldset>
+
+            {{-- <fieldset class="border rounded-3 p-3">
+                <legend class="float-none w-auto px-3">Your Legend</legend>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+            </fieldset> --}}
 
         </div>
 
