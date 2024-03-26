@@ -133,6 +133,67 @@
 
             <fieldset class="border rounded-3 p-3">
                 <legend class="float-none fs-5 w-auto px-3">{{ __('ข้อมูลหลักประกันสัญญา') }}</legend>
+                <label class="form-label me-5">{{ __('ชนิดหลักประกัน : ') }}</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                        value="option1">
+                    <label class="form-check-label" for="inlineRadio1">{{ __('หลักประกันที่เป็นเงินสด') }}</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                        value="option2">
+                    <label class="form-check-label"
+                        for="inlineRadio2">{{ __('หลักประกันที่เป็นหนังสือค้ำประกัน') }}</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                        value="option3">
+                    <label class="form-check-label" for="inlineRadio3">{{ __('หลักประกันที่เป็นเช็คธนาคาร') }}</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
+                        value="option4">
+                    <label class="form-check-label"
+                        for="inlineRadio4">{{ __('หลักประกันที่เป็นพันธบัตรรัฐบาลไทย') }}</label>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                {!! Form::text('guarantee_amount', null, [
+                                    'class' => 'form-control',
+                                    'id' => 'guarantee_amount',
+                                    'placeholder' => 'จำนวนเงินประกันสัญญา',
+                                ]) !!}
+                                <label for="guarantee_amount">{{ __('จำนวนเงินประกันสัญญา') }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                {!! Form::text('duration', null, [
+                                    'class' => 'form-control',
+                                    'id' => 'duration',
+                                    'placeholder' => 'ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
+                                ]) !!}
+                                <label for="duration">{{ __('ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา') }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                <option selected>กรุณาเลือก เงือนไขการคืนหลักประกันสัญญา</option>
+                                <option value="1">3 เดือน</option>
+                                <option value="2">6 เดือน</option>
+                                <option value="3">1 ปี</option>
+                            </select>
+                            {{-- <label for="floatingSelect">Works with selects</label> --}}
+                        </div>
+                    </div>
+                </div>
 
             </fieldset>
 
@@ -144,6 +205,8 @@
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
             </fieldset> --}}
+
+
 
         </div>
 

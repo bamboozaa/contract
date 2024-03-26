@@ -28,9 +28,7 @@
 
     <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('contracts.*') ? 'active' : '' }}" href="{{ route('contracts.index') }}">
-            <svg class="nav-icon">
-                <use xlink:href="{{ asset('icons/coreui.svg#cil-credit-card') }}"></use>
-            </svg>
+            <i class="bi bi-vector-pen fs-4 me-4"></i>
             {{ __('Contract') }}
         </a>
     </li>
