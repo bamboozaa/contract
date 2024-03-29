@@ -38,23 +38,38 @@
             @endphp
 
             <div class="row mb-3">
-                <div class="col-md">
-                    <div class="form-floating">
-                        {!! Form::text('contract_no', null, [
-                            'class' => 'form-control w-auto',
-                            'id' => 'contract_no',
-                            'placeholder' => 'ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
-                        ]) !!}
-                        <label for="contract_no">{{ __('เลขที่สัญญา นตก. (ส)') }}</label>
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                                {!! Form::text('contract_no', null, [
+                                    'class' => 'form-control form-control-lg',
+                                    'id' => 'contract_no',
+                                    'placeholder' => 'ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
+                                ]) !!}
+                                <label for="contract_no">{{ __('เลขที่สัญญา นตก. (ส)') }}</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating">
+                                {!! Form::text('contract_no_year', $currentYear, [
+                                    'class' => 'form-control form-control-lg',
+                                    'id' => 'contract_no_year',
+                                    'placeholder' => 'ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
+                                    'readonly',
+                                ]) !!}
+                                <label for="contract_no_year">{{ __('ปีการศึกษา') }}</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md mr-auto">
+                {{-- <div class="col-md mr-auto">
                     <label for="contract_no">{{ __(' / ' . $currentYear) }}</label>
-                </div>
-                <div class="col-md">
+                </div> --}}
+                <div class="col">
                     <div class="form-floating">
                         {!! Form::select('dep_id', $departments, null, [
-                            'class' => 'form-select w-auto',
+                            'class' => 'form-select form-select-lg w-auto',
                             'placeholder' => 'กรุณาเลือก หน่วยงานต้นเรื่อง',
                             'id' => 'dep_id',
                             'aria-label' => 'Floating label select departments',
@@ -63,48 +78,16 @@
                 </div>
             </div>
 
-
-            {{-- <div class="row mb-3">
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="form-floating">
-                            {!! Form::text('contract_no', null, [
-                                'class' => 'form-control w-auto',
-                                'id' => 'contract_no',
-                                'placeholder' => 'ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
-                            ]) !!}
-                            <label for="contract_no">{{ __('เลขที่สัญญา นตก. (ส)') }}</label>
-                        </div>
-                    </div>
-                </div>
-
-                @php
-                    $currentYear = \Carbon\Carbon::now()->year;
-                @endphp
-                {!! Form::text('contract_no_year', $currentYear, ['class' => 'form-control', 'readonly']) !!}
-                <div class="col-md-6">
-                    <div class="form-floating">
-                        {!! Form::select('dep_id', $departments, null, [
-                            'class' => 'form-select w-auto',
-                            'placeholder' => 'กรุณาเลือก หน่วยงานต้นเรื่อง',
-                            'id' => 'dep_id',
-                            'aria-label' => 'Floating label select departments',
-                        ]) !!}
-                    </div>
-                </div>
-            </div> --}}
-
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="contract_name" placeholder={{ __('ชื่อสัญญา') }}>
+                        <input type="text" class="form-control form-control-lg" id="contract_name" placeholder={{ __('ชื่อสัญญา') }}>
                         <label for="contract_name">{{ __('ชื่อสัญญา') }}</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="vendor" placeholder={{ __('ชื่อคู่สัญญา') }}>
+                        <input type="text" class="form-control form-control-lg" id="vendor" placeholder={{ __('ชื่อคู่สัญญา') }}>
                         <label for="vendor">{{ __('ชื่อคู่สัญญา') }}</label>
                     </div>
                 </div>
@@ -115,7 +98,7 @@
                     <div class="form-group">
                         <div class="form-floating">
                             {!! Form::text('value', null, [
-                                'class' => 'form-control',
+                                'class' => 'form-control form-control-lg',
                                 'id' => 'value',
                                 'placeholder' => 'มูลค่างานตามสัญญา (จำนวนเงิน)',
                             ]) !!}
@@ -126,7 +109,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="form-floating">
-                            {!! Form::text('fund', null, ['class' => 'form-control', 'id' => 'fund', 'placeholder' => 'กองทุน']) !!}
+                            {!! Form::text('fund', null, ['class' => 'form-control form-control-lg', 'id' => 'fund', 'placeholder' => 'กองทุน']) !!}
                             <label for="fund" class="form-label">{{ __('กองทุน') }}</label>
                         </div>
                     </div>
@@ -144,7 +127,7 @@
                                 [1 => 'สัญญาซื้อขาย', 2 => 'สัญญาจ้าง', 3 => 'สัญาเช่า', 4 => 'สัญญาอนุมัติให้ใช้สิทธิ์'],
                                 null,
                                 [
-                                    'class' => 'form-select w-auto',
+                                    'class' => 'form-select form-select-lg w-auto',
                                     'placeholder' => 'กรุณาเลือก ชนิดหลักประกัน',
                                     'id' => 'contract_type',
                                     'aria-label' => 'Floating label select contract_type',
@@ -156,7 +139,7 @@
                         <div class="form-group">
                             <div class="form-floating">
                                 {!! Form::date('start_date', null, [
-                                    'class' => 'form-control w-auto',
+                                    'class' => 'form-control form-control-lg w-auto',
                                     'id' => 'start_date',
                                     'placeholder' => 'dd/mm/yyyy',
                                 ]) !!}
@@ -168,7 +151,7 @@
                         <div class="form-group">
                             <div class="form-floating">
                                 {!! Form::date('end_date', null, [
-                                    'class' => 'form-control w-auto',
+                                    'class' => 'form-control form-control-lg w-auto',
                                     'id' => 'end_date',
                                     'placeholder' => 'dd/mm/yyyy',
                                 ]) !!}
@@ -177,13 +160,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
             </fieldset>
 
             <fieldset class="border rounded-3 p-3">
@@ -199,7 +175,7 @@
                         ],
                         null,
                         [
-                            'class' => 'form-select w-auto',
+                            'class' => 'form-select form-select-lg w-auto',
                             'placeholder' => 'กรุณาเลือก ชนิดหลักประกัน',
                             'id' => 'types_of_contract',
                             'aria-label' => 'Floating label select types_of_contract',
@@ -212,7 +188,7 @@
                         <div class="form-group">
                             <div class="form-floating">
                                 {!! Form::text('guarantee_amount', null, [
-                                    'class' => 'form-control',
+                                    'class' => 'form-control form-control-lg',
                                     'id' => 'guarantee_amount',
                                     'placeholder' => 'จำนวนเงินประกันสัญญา',
                                 ]) !!}
@@ -224,7 +200,7 @@
                         <div class="form-group">
                             <div class="form-floating">
                                 {!! Form::text('duration', null, [
-                                    'class' => 'form-control',
+                                    'class' => 'form-control form-control-lg',
                                     'id' => 'duration',
                                     'placeholder' => 'ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
                                 ]) !!}
@@ -234,7 +210,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating">
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                            <select class="form-select form-select-lg w-auto" id="floatingSelect" aria-label="Floating label select example">
                                 <option selected>กรุณาเลือก เงือนไขการคืนหลักประกันสัญญา</option>
                                 <option value="1">3 เดือน</option>
                                 <option value="2">6 เดือน</option>

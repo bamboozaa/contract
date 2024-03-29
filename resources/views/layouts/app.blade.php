@@ -14,12 +14,13 @@
     {{-- @vite('resources/sass/app.scss') --}}
 
     <!-- Custom Style -->
+    {{ Html::style('css/main.css') }}
     @yield('importcss')
 </head>
 <body>
 <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
-    <div class="sidebar-brand d-none d-md-flex">
-        <img src="{{ URL::asset('images/logo/60th-Year-UTCC.png') }}" width="100" height="100" alt="">
+    <div class="sidebar-brand d-none d-md-flex my-4">
+        <img src="{{ URL::asset('images/logo/logo-UTCC_SubMain-3.png') }}" width="100" height="100" alt="" style="border-radius: 50%">
         {{-- <img src="{{ URL::asset('images/logo/UTCC_SubMain-3.png') }}" width="100" height="100" alt=""> --}}
         {{-- <svg class="sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
             <use xlink:href="{{ asset('icons/brand.svg#full') }}"></use>
@@ -46,7 +47,7 @@
                 </svg>
             </a>
             <ul class="header-nav d-none d-md-flex">
-                <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">{{ __('ระบบจัดการสัญญา') }}</a></li>
             </ul>
             <ul class="header-nav ms-auto">
 

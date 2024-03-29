@@ -1,0 +1,21 @@
+/* Import Kanit fonts */
+
+@font-face {
+    font-family: 'Superstore-Regular';
+    src: url(../fonts/Superstore-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Superstore-Bold';
+    src: url(../fonts/Superstore-Bold.ttf);
+}
+
+* {
+    padding: 0;
+    font-family: 'Superstore-Regular' !important;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
