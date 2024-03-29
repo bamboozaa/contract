@@ -33,8 +33,38 @@
         {{-- <div class="alert alert-info" role="alert">Sample table page</div> --}}
 
         <div class="card-body">
+            @php
+                $currentYear = \Carbon\Carbon::now()->year;
+            @endphp
 
             <div class="row mb-3">
+                <div class="col-md">
+                    <div class="form-floating">
+                        {!! Form::text('contract_no', null, [
+                            'class' => 'form-control w-auto',
+                            'id' => 'contract_no',
+                            'placeholder' => 'ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
+                        ]) !!}
+                        <label for="contract_no">{{ __('เลขที่สัญญา นตก. (ส)') }}</label>
+                    </div>
+                </div>
+                <div class="col-md mr-auto">
+                    <label for="contract_no">{{ __(' / ' . $currentYear) }}</label>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        {!! Form::select('dep_id', $departments, null, [
+                            'class' => 'form-select w-auto',
+                            'placeholder' => 'กรุณาเลือก หน่วยงานต้นเรื่อง',
+                            'id' => 'dep_id',
+                            'aria-label' => 'Floating label select departments',
+                        ]) !!}
+                    </div>
+                </div>
+            </div>
+
+
+            {{-- <div class="row mb-3">
 
                 <div class="col-md-6">
                     <div class="form-group">
@@ -49,10 +79,10 @@
                     </div>
                 </div>
 
-                {{-- @php
+                @php
                     $currentYear = \Carbon\Carbon::now()->year;
                 @endphp
-                {!! Form::text('contract_no_year', $currentYear, ['class' => 'form-control', 'readonly']) !!} --}}
+                {!! Form::text('contract_no_year', $currentYear, ['class' => 'form-control', 'readonly']) !!}
                 <div class="col-md-6">
                     <div class="form-floating">
                         {!! Form::select('dep_id', $departments, null, [
@@ -63,7 +93,7 @@
                         ]) !!}
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="row mb-3">
                 <div class="col-md-6">
@@ -125,7 +155,11 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <div class="form-floating">
-                                {!! Form::date('start_date', null, ['class' => 'form-control w-auto', 'id' => 'start_date', 'placeholder' => 'dd/mm/yyyy']) !!}
+                                {!! Form::date('start_date', null, [
+                                    'class' => 'form-control w-auto',
+                                    'id' => 'start_date',
+                                    'placeholder' => 'dd/mm/yyyy',
+                                ]) !!}
                                 <label for="start_date" class="form-label">{{ __('วันเริ่มสัญญา') }}</label>
                             </div>
                         </div>
@@ -133,7 +167,11 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <div class="form-floating">
-                                {!! Form::date('end_date', null, ['class' => 'form-control w-auto', 'id' => 'end_date', 'placeholder' => 'dd/mm/yyyy']) !!}
+                                {!! Form::date('end_date', null, [
+                                    'class' => 'form-control w-auto',
+                                    'id' => 'end_date',
+                                    'placeholder' => 'dd/mm/yyyy',
+                                ]) !!}
                                 <label for="end_date" class="form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
                             </div>
                         </div>

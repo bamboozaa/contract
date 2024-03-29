@@ -1,64 +1,94 @@
 @extends('layouts.guest')
+@section('title', 'Welcome to Contract System 1.0')
+
+@section('importcss')
+    @parent
+    {{ Html::style('css/custom.css') }}
+@stop
 
 @section('content')
-    <div class="col-lg-8">
-        <div class="card-group d-block d-md-flex row">
-            <div class="card col-md-7 p-4 mb-0">
-                <div class="card-body">
-                    <h1>{{ __('Login') }}</h1>
+    <section class="vh-100">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                        class="img-fluid" alt="Sample image">
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">
-                                {{-- <svg class="icon">
-                                    <use xlink:href="{{ asset('icons/coreui.svg#cil-envelope-open') }}"></use>
-                                </svg> --}}
-                                <i class="bi bi-person"></i>
-                            </span>
-                            <input class="form-control @error('username') is-invalid @enderror" type="text" name="username"
-                                   placeholder="{{ __('User Name') }}" required autofocus>
+                        <!-- User Name input -->
+                        <div class="form-floating mb-2">
+                            <input class="form-control @error('username') is-invalid @enderror" type="text"
+                                name="username" placeholder="{{ __('User Name') }}" required autofocus>
+                            <label for="username">{{ __('User Name') }}</label>
                             @error('username')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="input-group mb-4"><span class="input-group-text">
-                      <svg class="icon">
-                        <use xlink:href="{{ asset('icons/coreui.svg#cil-lock-locked') }}"></use>
-                      </svg></span>
-                            <input class="form-control @error('password') is-invalid @enderror" type="password"
-                                   name="password"
-                                   placeholder="{{ __('Password') }}" required>
-                            @error('password')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <button class="btn btn-primary px-4" type="submit">{{ __('Login') }}</button>
-                            </div>
-                            @if (Route::has('password.request'))
-                                <div class="col-6 text-end">
-                                    <a href="{{ route('password.request') }}" class="btn btn-link px-0"
-                                       type="button">{{ __('Forgot Your Password?') }}</a>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
+
+                        <!-- Password input -->
+                        <div class="form-floating">
+                            <input class="form-control @error('password') is-invalid @enderror" type="password"
+                                name="password" placeholder="{{ __('Password') }}" required>
+                            <label for="password">{{ __('Password') }}</label>
+                            @error('password')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- Checkbox -->
+                            <div class="form-check mb-0">
+                                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                                <label class="form-check-label" for="form2Example3">
+                                    Remember me
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+
+                        </div>
+
+
+
                     </form>
                 </div>
             </div>
-            <div class="card col-md-5 text-white bg-primary py-5">
-                <div class="card-body text-center">
-                    {{-- <div>
-                        <h2>{{ __('Sign up') }}</h2>
-                        <a href="{{ route('register') }}"
-                           class="btn btn-lg btn-outline-light mt-3">{{ __('Register') }}</a>
-                    </div> --}}
-                </div>
-            </div>
         </div>
-    </div>
+        <div
+            class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+            <!-- Copyright -->
+            <div class="text-white mb-3 mb-md-0">
+                Copyright © 2024. All rights reserved.
+            </div>
+            <!-- Copyright -->
+
+            <!-- Right -->
+            <div>
+                <a href="#!" class="text-white me-4">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#!" class="text-white me-4">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#!" class="text-white me-4">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="#!" class="text-white">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            <!-- Right -->
+        </div>
+    </section>
 @endsection
