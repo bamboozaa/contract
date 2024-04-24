@@ -2,7 +2,7 @@
 @section('title', 'All Contracts')
 
 @section('content')
-    <div class="row justify-content-center">
+    <div class="container-fluid mb-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
