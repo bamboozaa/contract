@@ -96,14 +96,36 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input type="text" class="form-control form-control-lg" id="contract_name" placeholder={{ __('ชื่อสัญญา') }}>
+                        {!! Form::text('contract_name', null, [
+                            'class' => 'form-control form-control-lg' . ($errors->has('contract_name') ? ' is-invalid' : ''),
+                            'id' => 'contract_name',
+                            'placeholder' => 'ชื่อสัญญา',
+                        ]) !!}
                         <label for="contract_name">{{ __('ชื่อสัญญา') }}</label>
+
+                        @error('contract_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input type="text" class="form-control form-control-lg" id="vendor" placeholder={{ __('ชื่อคู่สัญญา') }}>
-                        <label for="vendor">{{ __('ชื่อคู่สัญญา') }}</label>
+                        {!! Form::text('partners', null, [
+                            'class' => 'form-control form-control-lg' . ($errors->has('partners') ? ' is-invalid' : ''),
+                            'id' => 'partners',
+                            'placeholder' => 'ชื่อคู่สัญญา',
+                        ]) !!}
+                        <label for="partners">{{ __('ชื่อคู่สัญญา') }}</label>
+
+                        @error('partners')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
                     </div>
                 </div>
             </div>
@@ -112,12 +134,19 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="form-floating">
-                            {!! Form::text('value', null, [
-                                'class' => 'form-control form-control-lg',
-                                'id' => 'value',
+                            {!! Form::text('acquisition_value', null, [
+                                'class' => 'form-control form-control-lg' . ($errors->has('acquisition_value') ? ' is-invalid' : ''),
+                                'id' => 'acquisition_value',
                                 'placeholder' => 'มูลค่างานตามสัญญา (จำนวนเงิน)',
                             ]) !!}
-                            <label for="value">{{ __('มูลค่างานตามสัญญา (จำนวนเงิน)') }}</label>
+                            <label for="acquisition_value">{{ __('มูลค่างานตามสัญญา (จำนวนเงิน)') }}</label>
+
+                            @error('acquisition_value')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
                         </div>
                     </div>
                 </div>

@@ -25,6 +25,10 @@ class StoreContractRequest extends FormRequest
             'contract_no' => 'required',
             'contract_year' => 'required',
             'dep_id' => 'required',
+            'contract_name' => 'required|string|max:255',
+            'partners' => 'required|string|max:255',
+            'acquisition_value' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+
         ];
     }
 
@@ -34,6 +38,9 @@ class StoreContractRequest extends FormRequest
             'contract_no.required' => 'กรุณากรอกเลขที่สัญญา',
             'contract_year.required' => 'กรุณากรอกปีการศึกษา',
             'dep_id.required' => 'กรุณาเลือกหน่วยงาน',
+            'contract_name.required' => 'กรุณากรอกชื่อสัญญา',
+            'partners.required' => 'กรุณากรอกชื่อคู่สัญญา',
+            'acquisition_value.required' => 'กรุณากรอกมูลค่างานตามสัญญา',
         ];
     }
 }
