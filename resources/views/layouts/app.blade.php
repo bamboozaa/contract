@@ -33,7 +33,7 @@
     <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
 </div>
 <div class="wrapper d-flex flex-column min-vh-100 bg-light">
-    <header class="header header-sticky mb-4">
+    <header class="header header-sticky mb-3">
         <div class="container-fluid">
             <button class="header-toggler px-md-0 me-md-3" type="button"
                     onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">

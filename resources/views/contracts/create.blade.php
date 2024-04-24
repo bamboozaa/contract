@@ -17,6 +17,8 @@
         </nav>
     </div>
 
+    {!! Form::open(['route' => 'contracts.store', 'method' => 'POST', 'files' => true]) !!}
+
     <div class="card mb-4">
         <div class="card-header" style="display: flex;">
             <div>
@@ -33,47 +35,60 @@
         {{-- <div class="alert alert-info" role="alert">Sample table page</div> --}}
 
         <div class="card-body">
-            @php
-                $currentYear = \Carbon\Carbon::now()->year;
-            @endphp
-
             <div class="row mb-3">
                 <div class="col">
                     <div class="row">
                         <div class="col">
                             <div class="form-floating">
-                                {!! Form::text('contract_no', null, [
-                                    'class' => 'form-control form-control-lg',
+                                {!! Form::text('contract_no', $contract_no, [
+                                    'class' => 'form-control form-control-lg' . ($errors->has('contract_no') ? ' is-invalid' : ''),
                                     'id' => 'contract_no',
-                                    'placeholder' => 'ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
+                                    'placeholder' => 'เลขที่สัญญา นตก. (ส)',
+                                    'readonly',
                                 ]) !!}
                                 <label for="contract_no">{{ __('เลขที่สัญญา นตก. (ส)') }}</label>
+
+                                @error('contract_no')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
-                                {!! Form::text('contract_no_year', $currentYear, [
-                                    'class' => 'form-control form-control-lg',
-                                    'id' => 'contract_no_year',
-                                    'placeholder' => 'ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
+                                {!! Form::text('contract_year', $currentYearTH, [
+                                    'class' => 'form-control form-control-lg' . ($errors->has('contract_year') ? ' is-invalid' : ''),
+                                    'id' => 'contract_year',
+                                    'placeholder' => 'ปีการศึกษา',
                                     'readonly',
                                 ]) !!}
-                                <label for="contract_no_year">{{ __('ปีการศึกษา') }}</label>
+                                <label for="contract_year">{{ __('ปีการศึกษา') }}</label>
+
+                                @error('contract_year')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                 </div>
-                {{-- <div class="col-md mr-auto">
-                    <label for="contract_no">{{ __(' / ' . $currentYear) }}</label>
-                </div> --}}
+
                 <div class="col">
                     <div class="form-floating">
                         {!! Form::select('dep_id', $departments, null, [
-                            'class' => 'form-select form-select-lg w-auto',
+                            'class' => 'form-select form-select-lg w-auto' . ($errors->has('dep_id') ? ' is-invalid' : ''),
                             'placeholder' => 'กรุณาเลือก หน่วยงานต้นเรื่อง',
                             'id' => 'dep_id',
                             'aria-label' => 'Floating label select departments',
                         ]) !!}
+
+                        @error('dep_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -119,7 +134,7 @@
             <fieldset class="border rounded-3 p-3 mb-3">
                 <legend class="float-none fs-5 w-auto px-3">{{ __('รายละเอียดในสัญญา') }}</legend>
 
-                <div class="row mb-3">
+                <div class="row mb-1">
                     <div class="col-md-4">
                         <div class="form-floating">
                             {!! Form::select(
@@ -183,7 +198,7 @@
                     ) !!}
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-1">
                     <div class="col-md-4">
                         <div class="form-group">
                             <div class="form-floating">
@@ -227,6 +242,10 @@
 
         <div class="card-footer">
             {{-- {{ $users->links() }} --}}
+            {!! Form::submit('บันทึกสัญญา', ['class' => 'btn btn-primary']) !!}
         </div>
     </div>
+
+    {!! Form::close() !!}
+
 @endsection

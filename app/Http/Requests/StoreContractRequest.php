@@ -11,7 +11,7 @@ class StoreContractRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class StoreContractRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'contract_no' => 'required',
+            'contract_year' => 'required',
+            'dep_id' => 'required',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'contract_no.required' => 'กรุณากรอกเลขที่สัญญา',
+            'contract_year.required' => 'กรุณากรอกปีการศึกษา',
+            'dep_id.required' => 'กรุณาเลือกหน่วยงาน',
         ];
     }
 }
