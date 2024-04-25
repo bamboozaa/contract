@@ -16,6 +16,7 @@
     <!-- Custom Style -->
     {{ Html::style('css/main.css') }}
     @yield('importcss')
+    @yield('importjs')
 </head>
 <body>
 <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">

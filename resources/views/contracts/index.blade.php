@@ -1,6 +1,19 @@
 @extends('layouts.app')
 @section('title', 'All Contracts')
 
+@section('importjs')
+    @parent
+    <script type="module">
+        @if (session('success'))
+            Swal.fire({
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                icon: 'success'
+            });
+        @endif
+    </script>
+@stop
+
 @section('content')
     <div class="container-fluid mb-4">
         <nav aria-label="breadcrumb">
@@ -30,22 +43,46 @@
 
             <table class="table">
                 <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">หน่วยงาน</th>
-                    <th scope="col">วัตถุประสงค์</th>
-                    <th scope="col">ประเภท</th>
-                    <th scope="col">สถานะ</th>
-                    <th scope="col">จัดการ</th>
-                </tr>
+                    <tr>
+                        <th scope="col">{{ __('เลขที่สัญญา (นตก.)') }}</th>
+                        <th scope="col">{{ __('ชื่อสัญญา') }}</th>
+                        <th scope="col">{{ __('หน่วยงานต้นเรื่อง') }}</th>
+                        {{-- <th scope="col">ประเภท</th>
+                        <th scope="col">สถานะ</th>
+                        <th scope="col">จัดการ</th> --}}
+                    </tr>
                 </thead>
                 <tbody>
-                {{-- @foreach($users as $user)
-                    <tr>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                    </tr>
-                @endforeach --}}
+                    @if (count($contracts) > 0)
+                        @foreach ($contracts as $key => $contract)
+                            <tr>
+                                <td scope="col">{{ $contract->contract_no . "/" . $contract->contract_year }}</td>
+                                <td scope="col">{{ $contract->contract_name }}</td>
+                                <td scope="col">{{ $contract->department['dep_name'] }}</td>
+                                {{-- <td class="text-center text-nowrap">
+                                    <a href="{{ route('faculties.edit', $faculty->id) }}" class="btn btn-warning btn-sm">
+                                        <i class="bi bi-pencil-square fs-sm"></i>
+                                        <span class="ms-1">{{ __('Edit') }}</span>
+                                    </a>
+                                    <form action="{{ route('faculties.destroy', $faculty->id) }}" method="POST"
+                                        style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete this department?')">
+                                            <i class="bi bi-trash fs-sm"></i>
+                                            <span class="ms-1">{{ __('Delete') }}</span>
+                                        </button>
+                                    </form>
+                                </td> --}}
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="6">{{ __('ไม่พบข้อมูลที่ท่านต้องการค้นหาในขณะนี้') }}</td>
+                        </tr>
+                    @endif
+
                 </tbody>
             </table>
 

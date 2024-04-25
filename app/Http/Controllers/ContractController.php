@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateContractRequest;
 use App\Models\Contract;
 use App\Models\Department;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ContractController extends Controller
 {
@@ -15,7 +16,8 @@ class ContractController extends Controller
      */
     public function index()
     {
-        return view('contracts.index');
+        $contracts = Contract::all();
+        return view('contracts.index', compact('contracts'));
     }
 
     /**
@@ -24,7 +26,17 @@ class ContractController extends Controller
     public function create()
     {
         $departments = Department::pluck('dep_name', 'id');
+
         $currentYearTH = Carbon::now()->year + 543;
+        $startDate = $currentYearTH . '-08-01';
+        $endDate = $currentYearTH + 1 . '-07-31';
+        $current_date = Carbon::now();
+
+        if ($current_date >= $startDate) {
+            $currentYearTH = $currentYearTH + 1;
+        } else if ($current_date <= $startDate) {
+            $currentYearTH;
+        }
 
         $exists = Contract::where('contract_year', $currentYearTH)->exists();
 
@@ -46,7 +58,10 @@ class ContractController extends Controller
     {
         Contract::create($request->all());
 
-        return redirect()->route('contracts.index')->with('success', 'Contract created successfully.');
+        session()->flash('success', 'Contract created successfully.');
+        \Log::info("Contract NO(" . $request->contract_no . "/" . $request->contract_year . ") Create finished by " . Auth::user()->name);
+
+        return redirect()->route('contracts.index');
     }
 
     /**
