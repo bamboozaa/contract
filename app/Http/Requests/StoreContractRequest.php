@@ -28,7 +28,7 @@ class StoreContractRequest extends FormRequest
             'contract_name' => 'required|string|max:255',
             'partners' => 'required|string|max:255',
             'acquisition_value' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-
+            'fund' => 'required|string|max:255',
         ];
     }
 
@@ -41,6 +41,7 @@ class StoreContractRequest extends FormRequest
             'contract_name.required' => 'กรุณากรอกชื่อสัญญา',
             'partners.required' => 'กรุณากรอกชื่อคู่สัญญา',
             'acquisition_value.required' => 'กรุณากรอกมูลค่างานตามสัญญา',
+            'fund.required' => 'กรุณากรอกมูลกองทุน',
         ];
     }
 }

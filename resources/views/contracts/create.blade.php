@@ -153,8 +153,19 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="form-floating">
-                            {!! Form::text('fund', null, ['class' => 'form-control form-control-lg', 'id' => 'fund', 'placeholder' => 'กองทุน']) !!}
-                            <label for="fund" class="form-label">{{ __('กองทุน') }}</label>
+                            {!! Form::text('fund', null, [
+                                'class' => 'form-control form-control-lg' . ($errors->has('fund') ? ' is-invalid' : ''),
+                                'id' => 'fund',
+                                'placeholder' => 'กองทุน',
+                            ]) !!}
+                            <label for="fund">{{ __('กองทุน') }}</label>
+
+                            @error('fund')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
                         </div>
                     </div>
                 </div>
