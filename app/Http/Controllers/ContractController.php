@@ -44,7 +44,9 @@ class ContractController extends Controller
      */
     public function store(StoreContractRequest $request)
     {
-        //
+        Contract::create($request->all());
+
+        return redirect()->route('contracts.index')->with('success', 'Contract created successfully.');
     }
 
     /**
