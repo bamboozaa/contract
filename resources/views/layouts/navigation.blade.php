@@ -29,7 +29,7 @@
     <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('contracts.*') ? 'active' : '' }}" href="{{ route('contracts.index') }}">
             <i class="bi bi-vector-pen fs-4 me-4"></i>
-            {{ __('Contract') }}
+            {{ __('รายการสัญญา') }}
         </a>
     </li>
 

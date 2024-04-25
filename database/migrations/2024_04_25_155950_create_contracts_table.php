@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('contract_no')->comment('เลขที่สัญญา): เลขที่ระบุสัญญา');
             $table->char('contract_year')->comment('ปีการศึกษา');
+            $table->integer('dep_id');
             $table->string('contract_name')->comment(' (ชื่อสัญญา): ชื่อหรือคำอธิบายของสัญญา');
             $table->string('partners')->comment(' (ชื่อคู่สัญญา): ชื่อหรือคำอธิบายของคู่สัญญา');
             $table->decimal('acquisition_value', 10, 2)->comment('(มูลค่างาน): ชื่อหรือคำอธิบายของมูลค่างานตามสัญญา');
