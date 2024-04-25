@@ -28,8 +28,9 @@ class ContractController extends Controller
         $departments = Department::pluck('dep_name', 'id');
 
         $currentYearTH = Carbon::now()->year + 543;
-        $startDate = $currentYearTH . '-08-01';
-        $endDate = $currentYearTH + 1 . '-07-31';
+        $currentYear = Carbon::now()->year;
+        $startDate = $currentYear . '-08-01';
+        $endDate = $currentYear + 1 . '-07-31';
         $current_date = Carbon::now();
 
         if ($current_date >= $startDate) {
