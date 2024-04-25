@@ -9,5 +9,20 @@ class Contract extends Model
 {
     use HasFactory;
     protected $table = 'contracts';
-    protected $fillable = ['contract_no', 'contract_year', 'dep_id', 'contract_name', 'partners', 'acquisition_value', 'fund', 'contract_type'];
+    protected $fillable = [
+        'contract_no',
+        'contract_year',
+        'dep_id',
+        'contract_name',
+        'partners',
+        'acquisition_value',
+        'fund',
+        'contract_type',
+        'start_date',
+        'end_date',
+        'types_of_guarantee',
+        'guarantee_amount',
+        'duration',
+        'condition',
+    ];
 }

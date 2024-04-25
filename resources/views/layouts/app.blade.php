@@ -19,7 +19,7 @@
 </head>
 <body>
 <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
-    <div class="sidebar-brand d-none d-md-flex my-4">
+    <div class="sidebar-brand d-none d-md-flex my-4" style="background: transparent">
         <img src="{{ URL::asset('images/logo/logo-UTCC_SubMain-3.png') }}" width="100" height="100" alt="" style="border-radius: 50%">
         {{-- <img src="{{ URL::asset('images/logo/UTCC_SubMain-3.png') }}" width="100" height="100" alt=""> --}}
         {{-- <svg class="sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
@@ -30,7 +30,7 @@
         </svg> --}}
     </div>
     @include('layouts.navigation')
-    <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
+    {{-- <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button> --}}
 </div>
 <div class="wrapper d-flex flex-column min-vh-100 bg-light">
     <header class="header header-sticky mb-3">

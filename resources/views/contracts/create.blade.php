@@ -182,23 +182,35 @@
                                 [1 => 'สัญญาซื้อขาย', 2 => 'สัญญาจ้าง', 3 => 'สัญาเช่า', 4 => 'สัญญาอนุมัติให้ใช้สิทธิ์'],
                                 null,
                                 [
-                                    'class' => 'form-select form-select-lg w-auto',
-                                    'placeholder' => 'กรุณาเลือก ชนิดหลักประกัน',
+                                    'class' => 'form-select form-select-lg w-auto' . ($errors->has('contract_type') ? ' is-invalid' : ''),
+                                    'placeholder' => 'กรุณาเลือก ประเภทสัญญา',
                                     'id' => 'contract_type',
                                     'aria-label' => 'Floating label select contract_type',
                                 ],
                             ) !!}
+
+                            @error('contract_type')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <div class="form-floating">
                                 {!! Form::date('start_date', null, [
-                                    'class' => 'form-control form-control-lg w-auto',
+                                    'class' => 'form-control form-control-lg w-auto' . ($errors->has('start_date') ? ' is-invalid' : ''),
                                     'id' => 'start_date',
                                     'placeholder' => 'dd/mm/yyyy',
                                 ]) !!}
                                 <label for="start_date" class="form-label">{{ __('วันเริ่มสัญญา') }}</label>
+
+                                @error('start_date')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -206,11 +218,17 @@
                         <div class="form-group">
                             <div class="form-floating">
                                 {!! Form::date('end_date', null, [
-                                    'class' => 'form-control form-control-lg w-auto',
+                                    'class' => 'form-control form-control-lg w-auto' . ($errors->has('end_date') ? ' is-invalid' : ''),
                                     'id' => 'end_date',
                                     'placeholder' => 'dd/mm/yyyy',
                                 ]) !!}
                                 <label for="end_date" class="form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
+
+                                @error('end_date')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -221,7 +239,7 @@
                 <legend class="float-none fs-5 w-auto px-3">{{ __('ข้อมูลหลักประกันสัญญา') }}</legend>
                 <div class="form-floating mb-3">
                     {!! Form::select(
-                        'types_of_contract',
+                        'types_of_guarantee',
                         [
                             '1' => 'หลักประกันที่เป็นเงินสด',
                             '2' => 'หลักประกันที่เป็นหนังสือค้ำประกัน',
@@ -230,12 +248,18 @@
                         ],
                         null,
                         [
-                            'class' => 'form-select form-select-lg w-auto',
+                            'class' => 'form-select form-select-lg w-auto' . ($errors->has('types_of_guarantee') ? ' is-invalid' : ''),
                             'placeholder' => 'กรุณาเลือก ชนิดหลักประกัน',
-                            'id' => 'types_of_contract',
-                            'aria-label' => 'Floating label select types_of_contract',
+                            'id' => 'types_of_guarantee',
+                            'aria-label' => 'Floating label select types_of_guarantee',
                         ],
                     ) !!}
+
+                    @error('types_of_guarantee')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="row mb-1">
@@ -243,35 +267,79 @@
                         <div class="form-group">
                             <div class="form-floating">
                                 {!! Form::text('guarantee_amount', null, [
-                                    'class' => 'form-control form-control-lg',
+                                    'class' => 'form-control form-control-lg' . ($errors->has('guarantee_amount') ? ' is-invalid' : ''),
                                     'id' => 'guarantee_amount',
                                     'placeholder' => 'จำนวนเงินประกันสัญญา',
                                 ]) !!}
                                 <label for="guarantee_amount">{{ __('จำนวนเงินประกันสัญญา') }}</label>
+                                @error('guarantee_amount')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <div class="form-floating">
-                                {!! Form::text('duration', null, [
-                                    'class' => 'form-control form-control-lg',
-                                    'id' => 'duration',
-                                    'placeholder' => 'ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
-                                ]) !!}
-                                <label for="duration">{{ __('ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา') }}</label>
+                                {!! Form::select(
+                                    'duration',
+                                    [
+                                        '1' => '1 ปี',
+                                        '2' => '2 ปี',
+                                        '3' => '3 ปี',
+                                        '4' => 'อื่น ๆ',
+                                    ],
+                                    null,
+                                    [
+                                        'class' => 'form-select form-select-lg w-auto' . ($errors->has('duration') ? ' is-invalid' : ''),
+                                        'placeholder' => 'กรุณาเลือก ชนิดหลักประกัน',
+                                        'id' => 'duration',
+                                        'aria-label' => 'Floating label select duration',
+                                    ],
+                                ) !!}
+
+                                @error('duration')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating">
-                            <select class="form-select form-select-lg w-auto" id="floatingSelect" aria-label="Floating label select example">
+
+                            {!! Form::select(
+                                'condition',
+                                [
+                                    '1' => '3 เดือน',
+                                    '2' => '6 เดือน',
+                                    '3' => '1 ปี',
+                                ],
+                                null,
+                                [
+                                    'class' => 'form-select form-select-lg w-auto' . ($errors->has('condition') ? ' is-invalid' : ''),
+                                    'placeholder' => 'กรุณาเลือก ชนิดหลักประกัน',
+                                    'id' => 'condition',
+                                    'aria-label' => 'Floating label selectcondition',
+                                ],
+                            ) !!}
+
+                            @error('condition')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            {{-- <select class="form-select form-select-lg w-auto" id="floatingSelect" aria-label="Floating label select example">
                                 <option selected>กรุณาเลือก เงือนไขการคืนหลักประกันสัญญา</option>
                                 <option value="1">3 เดือน</option>
                                 <option value="2">6 เดือน</option>
                                 <option value="3">1 ปี</option>
-                            </select>
-                            {{-- <label for="floatingSelect">Works with selects</label> --}}
+                            </select> --}}
                         </div>
                     </div>
                 </div>
