@@ -350,7 +350,11 @@
 
         <div class="card-footer">
             {{-- {{ $users->links() }} --}}
-            {!! Form::submit('บันทึกสัญญา', ['class' => 'btn btn-primary']) !!}
+            <div class="d-grid col-1 mx-auto">
+                {{-- <i class="bi bi-floppy"></i> --}}
+                {{-- {!! Form::submit('บันทึกสัญญา', ['class' => 'btn btn-primary']) !!} --}}
+                <button type="submit" class="btn btn-primary"><i class="bi bi-floppy me-1"></i> {{ __('บันทึกสัญญา') }}</button>
+              </div>
         </div>
     </div>
 
