@@ -1,9 +1,7 @@
 <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('home') }}">
-            <svg class="nav-icon">
-                <use xlink:href="{{ asset('icons/coreui.svg#cil-speedometer') }}"></use>
-            </svg>
+            <i class="bi bi-speedometer fs-4 me-4"></i>
             {{ __('Dashboard') }}
         </a>
     </li>
@@ -28,7 +26,7 @@
 
     <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('contracts.*') ? 'active' : '' }}" href="{{ route('contracts.index') }}">
-            <i class="bi bi-vector-pen fs-4 me-4"></i>
+            <i class="bi bi-pass-fill fs-4 me-4"></i>
             {{ __('รายการสัญญา') }}
         </a>
     </li>
