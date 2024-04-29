@@ -25,6 +25,7 @@ class Contract extends Model
         'guarantee_amount',
         'duration',
         'condition',
+        'formFile',
     ];
 
     public function department(): BelongsTo

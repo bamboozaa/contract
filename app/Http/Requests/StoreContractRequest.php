@@ -36,6 +36,7 @@ class StoreContractRequest extends FormRequest
             'guarantee_amount' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'duration' => 'required',
             'condition' => 'required',
+            'formFile' => 'nullable|file|mimes:pdf|max:2048'
         ];
     }
 

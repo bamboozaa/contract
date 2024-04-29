@@ -57,7 +57,14 @@ class ContractController extends Controller
      */
     public function store(StoreContractRequest $request)
     {
-        Contract::create($request->all());
+        if ($file = $request->file('formFile')) {
+            $file_name =time().$file->getClientOriginalName();
+            $file->move('uploads', $file_name);
+        }
+
+        $contract = Contract::create($request->all());
+        $contract->formFile = $file_name;
+        $contract->save();
 
         session()->flash('success', 'Contract created successfully.');
         \Log::info("Contract NO(" . $request->contract_no . "/" . $request->contract_year . ") Create finished by " . Auth::user()->name);

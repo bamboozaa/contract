@@ -27,6 +27,7 @@ return new class extends Migration
             $table->decimal('guarantee_amount', 10, 2)->comment('จำนวนเงินประกันสัญญา');
             $table->integer('duration');
             $table->integer('condition');
+            $table->string('formFile')->nullable();
             $table->timestamps();
         });
     }
