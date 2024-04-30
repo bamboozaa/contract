@@ -310,7 +310,7 @@
                                     null,
                                     [
                                         'class' => 'form-select form-select-lg' . ($errors->has('duration') ? ' is-invalid' : ''),
-                                        'placeholder' => 'กรุณาเลือก ชนิดหลักประกัน',
+                                        'placeholder' => 'กรุณาเลือก ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
                                         'id' => 'duration',
                                         'aria-label' => 'Floating label select duration',
                                     ],
@@ -338,7 +338,7 @@
                                 null,
                                 [
                                     'class' => 'form-select form-select-lg' . ($errors->has('condition') ? ' is-invalid' : ''),
-                                    'placeholder' => 'กรุณาเลือก ชนิดหลักประกัน',
+                                    'placeholder' => 'กรุณาเลือก เงือนไขการคืนหลักประกันสัญญา',
                                     'id' => 'condition',
                                     'aria-label' => 'Floating label selectcondition',
                                 ],

@@ -304,7 +304,7 @@
                                     old('name', $contract->duration),
                                     [
                                         'class' => 'form-select form-select-lg text-info' . ($errors->has('duration') ? ' is-invalid' : ''),
-                                        'placeholder' => 'กรุณาเลือก ชนิดหลักประกัน',
+                                        'placeholder' => 'กรุณาเลือก ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา',
                                         'id' => 'duration',
                                         'aria-label' => 'Floating label select duration',
                                     ],
@@ -332,7 +332,7 @@
                                 old('name', $contract->condition),
                                 [
                                     'class' => 'form-select form-select-lg text-info' . ($errors->has('condition') ? ' is-invalid' : ''),
-                                    'placeholder' => 'กรุณาเลือก ชนิดหลักประกัน',
+                                    'placeholder' => 'กรุณาเลือก เงือนไขการคืนหลักประกันสัญญา',
                                     'id' => 'condition',
                                     'aria-label' => 'Floating label selectcondition',
                                 ],
