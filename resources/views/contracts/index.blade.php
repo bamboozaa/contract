@@ -49,8 +49,8 @@
                         <th scope="col">{{ __('หน่วยงานต้นเรื่อง') }}</th>
                         <th scope="col">{{ __('วันเริ่มต้นสัญญา') }}</th>
                         <th scope="col">{{ __('วันสิ้นสุดสัญญา') }}</th>
-                        {{-- <th scope="col">ประเภท</th>
-                        <th scope="col">สถานะ</th> --}}
+                        {{-- <th scope="col">ประเภท</th>--}}
+                        <th class="text-center" scope="col">{{ __('สถานะ') }}</th>
                         <th class="text-center" scope="col">{{ __('จัดการ') }}</th>
                     </tr>
                 </thead>
@@ -63,6 +63,19 @@
                                 <td scope="col">{{ $contract->department['dep_name'] }}</td>
                                 <td scope="col">{{ \Carbon\Carbon::parse($contract->start_date)->format('d/m/Y') }}</td>
                                 <td scope="col">{{ \Carbon\Carbon::parse($contract->end_date)->format('d/m/Y') }}</td>
+                                <td class="text-center" scope="col">
+                                    @if ($contract->status === 1)
+                                        <span class="text-white bg-success bg-gradient rounded px-3 py-2">ร่างสัญญา</span>
+                                    @elseif ($contract->status === 2)
+                                        <span class="text-white bg-success bg-gradient rounded px-3 py-2">เสนอตรวจร่าง</span>
+                                    @elseif ($contract->status === 3)
+                                        <span class="text-white bg-success bg-gradient rounded px-3 py-2">แจ้งลงนามสัญญา</span>
+                                    @elseif ($contract->status === 4)
+                                        <span class="text-white bg-success bg-gradient rounded px-3 py-2">เสนอผู้บริหารลงนาม</span>
+                                    @elseif ($contract->status === 5)
+                                        <span class="text-white bg-success bg-gradient rounded px-3 py-2">เสร็จสิ้น(คืนคู่ฉบับ)</span>
+                                    @endif
+                                </td>
                                 <td class="text-center text-nowrap">
                                     <a href="{{ route('contracts.edit', $contract->id) }}" class="btn btn-warning btn-sm">
                                         <i class="bi bi-pencil-square fs-sm me-1"></i>
