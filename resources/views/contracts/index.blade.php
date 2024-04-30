@@ -47,9 +47,11 @@
                         <th scope="col">{{ __('เลขที่สัญญา (นตก.)') }}</th>
                         <th scope="col">{{ __('ชื่อสัญญา') }}</th>
                         <th scope="col">{{ __('หน่วยงานต้นเรื่อง') }}</th>
+                        <th scope="col">{{ __('วันเริ่มต้นสัญญา') }}</th>
+                        <th scope="col">{{ __('วันสิ้นสุดสัญญา') }}</th>
                         {{-- <th scope="col">ประเภท</th>
-                        <th scope="col">สถานะ</th>
-                        <th scope="col">จัดการ</th> --}}
+                        <th scope="col">สถานะ</th> --}}
+                        <th class="text-center" scope="col">{{ __('จัดการ') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,22 +61,24 @@
                                 <td scope="col">{{ $contract->contract_no . "/" . $contract->contract_year }}</td>
                                 <td scope="col">{{ $contract->contract_name }}</td>
                                 <td scope="col">{{ $contract->department['dep_name'] }}</td>
-                                {{-- <td class="text-center text-nowrap">
-                                    <a href="{{ route('faculties.edit', $faculty->id) }}" class="btn btn-warning btn-sm">
-                                        <i class="bi bi-pencil-square fs-sm"></i>
-                                        <span class="ms-1">{{ __('Edit') }}</span>
+                                <td scope="col">{{ \Carbon\Carbon::parse($contract->start_date)->format('d/m/Y') }}</td>
+                                <td scope="col">{{ \Carbon\Carbon::parse($contract->end_date)->format('d/m/Y') }}</td>
+                                <td class="text-center text-nowrap">
+                                    <a href="{{ route('contracts.edit', $contract->id) }}" class="btn btn-warning btn-sm">
+                                        <i class="bi bi-pencil-square fs-sm me-1"></i>
+                                        {{ __('แก้ไข') }}
                                     </a>
-                                    <form action="{{ route('faculties.destroy', $faculty->id) }}" method="POST"
+                                    <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST"
                                         style="display: inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"
                                             onclick="return confirm('Are you sure you want to delete this department?')">
-                                            <i class="bi bi-trash fs-sm"></i>
-                                            <span class="ms-1">{{ __('Delete') }}</span>
+                                            <i class="bi bi-trash fs-sm me-1"></i>
+                                            {{ __('ลบ') }}
                                         </button>
                                     </form>
-                                </td> --}}
+                                </td>
                             </tr>
                         @endforeach
                     @else

@@ -85,7 +85,8 @@ class ContractController extends Controller
      */
     public function edit(Contract $contract)
     {
-        //
+        $departments = Department::pluck('dep_name', 'id');
+        return view('contracts.edit', compact('contract', 'departments'));
     }
 
     /**
@@ -93,7 +94,40 @@ class ContractController extends Controller
      */
     public function update(UpdateContractRequest $request, Contract $contract)
     {
-        //
+        if ($request->hasfile('formFile')) {
+            $file = $request->file('formFile');
+            $file_name =time().$file->getClientOriginalName();
+            $fileToDelete = public_path('uploads/' . $contract->formFile);
+            is_null($contract->formFile) ? "" : unlink($fileToDelete);
+            $file->move('uploads', $file_name);
+            $file_name = $contract->formFile;
+            $data = ['formFile' => $file_name];
+            $contract->update($data);
+        }
+
+        $data = [
+            'contract_no' => $request->input('contract_no'),
+            'contract_year' => $request->input('contract_year'),
+            'dep_id' => $request->input('dep_id'),
+            'contract_name' => $request->input('contract_name'),
+            'partners' => $request->input('partners'),
+            'acquisition_value' => $request->input('acquisition_value'),
+            'fund' => $request->input('fund'),
+            'contract_type' => $request->input('contract_type'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'types_of_guarantee' => $request->input('types_of_guarantee'),
+            'guarantee_amount' => $request->input('guarantee_amount'),
+            'duration' => $request->input('duration'),
+            'condition' => $request->input('condition'),
+        ];
+
+        $contract->update($data);
+
+        session()->flash('success', 'Contract updated successfully.');
+        \Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
+
+        return redirect()->route('contracts.index');
     }
 
     /**
@@ -101,6 +135,10 @@ class ContractController extends Controller
      */
     public function destroy(Contract $contract)
     {
-        //
+        $contract->delete();
+
+        session()->flash('success', 'Contract deleted successfully.');
+
+        return redirect()->route('contracts.index');
     }
 }
