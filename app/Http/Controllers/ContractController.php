@@ -135,6 +135,11 @@ class ContractController extends Controller
      */
     public function destroy(Contract $contract)
     {
+        if (!is_null($contract->formFile)) {
+            $fileToDelete = public_path('uploads/' . $contract->formFile);
+            unlink($fileToDelete);
+        }
+
         $contract->delete();
 
         session()->flash('success', 'Contract deleted successfully.');
