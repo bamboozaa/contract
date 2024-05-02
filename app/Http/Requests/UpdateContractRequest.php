@@ -38,6 +38,7 @@ class UpdateContractRequest extends FormRequest
             'condition' => 'required',
             // 'formFile' => 'nullable|file|mimes:pdf|max:2048'
             'formFile' => 'nullable|file|mimes:pdf',
+            'status' => 'required',
         ];
     }
 

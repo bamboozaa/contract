@@ -26,6 +26,7 @@ class Contract extends Model
         'duration',
         'condition',
         'formFile',
+        'status',
     ];
 
     public function department(): BelongsTo

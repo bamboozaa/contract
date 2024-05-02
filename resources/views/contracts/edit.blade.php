@@ -350,15 +350,47 @@
 
             </fieldset>
 
-            <div class="my-3">
-                <label for="formFile" class="form-label">{{ __('อัพโหลดไฟล์เอกสารสัญญา') }}</label>
-                <input class="form-control @error('formFile') is-invalid @enderror" type="file" id="formFile" name="formFile">
-                <label for="formFile" class="form-label">{{ old('name', $contract->formFile) }}</label>
-                @error('formFile')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+            <div class="row my-3">
+                <div class="col md-9">
+                    <label for="formFile" class="form-label">{{ __('อัพโหลดไฟล์เอกสารสัญญา') }}</label>
+                    <input class="form-control @error('formFile') is-invalid @enderror" type="file" id="formFile" name="formFile">
+                    <label for="formFile" class="form-label">{{ old('name', $contract->formFile) }}</label>
+                    @error('formFile')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="col-md-3">
+                    <label for="status" class="form-label">{{ __('สถานะสัญญา') }}</label>
+                    <div class="form-floating">
+                        {!! Form::select(
+                            'status',
+                            [
+                                '1' => 'ร่างสัญญา',
+                                '2' => 'เสนอตรวจร่าง',
+                                '3' => 'แจ้งลงนามสัญญา',
+                                '4' => 'เสนอผู้บริหารลงนาม',
+                                '5' => 'เสร็จสิ้น(คืนคู่ฉบับ)',
+                            ],
+                            old('name', $contract->status),
+                            [
+                                'class' => 'form-select form-select-lg text-info' . ($errors->has('status') ? ' is-invalid' : ''),
+                                'placeholder' => 'กรุณาเลือก สถานะสัญญา',
+                                'id' => 'status',
+                                'aria-label' => 'Floating label select status',
+                            ],
+                        ) !!}
+
+                        @error('status')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                    </div>
+                </div>
+
 
             </div>
 

@@ -120,6 +120,7 @@ class ContractController extends Controller
             'guarantee_amount' => $request->input('guarantee_amount'),
             'duration' => $request->input('duration'),
             'condition' => $request->input('condition'),
+            'status' => $request->input('status'),
         ];
 
         $contract->update($data);
