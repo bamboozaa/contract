@@ -363,7 +363,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="status" class="form-label">{{ __('สถานะสัญญา') }}</label>
-                    <div class="form-floating">
+
                         {!! Form::select(
                             'status',
                             [
@@ -388,7 +388,6 @@
                             </span>
                         @enderror
 
-                    </div>
                 </div>
 
 
