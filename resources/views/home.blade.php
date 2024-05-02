@@ -23,7 +23,7 @@
                                 (-12.4%<svg class="icon"><i class="bi bi-arrow-down fs-6"></i></svg>)
                             </span> --}}
                         </div>
-                        <div>Users</div>
+                        <div>{{ __('Users') }}</div>
                     </div>
                     {{-- <div class="dropdown">
                         <button class="btn btn-transparent text-white p-0" type="button" data-coreui-toggle="dropdown"

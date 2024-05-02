@@ -87,8 +87,11 @@
         </div>
     </div>
     <footer class="footer">
-        <div><a href="https://coreui.io">Bootstrap Admin Template</a> &copy; 2024
-            OCS.
+        {{-- <div>
+            <a href="https://coreui.io">Bootstrap Admin Template</a> &copy; 2024 OCS.
+        </div> --}}
+        <div>
+            &copy; 2024 OCS.
         </div>
         <div class="ms-auto">Powered by&nbsp;<a href="https://utcc.ac.th">UTCC</a></div>
     </footer>
