@@ -65,9 +65,9 @@
                                 <td scope="col">{{ \Carbon\Carbon::parse($contract->end_date)->format('d/m/Y') }}</td>
                                 <td class="text-center" scope="col">
                                     @if ($contract->status === 1)
-                                        <span class="text-white bg-success bg-gradient rounded px-3 py-2">ร่างสัญญา</span>
+                                        <span class="text-white bg-primary bg-gradient rounded px-3 py-2">ร่างสัญญา</span>
                                     @elseif ($contract->status === 2)
-                                        <span class="text-white bg-success bg-gradient rounded px-3 py-2">เสนอตรวจร่าง</span>
+                                        <span class="text-dark bg-secondary bg-gradient rounded px-3 py-2">เสนอตรวจร่าง</span>
                                     @elseif ($contract->status === 3)
                                         <span class="text-white bg-success bg-gradient rounded px-3 py-2">แจ้งลงนามสัญญา</span>
                                     @elseif ($contract->status === 4)
