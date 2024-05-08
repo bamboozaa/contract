@@ -51,7 +51,9 @@
                         <th scope="col">{{ __('วันสิ้นสุดสัญญา') }}</th> --}}
                         <th scope="col">{{ __('ประเภทสัญญา') }}</th>
                         <th class="text-center" scope="col">{{ __('สถานะ') }}</th>
-                        <th class="text-center" scope="col">{{ __('จัดการ') }}</th>
+                        @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
+                            <th class="text-center" scope="col">{{ __('จัดการ') }}</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -89,6 +91,7 @@
                                         <span class="text-white bg-success bg-gradient rounded px-3 py-2">เสร็จสิ้น(คืนคู่ฉบับ)</span>
                                     @endif
                                 </td>
+                                @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
                                 <td class="text-center text-nowrap">
                                     <a href="{{ route('contracts.edit', $contract->id) }}" class="btn btn-warning btn-sm">
                                         <i class="bi bi-pencil-square fs-sm me-1"></i>
@@ -105,6 +108,8 @@
                                         </button>
                                     </form>
                                 </td>
+                                @endif
+
                             </tr>
                         @endforeach
                     @else
