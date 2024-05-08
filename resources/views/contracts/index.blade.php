@@ -93,7 +93,7 @@
                                 </td>
                                 @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
                                 <td class="text-center text-nowrap">
-                                    <a href="{{ route('contracts.edit', $contract->id) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('contracts.edit', $contract->id) }}" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" title="แก้ไขข้อมูล">
                                         <i class="bi bi-pencil-square fs-sm me-1 text-white"></i>
                                         {{-- {{ __('แก้ไข') }} --}}
                                     </a>
@@ -102,7 +102,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Are you sure you want to delete this department?')">
+                                            onclick="return confirm('Are you sure you want to delete this department?')" data-bs-toggle="tooltip" title="ลบข้อมูล">
                                             <i class="bi bi-trash fs-sm me-1 text-white"></i>
                                             {{-- {{ __('ลบ') }} --}}
                                         </button>
