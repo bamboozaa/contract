@@ -16,7 +16,19 @@ class ContractController extends Controller
      */
     public function index()
     {
-        $contracts = Contract::all();
+        $department = Auth::user()->department;
+        $left_pos = strripos($department, '(') + 1;
+        $department = substr($department, $left_pos, strlen($department));
+        $department = trim($department, ')');
+        $dep_id = Department::select('id')->where('dep_name', 'like', $department)->get();
+        // dd($dep_id[0]->id);
+
+        if (Auth::user()->role === 0) {
+            $contracts = Contract::where('dep_id', $dep_id[0]->id)->get();
+        } else {
+            $contracts = Contract::all();
+        }
+
         return view('contracts.index', compact('contracts'));
     }
 

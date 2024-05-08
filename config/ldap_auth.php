@@ -296,7 +296,6 @@ return [
         'name' => 'cn',
         'fullname' => 'description',
         'department' => 'department',
-
     ],
 
     /*
