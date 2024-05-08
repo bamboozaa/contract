@@ -47,9 +47,9 @@
                         <th scope="col">{{ __('เลขที่สัญญา (นตก.)') }}</th>
                         <th scope="col">{{ __('ชื่อสัญญา') }}</th>
                         <th scope="col">{{ __('หน่วยงานต้นเรื่อง') }}</th>
-                        <th scope="col">{{ __('วันเริ่มต้นสัญญา') }}</th>
-                        <th scope="col">{{ __('วันสิ้นสุดสัญญา') }}</th>
-                        {{-- <th scope="col">ประเภท</th>--}}
+                        {{-- <th scope="col">{{ __('วันเริ่มต้นสัญญา') }}</th>
+                        <th scope="col">{{ __('วันสิ้นสุดสัญญา') }}</th> --}}
+                        <th scope="col">{{ __('ประเภทสัญญา') }}</th>
                         <th class="text-center" scope="col">{{ __('สถานะ') }}</th>
                         <th class="text-center" scope="col">{{ __('จัดการ') }}</th>
                     </tr>
@@ -61,8 +61,21 @@
                                 <td scope="col">{{ $contract->contract_no . "/" . $contract->contract_year }}</td>
                                 <td scope="col">{{ $contract->contract_name }}</td>
                                 <td scope="col">{{ $contract->department['dep_name'] }}</td>
-                                <td scope="col">{{ \Carbon\Carbon::parse($contract->start_date)->format('d/m/Y') }}</td>
-                                <td scope="col">{{ \Carbon\Carbon::parse($contract->end_date)->format('d/m/Y') }}</td>
+                                {{-- <td scope="col">{{ \Carbon\Carbon::parse($contract->start_date)->format('d/m/Y') }}</td>
+                                <td scope="col">{{ \Carbon\Carbon::parse($contract->end_date)->format('d/m/Y') }}</td> --}}
+                                <td scope="col">
+                                    @if ($contract->contract_type === 1)
+                                        <span>สัญญาซื้อขาย</span>
+                                    @elseif ($contract->contract_type === 2)
+                                        <span>สัญญาจ้าง</span>
+                                    @elseif ($contract->contract_type === 3)
+                                        <span>สัญาเช่า</span>
+                                    @elseif ($contract->contract_type === 4)
+                                        <span>สัญญาอนุมัติให้ใช้สิทธิ์</span>
+                                    @elseif ($contract->contract_type === 5)
+                                        <span>บันทึกข้อตกลง</span>
+                                    @endif
+                                </td>
                                 <td class="text-center" scope="col">
                                     @if ($contract->status === 1)
                                         <span class="text-white bg-primary bg-gradient rounded px-3 py-2">ร่างสัญญา</span>
