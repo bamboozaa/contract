@@ -214,6 +214,24 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <div class="form-floating">
+                                {!! Form::date('contract_date', null, [
+                                    'class' => 'form-control form-control-lg' . ($errors->has('contract_date') ? ' is-invalid' : ''),
+                                    'id' => 'contract_date',
+                                    'placeholder' => 'dd/mm/yyyy',
+                                ]) !!}
+                                <label for="contract_date" class="form-label">{{ __('วันที่ในสัญญา') }}</label>
+
+                                @error('contract_date')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="form-floating">
                                 {!! Form::date('start_date', null, [
                                     'class' => 'form-control form-control-lg' . ($errors->has('start_date') ? ' is-invalid' : ''),
                                     'id' => 'start_date',

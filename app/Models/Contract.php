@@ -19,6 +19,7 @@ class Contract extends Model
         'acquisition_value',
         'fund',
         'contract_type',
+        'contract_date',
         'start_date',
         'end_date',
         'types_of_guarantee',
