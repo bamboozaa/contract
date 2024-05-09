@@ -20,11 +20,16 @@
     src: url(../fonts/Mitr-Bold.ttf);
 }
 
+@font-face {
+    font-family: 'Mitr-Light';
+    src: url(../fonts/Mitr-Light.ttf);
+}
+
 * {
     padding: 0;
-    font-family: 'Mitr-Regular' !important;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
+    font-family: 'Mitr-Light' !important;
+    font-size: 1rem;
+    line-height: 1.5rem;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

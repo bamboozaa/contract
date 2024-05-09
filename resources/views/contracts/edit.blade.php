@@ -373,9 +373,17 @@
             </div>
 
             <div class="card-footer">
-                <div class="d-grid col-1 mx-auto">
-                    <button type="submit" class="btn btn-primary"><i
-                            class="bi bi-arrow-up-square me-1"></i>{{ __('อัพเดทสัญญา') }}</button>
+                <div class="d-grid col-2 mx-auto">
+                    {{-- <button type="submit" class="btn btn-primary"><i
+                            class="bi bi-arrow-up-square me-1"></i>{{ __('อัพเดทสัญญา') }}</button> --}}
+
+                    <button type="submit" class="btn btn-labeled btn-primary">
+                        <span class="btn-label">
+                            <i class="bi bi-arrow-up-square me-1" style="font-size: 1rem;"></i>
+                        </span>
+                        {{ __('อัพเดทสัญญา') }}
+                    </button>
+
                 </div>
             </div>
         </div>
