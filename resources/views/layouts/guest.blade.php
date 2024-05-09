@@ -13,6 +13,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <!-- Custom Style -->
+    {{ Html::style('css/login.css') }}
     @yield('importcss')
 </head>
 
