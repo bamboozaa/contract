@@ -24,9 +24,9 @@ class ContractController extends Controller
         // dd($dep_id[0]->id);
 
         if (Auth::user()->role === 0) {
-            $contracts = Contract::where('dep_id', $dep_id[0]->id)->get();
+            $contracts = Contract::where('dep_id', $dep_id[0]->id)->paginate(5)->get();
         } else {
-            $contracts = Contract::all();
+            $contracts = Contract::paginate(5);
         }
 
         return view('contracts.index', compact('contracts'));

@@ -68,7 +68,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <div class="form-floating">
                                 {{-- {!! Form::text('contract_year', $currentYearTH, [
                                     'class' => 'form-control form-control-lg' . ($errors->has('contract_year') ? ' is-invalid' : ''),
@@ -106,7 +106,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-floating">
                                 {!! Form::text('contract_name', null, [
                                     'class' => 'form-control form-control-lg' . ($errors->has('contract_name') ? ' is-invalid' : ''),
@@ -387,8 +387,14 @@
             </div>
 
             <div class="card-footer">
-                <div class="d-grid col-1 mx-auto">
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-floppy me-1"></i>{{ __('บันทึกสัญญา') }}</button>
+                <div class="d-grid col-2 mx-auto">
+                    {{-- <button type="submit" class="btn btn-primary"><i class="bi bi-floppy me-1"></i>{{ __('บันทึกสัญญา') }}</button> --}}
+                    <button type="submit" class="btn btn-labeled btn-primary">
+                        <span class="btn-label">
+                            <i class="bi bi-floppy me-1" style="font-size: 1rem;"></i>
+                        </span>
+                        {{ __('บันทึกสัญญา') }}
+                    </button>
                 </div>
             </div>
         </div>

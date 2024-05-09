@@ -27,14 +27,17 @@
     <div class="card mb-4">
         <div class="card-header" style="display: flex;">
             <div>
-                {{ __('Contract') }}
+                <i class="bi bi-view-list"></i>
+                {{ __('รายการสัญญา') }}
             </div>
+            @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
             <div class="ms-auto">
                 <a href="{{ route('contracts.create') }}" class="btn btn-primary btn-sm">
                     <i class="bi bi-plus-square me-2"></i>
-                    {{ __('Create New') }}
+                    {{ __('บันทึกสัญญาใหม่') }}
                 </a>
             </div>
+            @endif
         </div>
 
         {{-- <div class="alert alert-info" role="alert">Sample table page</div> --}}
@@ -124,7 +127,7 @@
         </div>
 
         <div class="card-footer">
-            {{-- {{ $users->links() }} --}}
+            {{ $contracts->links() }}
         </div>
     </div>
 @endsection
