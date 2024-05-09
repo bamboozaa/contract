@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                     <div class="row justify-content-center">
-                        <img src="{{ URL::asset('/images/logo/logo_UTCC_Vertical-1.png') }}" class="img-fluid">
+                        <img src="{{ URL::asset('/images/logo/logo_UTCC_SubMain-2.png') }}" class="img-fluid">
                     </div>
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
