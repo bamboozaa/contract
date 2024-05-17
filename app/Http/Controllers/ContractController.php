@@ -22,15 +22,11 @@ class ContractController extends Controller
         $department = substr($department, $left_pos, strlen($department));
         $department = trim($department, ')');
         $dep_id = Department::select('id')->where('dep_name', 'like', $department)->get();
-        // dd($dep_id[0]->id);
 
-        // $c_year = ($request->input('contract_year') ? $request->input('contract_year') : 'IS NOT NULL');
         $c_year = ($request->input('contract_year') ? $request->input('contract_year') : 'IS NOT NULL');
 
         $minYear = Contract::select('contract_year')->orderBy('contract_year', 'ASC') ->first();
         $maxYear = Contract::select('contract_year')->orderBy('contract_year', 'DESC') ->first();
-
-        // dd(Carbon::createFromFormat('Y-m-d', $minYear->contract_date)->year);
 
         if (Auth::user()->role === 0) {
             $contracts = Contract::where('dep_id', $dep_id[0]->id)->paginate(10)->get();
