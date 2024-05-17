@@ -46,6 +46,26 @@
 
             <table class="table">
                 <thead>
+                    <form method="GET" action="{{ route('contracts.index') }}" enctype="multipart/form-data">
+                        @csrf
+                        <section class="pb-4">
+                            {{-- <div class="container"> --}}
+                                <div class="row pb-4">
+                                    <div class="col-lg-3">
+                                        <select class = "form-select rounded shadow w-auto" name="contract_year" >
+                                            <option value="">{{ __('--- กรุณาเลือก ปี ---') }}</option>
+                                            @for ($year = $minYear->contract_year; $year <= $maxYear->contract_year; $year++)
+                                                <option value="{{ $year }}">{{ $year }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <button class="btn btn-primary border-0 mb-1 rounded shadow" type="submit">{{ __('ค้นหา') }}</button>
+                                    </div>
+                                </div>
+                            {{-- </div> --}}
+                        </section>
+                    </form>
                     <tr>
                         <th scope="col">{{ __('เลขที่สัญญา (นตก.)') }}</th>
                         <th scope="col">{{ __('ชื่อสัญญา') }}</th>

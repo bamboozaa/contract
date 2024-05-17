@@ -8,13 +8,14 @@ use App\Models\Contract;
 use App\Models\Department;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class ContractController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $department = Auth::user()->department;
         $left_pos = strripos($department, '(') + 1;
@@ -23,13 +24,22 @@ class ContractController extends Controller
         $dep_id = Department::select('id')->where('dep_name', 'like', $department)->get();
         // dd($dep_id[0]->id);
 
+        // $c_year = ($request->input('contract_year') ? $request->input('contract_year') : 'IS NOT NULL');
+        $c_year = ($request->input('contract_year') ? $request->input('contract_year') : 'IS NOT NULL');
+
+        $minYear = Contract::select('contract_year')->orderBy('contract_year', 'ASC') ->first();
+        $maxYear = Contract::select('contract_year')->orderBy('contract_year', 'DESC') ->first();
+
+        // dd(Carbon::createFromFormat('Y-m-d', $minYear->contract_date)->year);
+
         if (Auth::user()->role === 0) {
             $contracts = Contract::where('dep_id', $dep_id[0]->id)->paginate(10)->get();
         } else {
-            $contracts = Contract::paginate(10);
+            if (is_null($request->input('contract_year'))) $contracts = Contract::paginate(10);
+            if (!is_null($request->input('contract_year'))) $contracts = Contract::where('contract_year', $c_year)->paginate(10);
         }
 
-        return view('contracts.index', compact('contracts'));
+        return view('contracts.index', compact('contracts', 'minYear', 'maxYear'));
     }
 
     /**
