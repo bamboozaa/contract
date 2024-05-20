@@ -13,19 +13,19 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6 col-lg-3">
+        {{-- <div class="col-sm-6 col-lg-3">
             <div class="card mb-4 text-white bg-primary">
                 <div class="card-body pb-0 d-flex justify-content-between align-items-start">
                     <div>
                         <div class="fs-4 fw-semibold">
                             {{ count($users) }} คน
-                            {{-- <span class="fs-6 fw-normal">
+                            <span class="fs-6 fw-normal">
                                 (-12.4%<svg class="icon"><i class="bi bi-arrow-down fs-6"></i></svg>)
-                            </span> --}}
+                            </span>
                         </div>
                         <div>{{ __('Users') }}</div>
                     </div>
-                    {{-- <div class="dropdown">
+                    <div class="dropdown">
                         <button class="btn btn-transparent text-white p-0" type="button" data-coreui-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <svg class="icon">
@@ -37,28 +37,28 @@
                             <a class="dropdown-item" href="#">Another action</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
                 <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
                     <canvas class="chart" id="card-chart1" height="70" width="224"
                         style="display: block; box-sizing: border-box; height: 70px; width: 224px;"></canvas>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- /.col-->
         <div class="col-sm-6 col-lg-3">
             <div class="card mb-4 text-white bg-info">
                 <div class="card-body pb-0 d-flex justify-content-between align-items-start">
                     <div>
                         <div class="fs-4 fw-semibold">
-                            {{ count($contracts) }} รายการ
+                            {{ count($contracts) . __(' รายการ') }}
                             {{-- <span class="fs-6 fw-normal">(40.9%
                                 <svg class="icon">
                                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-arrow-top"></use>
                                 </svg>)
                             </span> --}}
                         </div>
-                        {{ __('รายการสัญญาทั้งหมด') }}
+                        {{ __('สัญญาทั้งหมด') }}
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-transparent text-white p-0" type="button" data-coreui-toggle="dropdown"
@@ -98,15 +98,12 @@
             </div>
         </div>
         <!-- /.col-->
-        {{-- <div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-3">
             <div class="card mb-4 text-white bg-warning">
                 <div class="card-body pb-0 d-flex justify-content-between align-items-start">
                     <div>
-                        <div class="fs-4 fw-semibold">2.49% <span class="fs-6 fw-normal">(84.7%
-                                <svg class="icon">
-                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-arrow-top"></use>
-                                </svg>)</span></div>
-                        <div>Conversion Rate</div>
+                        <div class="fs-4 fw-semibold">{{ count($contracts_1) . __(' รายการ') }}</div>
+                        <div>{{ __('สัญญาซื้อขาย') }}</div>
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-transparent text-white p-0" type="button" data-coreui-toggle="dropdown"
@@ -141,17 +138,14 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
         <!-- /.col-->
-        {{-- <div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-3">
             <div class="card mb-4 text-white bg-danger">
                 <div class="card-body pb-0 d-flex justify-content-between align-items-start">
                     <div>
-                        <div class="fs-4 fw-semibold">44K <span class="fs-6 fw-normal">(-23.6%
-                                <svg class="icon">
-                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-arrow-bottom"></use>
-                                </svg>)</span></div>
-                        <div>Sessions</div>
+                        <div class="fs-4 fw-semibold">{{ count($contracts_3) . __(' รายการ') }}</div>
+                        <div>{{ __('สัญญาซื้อเช่า') }}</div>
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-transparent text-white p-0" type="button" data-coreui-toggle="dropdown"
@@ -186,7 +180,37 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
+        <!-- /.col-->
+        <div class="col-sm-6 col-lg-3">
+            <div class="card mb-4 text-white bg-primary">
+                <div class="card-body pb-0 d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="fs-4 fw-semibold">
+                            {{ count($contracts_2) . __(' รายการ') }}
+                        </div>
+                        <div>{{ __('สัญญาจ้าง') }}</div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-transparent text-white p-0" type="button" data-coreui-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <svg class="icon">
+                                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-options"></use>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
+                    <canvas class="chart" id="card-chart1" height="70" width="224"
+                        style="display: block; box-sizing: border-box; height: 70px; width: 224px;"></canvas>
+                </div>
+            </div>
+        </div>
         <!-- /.col-->
     </div>
     {{-- <br> --}}

@@ -127,7 +127,8 @@
                 {{-- \Illuminate\Support\Number::currency(old('name', $contract->acquisition_value), 'THB') --}}
                 <div class="col-md-4">
                     <label for="acquisition_value" class="form-label">{{ __('มูลค่างานตามสัญญา (จำนวนเงิน)') }}</label>
-                    {!! Form::text('acquisition_value', number_format(old('name', $contract->acquisition_value)), [
+                    {{-- number_format(old('name', $contract->acquisition_value)) --}}
+                    {!! Form::text('acquisition_value', old('name', $contract->acquisition_value), [
                         'class' => 'form-control text-info' . ($errors->has('acquisition_value') ? ' is-invalid' : ''),
                         'id' => 'acquisition_value',
                         'placeholder' => 'มูลค่างานตามสัญญา (จำนวนเงิน)',
@@ -261,7 +262,8 @@
                     </div>
                     <div class="col-md-3">
                         <label for="guarantee_amount" class="form-label">{{ __('มูลค่าหลักประกัน') }}</label>
-                        {!! Form::text('guarantee_amount', number_format(old('name', $contract->guarantee_amount)), [
+                        {{-- number_format(old('name', $contract->guarantee_amount) --}}
+                        {!! Form::text('guarantee_amount', old('name', $contract->guarantee_amount), [
                             'class' => 'form-control text-info' . ($errors->has('guarantee_amount') ? ' is-invalid' : ''),
                             'id' => 'guarantee_amount',
                             'placeholder' => 'มูลค่าหลักประกัน',

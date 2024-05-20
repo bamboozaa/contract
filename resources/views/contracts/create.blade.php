@@ -29,7 +29,7 @@
     <div class="card mb-4">
         <div class="card-header" style="display: flex;">
             <div>
-                {{ __('Create New') }}
+                {{ __('บันทึกสัญญาใหม่') }}
             </div>
             {{-- <div class="ms-auto">
                 <a href="{{ route('contracts.create') }}" class="btn btn-primary btn-sm">
