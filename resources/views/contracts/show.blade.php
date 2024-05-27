@@ -36,7 +36,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table">
                             <tbody>
                                 <tr>
                                     <th width="390">{{ __('เลขที่สัญญา (นตก.)') }}</th>
@@ -72,7 +72,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table">
                             <tbody>
                                 <tr>
                                     <th width="390">{{ __('ประเภทสัญญา') }}</th>
@@ -115,7 +115,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table">
                             <tbody>
                                 <tr>
                                     <th width="390">{{ __('ชนิดหลักประกันสัญญา') }}</th>
