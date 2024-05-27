@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "700ce07817ef3d4633d637a8fa661bbe",
+    "content-hash": "7775e48466e2788fcfafbc78bda6f904",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -254,6 +254,59 @@
                 }
             ],
             "time": "2023-12-11T17:09:12+00:00"
+        },
+        {
+            "name": "chumpol/laravel-thaidate",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/momoman/laravel-thaidate.git",
+                "reference": "b1282c60b741c7c9138c9f5661f9c16c7e755138"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/momoman/laravel-thaidate/zipball/b1282c60b741c7c9138c9f5661f9c16c7e755138",
+                "reference": "b1282c60b741c7c9138c9f5661f9c16c7e755138",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.13",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Chumpol\\Thaidate\\ThaidateServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/function.php"
+                ],
+                "psr-4": {
+                    "Chumpol\\Thaidate\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chumpol Jitphiphat"
+                }
+            ],
+            "description": "A Laravel, PHP package for thaidate() function",
+            "support": {
+                "issues": "https://github.com/momoman/laravel-thaidate/issues",
+                "source": "https://github.com/momoman/laravel-thaidate/tree/v1.0.0"
+            },
+            "time": "2021-06-19T04:57:33+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
