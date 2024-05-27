@@ -83,7 +83,11 @@
                     @if (count($contracts) > 0)
                         @foreach ($contracts as $key => $contract)
                             <tr>
-                                <td class="align-middle" scope="col">{{ $contract->contract_no . "/" . $contract->contract_year }}</td>
+                                <td class="align-middle" scope="col">
+                                    <a href="{{ route('contracts.show', $contract->id) }}">
+                                        {{ $contract->contract_no . "/" . $contract->contract_year }}
+                                    </a>
+                                </td>
                                 <td class="align-middle" scope="col">{{ $contract->contract_name }}</td>
                                 <td class="align-middle" scope="col">{{ $contract->department['dep_name'] }}</td>
                                 {{-- <td scope="col">{{ \Carbon\Carbon::parse($contract->start_date)->format('d/m/Y') }}</td>
