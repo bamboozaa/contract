@@ -63,6 +63,22 @@
                                     <th>{{ __('กองทุน') }}</th>
                                     <td>{{ $contract->fund }}</td>
                                 </tr>
+                                <tr>
+                                    <th>{{ __('สถานะ') }}</th>
+                                    <td>
+                                        @if ($contract->status === 1)
+                                            <span class="badge text-bg-success text-light fs-7 fw-bold">ร่างสัญญา</span>
+                                        @elseif ($contract->status === 2)
+                                            <span class="badge text-bg-success text-light fs-7 fw-bold">เสนอตรวจร่าง</span>
+                                        @elseif ($contract->status === 3)
+                                            <span class="badge text-bg-success text-light fs-7 fw-bold">แจ้งลงนามสัญญา</span>
+                                        @elseif ($contract->status === 4)
+                                            <span class="badge text-bg-success text-light fs-7 fw-bold">เสนอผู้บริหารลงนาม</span>
+                                        @elseif ($contract->status === 5)
+                                            <span class="badge text-bg-success text-light fs-7 fw-bold">เสร็จสิ้น(คืนคู่ฉบับ)</span>
+                                        @endif
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
