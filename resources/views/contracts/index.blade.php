@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('title', 'All Contracts')
 
+@section('importcss')
+    @parent
+    {{ Html::style('css/custom.css') }}
+@stop
+
 @section('importjs')
     @parent
     <script type="module">
@@ -107,15 +112,15 @@
                                 </td>
                                 <td class="text-center align-middle" scope="col">
                                     @if ($contract->status === 1)
-                                        <span class="badge text-bg-success fs-7 fw-bold" style="color: var(--cui-badge-color) !important;">ร่างสัญญา</span>
+                                        <span class="badge text-bg-success text-light fw-bold">ร่างสัญญา</span>
                                     @elseif ($contract->status === 2)
-                                        <span class="badge text-bg-success fs-7 fw-bold" style="color: var(--cui-badge-color) !important;">เสนอตรวจร่าง</span>
+                                        <span class="badge text-bg-success text-light fw-bold">เสนอตรวจร่าง</span>
                                     @elseif ($contract->status === 3)
-                                        <span class="badge text-bg-success fs-7 fw-bold" style="color: var(--cui-badge-color) !important;">แจ้งลงนามสัญญา</span>
+                                        <span class="badge text-bg-success text-light fw-bold">แจ้งลงนามสัญญา</span>
                                     @elseif ($contract->status === 4)
-                                        <span class="badge text-bg-success fs-7 fw-bold" style="color: var(--cui-badge-color) !important;">เสนอผู้บริหารลงนาม</span>
+                                        <span class="badge text-bg-success text-light fw-bold">เสนอผู้บริหารลงนาม</span>
                                     @elseif ($contract->status === 5)
-                                        <span class="badge text-bg-success fs-7 fw-bold" style="color: var(--cui-badge-color) !important;">เสร็จสิ้น(คืนคู่ฉบับ)</span>
+                                        <span class="badge text-bg-success text-light fw-bold">เสร็จสิ้น(คืนคู่ฉบับ)</span>
                                     @endif
                                 </td>
                                 @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
