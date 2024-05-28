@@ -27,11 +27,17 @@ class Contract extends Model
         'duration',
         'condition',
         'formFile',
+        'assignee',
         'status',
     ];
 
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'dep_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'assignee');
     }
 }

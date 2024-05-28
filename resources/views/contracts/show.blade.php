@@ -64,6 +64,10 @@
                                     <td>{{ $contract->fund }}</td>
                                 </tr>
                                 <tr>
+                                    <th>{{ __('ผู้ที่ได้รับมอบหมาย') }}</th>
+                                    <td>{{ $contract->user['fullname'] }}</td>
+                                </tr>
+                                <tr>
                                     <th>{{ __('สถานะ') }}</th>
                                     <td>
                                         @if ($contract->status === 1)
