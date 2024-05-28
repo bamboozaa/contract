@@ -21,56 +21,55 @@
 
 @section('content')
     <div class="container-fluid mb-4">
+
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ __('Contracts') }}</li>
             </ol>
         </nav>
+
+
     </div>
 
     <div class="card mb-4">
-        <div class="card-header" style="display: flex;">
+        <div class="card-header d-flex">
             <div>
                 <i class="bi bi-view-list"></i>
                 {{ __('รายการสัญญา') }}
             </div>
+
             @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
-            <div class="ms-auto">
-                <a href="{{ route('contracts.create') }}" class="btn btn-primary btn-sm">
-                    <i class="bi bi-plus-square me-2"></i>
-                    {{ __('บันทึกสัญญาใหม่') }}
-                </a>
-            </div>
+                <div class="ms-auto">
+                    <a href="{{ route('contracts.create') }}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-plus-square me-2"></i>
+                        {{ __('บันทึกสัญญาใหม่') }}
+                    </a>
+                </div>
             @endif
         </div>
 
         {{-- <div class="alert alert-info" role="alert">Sample table page</div> --}}
 
         <div class="card-body">
+            <div class="ms-auto mb-4">
+                <form method="GET" action="{{ route('contracts.index') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="d-flex">
 
+                        <select class = "form-select rounded shadow w-auto me-3" name="contract_year">
+                            <option value="">{{ __('--- กรุณาเลือก ปี ---') }}</option>
+                            @for ($year = $minYear->contract_year; $year <= $maxYear->contract_year; $year++)
+                                <option value="{{ $year }}">{{ $year }}</option>
+                            @endfor
+                        </select>
+                        <button class="btn btn-primary border-0 mb-1 rounded shadow"
+                            type="submit">{{ __('ค้นหา') }}</button>
+                    </div>
+                </form>
+            </div>
             <table class="table">
                 <thead>
-                    <form method="GET" action="{{ route('contracts.index') }}" enctype="multipart/form-data">
-                        @csrf
-                        <section class="pb-4">
-                            {{-- <div class="container"> --}}
-                                <div class="row pb-4">
-                                    <div class="col-lg-3">
-                                        <select class = "form-select rounded shadow w-auto" name="contract_year" >
-                                            <option value="">{{ __('--- กรุณาเลือก ปี ---') }}</option>
-                                            @for ($year = $minYear->contract_year; $year <= $maxYear->contract_year; $year++)
-                                                <option value="{{ $year }}">{{ $year }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <button class="btn btn-primary border-0 mb-1 rounded shadow" type="submit">{{ __('ค้นหา') }}</button>
-                                    </div>
-                                </div>
-                            {{-- </div> --}}
-                        </section>
-                    </form>
                     <tr>
                         <th scope="col">{{ __('เลขที่สัญญา (นตก.)') }}</th>
                         <th scope="col">{{ __('ชื่อสัญญา') }}</th>
@@ -90,7 +89,7 @@
                             <tr>
                                 <td class="align-middle" scope="col">
                                     <a href="{{ route('contracts.show', $contract->id) }}">
-                                        {{ $contract->contract_no . "/" . $contract->contract_year }}
+                                        {{ $contract->contract_no . '/' . $contract->contract_year }}
                                     </a>
                                 </td>
                                 <td class="align-middle" scope="col">{{ $contract->contract_name }}</td>
@@ -124,22 +123,24 @@
                                     @endif
                                 </td>
                                 @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
-                                <td class="text-center text-nowrap">
-                                    <a href="{{ route('contracts.edit', $contract->id) }}" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" title="แก้ไขข้อมูล">
-                                        <i class="bi bi-pencil-square fs-sm me-1 text-white"></i>
-                                        {{-- {{ __('แก้ไข') }} --}}
-                                    </a>
-                                    <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST"
-                                        style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Are you sure you want to delete this department?')" data-bs-toggle="tooltip" title="ลบข้อมูล">
-                                            <i class="bi bi-trash fs-sm me-1 text-white"></i>
-                                            {{-- {{ __('ลบ') }} --}}
-                                        </button>
-                                    </form>
-                                </td>
+                                    <td class="text-center text-nowrap">
+                                        <a href="{{ route('contracts.edit', $contract->id) }}"
+                                            class="btn btn-warning btn-sm" data-bs-toggle="tooltip" title="แก้ไขข้อมูล">
+                                            <i class="bi bi-pencil-square fs-sm me-1 text-white"></i>
+                                            {{-- {{ __('แก้ไข') }} --}}
+                                        </a>
+                                        <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST"
+                                            style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Are you sure you want to delete this department?')"
+                                                data-bs-toggle="tooltip" title="ลบข้อมูล">
+                                                <i class="bi bi-trash fs-sm me-1 text-white"></i>
+                                                {{-- {{ __('ลบ') }} --}}
+                                            </button>
+                                        </form>
+                                    </td>
                                 @endif
 
                             </tr>

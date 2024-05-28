@@ -65,7 +65,7 @@
                                 </tr>
                                 <tr>
                                     <th>{{ __('ผู้ที่ได้รับมอบหมาย') }}</th>
-                                    <td>{{ $contract->user['fullname'] }}</td>
+                                    <td>{{ !isset($contract->user['fullname']) ? "" : $contract->user['fullname'] }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ __('สถานะ') }}</th>
