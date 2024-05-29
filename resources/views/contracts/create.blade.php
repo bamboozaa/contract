@@ -26,6 +26,8 @@
 
     {!! Form::open(['route' => 'contracts.store', 'method' => 'POST', 'files' => true]) !!}
 
+    {!! Form::hidden('assignee', \Illuminate\Support\Facades\Auth::user()->username) !!}
+
     <div class="card mb-4">
         <div class="card-header" style="display: flex;">
             <div>
