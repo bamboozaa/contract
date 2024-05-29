@@ -29,7 +29,7 @@ return new class extends Migration
             $table->integer('duration');
             $table->integer('condition');
             $table->string('formFile')->nullable();
-            $table->integer('assignee')->nullable();
+            $table->string('assignee')->nullable();
             $table->integer('status')->default(1)->nullable();
             $table->timestamps();
         });

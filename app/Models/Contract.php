@@ -38,6 +38,6 @@ class Contract extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'assignee');
+        return $this->belongsTo(User::class, 'assignee', 'username');
     }
 }
