@@ -77,6 +77,7 @@
                         {{-- <th scope="col">{{ __('วันเริ่มต้นสัญญา') }}</th>
                         <th scope="col">{{ __('วันสิ้นสุดสัญญา') }}</th> --}}
                         <th scope="col">{{ __('ประเภทสัญญา') }}</th>
+                        <th scope="col">{{ __('ผู้ได้รับมอบหมาย') }}</th>
                         <th class="text-center" scope="col">{{ __('สถานะ') }}</th>
                         @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
                             <th class="text-center" scope="col">{{ __('จัดการ') }}</th>
@@ -109,6 +110,7 @@
                                         <span>บันทึกข้อตกลง</span>
                                     @endif
                                 </td>
+                                <td class="align-middle" scope="col">{{ $contract->user['fullname'] }}</td>
                                 <td class="text-center align-middle" scope="col">
                                     @if ($contract->status === 1)
                                         <span class="badge text-bg-success text-light fw-bold">ร่างสัญญา</span>
