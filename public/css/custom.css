@@ -5,13 +5,26 @@ flex: 1;
 height: 1px;
 background: #eee;
 }
+
 .h-custom {
 height: calc(100% - 73px);
 }
+
 @media (max-width: 450px) {
-.h-custom {
-height: 100%;
+    .h-custom {
+    height: 100%;
+    }
 }
+
+@media (min-width: 650px) {
+    .modal {
+        --cui-modal-margin: 1.75rem;
+        --cui-modal-box-shadow: var(--cui-box-shadow);
+    }
+}
+
+.modal {
+    --cui-modal-width: 650px;
 }
 
 
