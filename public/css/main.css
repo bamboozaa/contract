@@ -25,9 +25,24 @@
     src: url(../fonts/Mitr-Light.ttf);
 }
 
+@font-face {
+    font-family: 'Prompt-Regular';
+    src: url(../fonts/Prompt-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Prompt-Bold';
+    src: url(../fonts/Prompt-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'Prompt-Medium';
+    src: url(../fonts/Prompt-Medium.ttf);
+}
+
 * {
     padding: 0;
-    font-family: 'Mitr-Light' !important;
+    font-family: 'Prompt-Regular' !important;
     font-size: 1rem;
     line-height: 1.5rem;
     box-sizing: border-box;
