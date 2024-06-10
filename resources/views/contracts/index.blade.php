@@ -103,7 +103,7 @@
                                     @elseif ($contract->contract_type === 2)
                                         <span>สัญญาจ้าง</span>
                                     @elseif ($contract->contract_type === 3)
-                                        <span>สัญาเช่า</span>
+                                        <span>สัญญาเช่า</span>
                                     @elseif ($contract->contract_type === 4)
                                         <span>สัญญาอนุมัติให้ใช้สิทธิ์</span>
                                     @elseif ($contract->contract_type === 5)
