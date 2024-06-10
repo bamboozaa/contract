@@ -166,7 +166,7 @@
                         <label for="contract_type" class="form-label">{{ __('ประเภทสัญญา') }}</label>
                         {!! Form::select(
                             'contract_type',
-                            [1 => 'สัญญาซื้อขาย', 2 => 'สัญญาจ้าง', 3 => 'สัญาเช่า', 4 => 'สัญญาอนุมัติให้ใช้สิทธิ์', 5 => 'บันทึกข้อตกลง'],
+                            [1 => 'สัญญาซื้อขาย', 2 => 'สัญญาจ้าง', 3 => 'สัญญาเช่า', 4 => 'สัญญาอนุมัติให้ใช้สิทธิ์', 5 => 'บันทึกข้อตกลง'],
                             old('name', $contract->contract_type),
                             [
                                 'class' => 'form-select text-info' . ($errors->has('contract_type') ? ' is-invalid' : ''),
