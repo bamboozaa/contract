@@ -74,6 +74,7 @@
                         <th scope="col">{{ __('เลขที่สัญญา (นตก.)') }}</th>
                         <th scope="col">{{ __('ชื่อสัญญา') }}</th>
                         <th scope="col">{{ __('หน่วยงานต้นเรื่อง') }}</th>
+                        <th scope="col">{{ __('บริษัทคู่สัญญา	') }}</th>
                         {{-- <th scope="col">{{ __('วันเริ่มต้นสัญญา') }}</th>
                         <th scope="col">{{ __('วันสิ้นสุดสัญญา') }}</th> --}}
                         <th scope="col">{{ __('ประเภทสัญญา') }}</th>
@@ -95,6 +96,7 @@
                                 </td>
                                 <td class="align-middle" scope="col">{{ $contract->contract_name }}</td>
                                 <td class="align-middle" scope="col">{{ $contract->department['dep_name'] }}</td>
+                                <td class="align-middle" scope="col">{{ $contract->partners }}</td>
                                 {{-- <td scope="col">{{ \Carbon\Carbon::parse($contract->start_date)->format('d/m/Y') }}</td>
                                 <td scope="col">{{ \Carbon\Carbon::parse($contract->end_date)->format('d/m/Y') }}</td> --}}
                                 <td class="align-middle" scope="col">
