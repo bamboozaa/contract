@@ -20,7 +20,7 @@
 @stop
 
 @section('content')
-    <div class="container-fluid mb-4">
+    <div class="container-fluid mb-3">
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -32,10 +32,10 @@
 
     </div>
 
-    <div class="card mb-4">
+    <div class="card mb-2">
         <div class="card-header d-flex">
             <div>
-                <i class="bi bi-view-list"></i>
+                <i class="bi bi-view-list me-2"></i>
                 {{ __('รายการสัญญา') }}
             </div>
 
@@ -52,7 +52,7 @@
         {{-- <div class="alert alert-info" role="alert">Sample table page</div> --}}
 
         <div class="card-body">
-            <div class="ms-auto mb-4">
+            <div class="ms-auto mb-2">
                 <form method="GET" action="{{ route('contracts.index') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="d-flex">
@@ -71,14 +71,14 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">{{ __('เลขที่สัญญา (นตก.)') }}</th>
+                        <th scope="col" class="text-nowrap">{{ __('เลขที่สัญญา (นตก.)') }}</th>
                         <th scope="col">{{ __('ชื่อสัญญา') }}</th>
-                        <th scope="col">{{ __('หน่วยงานต้นเรื่อง') }}</th>
-                        <th scope="col">{{ __('บริษัทคู่สัญญา	') }}</th>
+                        <th scope="col" class="text-nowrap">{{ __('หน่วยงานต้นเรื่อง') }}</th>
+                        <th scope="col" class="text-nowrap">{{ __('บริษัทคู่สัญญา	') }}</th>
                         {{-- <th scope="col">{{ __('วันเริ่มต้นสัญญา') }}</th>
                         <th scope="col">{{ __('วันสิ้นสุดสัญญา') }}</th> --}}
-                        <th scope="col">{{ __('ประเภทสัญญา') }}</th>
-                        <th scope="col">{{ __('ผู้ได้รับมอบหมาย') }}</th>
+                        <th scope="col" class="text-nowrap">{{ __('ประเภทสัญญา') }}</th>
+                        <th scope="col" class="text-nowrap">{{ __('ผู้ได้รับมอบหมาย') }}</th>
                         <th class="text-center" scope="col">{{ __('สถานะ') }}</th>
                         @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
                             <th class="text-center" scope="col">{{ __('จัดการ') }}</th>
@@ -89,17 +89,17 @@
                     @if (count($contracts) > 0)
                         @foreach ($contracts as $key => $contract)
                             <tr>
-                                <td class="align-middle" scope="col">
+                                <td class="align-top" scope="col">
                                     <a href="{{ route('contracts.show', $contract->id) }}">
                                         {{ $contract->contract_no . '/' . $contract->contract_year }}
                                     </a>
                                 </td>
-                                <td class="align-middle" scope="col">{{ $contract->contract_name }}</td>
-                                <td class="align-middle" scope="col">{{ $contract->department['dep_name'] }}</td>
-                                <td class="align-middle" scope="col">{{ $contract->partners }}</td>
+                                <td class="align-top" scope="col">{{ $contract->contract_name }}</td>
+                                <td class="align-top" scope="col">{{ $contract->department['dep_name'] }}</td>
+                                <td class="align-top" scope="col">{{ $contract->partners }}</td>
                                 {{-- <td scope="col">{{ \Carbon\Carbon::parse($contract->start_date)->format('d/m/Y') }}</td>
                                 <td scope="col">{{ \Carbon\Carbon::parse($contract->end_date)->format('d/m/Y') }}</td> --}}
-                                <td class="align-middle" scope="col">
+                                <td class="align-top" scope="col">
                                     @if ($contract->contract_type === 1)
                                         <span>สัญญาซื้อขาย</span>
                                     @elseif ($contract->contract_type === 2)
@@ -112,7 +112,7 @@
                                         <span>บันทึกข้อตกลง</span>
                                     @endif
                                 </td>
-                                <td class="align-middle" scope="col">{{ $contract->user['fullname'] }}</td>
+                                <td class="align-top" scope="col">{{ $contract->user['fullname'] }}</td>
                                 <td class="text-center align-middle" scope="col">
                                     @if ($contract->status === 1)
                                         <span class="badge text-bg-success text-light fw-bold">ร่างสัญญา</span>
@@ -130,7 +130,7 @@
                                     <td class="text-center text-nowrap">
                                         <a href="{{ route('contracts.edit', $contract->id) }}"
                                             class="btn btn-warning btn-sm" data-bs-toggle="tooltip" title="แก้ไขข้อมูล">
-                                            <i class="bi bi-pencil-square fs-sm me-1 text-white"></i>
+                                            <i class="bi bi-pencil-square me-1 text-white" style="font-size: 0.75rem;"></i>
                                             {{-- {{ __('แก้ไข') }} --}}
                                         </a>
                                         <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST"
@@ -140,7 +140,7 @@
                                             <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Are you sure you want to delete this department?')"
                                                 data-bs-toggle="tooltip" title="ลบข้อมูล">
-                                                <i class="bi bi-trash fs-sm me-1 text-white"></i>
+                                                <i class="bi bi-trash me-1 text-white" style="font-size: 0.75rem;"></i>
                                                 {{-- {{ __('ลบ') }} --}}
                                             </button>
                                         </form>
@@ -161,7 +161,7 @@
         </div>
 
         <div class="card-footer">
-            {{ $contracts->links() }}
+            {{-- {{ $contracts->links() }} --}}
         </div>
     </div>
 @endsection

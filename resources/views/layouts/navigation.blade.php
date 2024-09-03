@@ -2,7 +2,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('home') }}">
             <i class="bi bi-speedometer fs-4 me-4"></i>
-            {{ __('Dashboard') }}
+            <h4>{{ __('Dashboard') }}</h4>
         </a>
     </li>
 
@@ -27,7 +27,7 @@
     <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('contracts.*') ? 'active' : '' }}" href="{{ route('contracts.index') }}">
             <i class="bi bi-pass-fill fs-4 me-4"></i>
-            {{ __('รายการสัญญา') }}
+            <h4>{{ __('รายการสัญญา') }}</h4>
         </a>
     </li>
 

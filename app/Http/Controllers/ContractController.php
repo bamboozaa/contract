@@ -29,11 +29,11 @@ class ContractController extends Controller
         $maxYear = Contract::select('contract_year')->orderBy('contract_year', 'DESC') ->first();
 
         if (Auth::user()->role === 0) {
-            if (is_null($request->input('contract_year'))) $contracts = Contract::where('dep_id', $dep_id[0]->id)->paginate(10);
-            if (!is_null($request->input('contract_year'))) $contracts = Contract::where('dep_id', $dep_id[0]->id)->where('contract_year', $c_year)->paginate(10);
+            if (is_null($request->input('contract_year'))) $contracts = Contract::where('dep_id', $dep_id[0]->id)->get();
+            if (!is_null($request->input('contract_year'))) $contracts = Contract::where('dep_id', $dep_id[0]->id)->where('contract_year', $c_year)->get();
         } else {
-            if (is_null($request->input('contract_year'))) $contracts = Contract::paginate(10);
-            if (!is_null($request->input('contract_year'))) $contracts = Contract::where('contract_year', $c_year)->paginate(10);
+            if (is_null($request->input('contract_year'))) $contracts = Contract::get();
+            if (!is_null($request->input('contract_year'))) $contracts = Contract::where('contract_year', $c_year)->get();
         }
 
         return view('contracts.index', compact('contracts', 'minYear', 'maxYear'));

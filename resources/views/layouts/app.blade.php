@@ -48,7 +48,7 @@
                 </svg>
             </a>
             <ul class="header-nav d-none d-md-flex">
-                <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">{{ __('ระบบจัดการสัญญา') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('home') }}"><h4>{{ __('ระบบจัดการสัญญา') }}</h4></a></li>
             </ul>
             <ul class="header-nav ms-auto">
 
@@ -81,7 +81,7 @@
         </div>
     </header>
     {{-- <div class="body flex-grow-1 px-3"> --}}
-    <div class="body flex-grow-1 px-3">
+    <div class="body flex-grow-1 px-1">
         <div class="container-fluid">
             @yield('content')
         </div>
