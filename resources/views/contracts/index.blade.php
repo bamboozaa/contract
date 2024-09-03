@@ -130,8 +130,8 @@
                                     <td class="text-center text-nowrap">
                                         <a href="{{ route('contracts.edit', $contract->id) }}"
                                             class="btn btn-warning btn-sm" data-bs-toggle="tooltip" title="แก้ไขข้อมูล">
-                                            <i class="bi bi-pencil-square me-1 text-white" style="font-size: 0.75rem;"></i>
-                                            {{-- {{ __('แก้ไข') }} --}}
+                                            <i class="bi bi-pencil-square me-1" style="font-size: 0.75rem;"></i>
+                                            {{ __('แก้ไข') }}
                                         </a>
                                         <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST"
                                             style="display: inline;">
@@ -140,8 +140,8 @@
                                             <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Are you sure you want to delete this department?')"
                                                 data-bs-toggle="tooltip" title="ลบข้อมูล">
-                                                <i class="bi bi-trash me-1 text-white" style="font-size: 0.75rem;"></i>
-                                                {{-- {{ __('ลบ') }} --}}
+                                                <i class="bi bi-trash me-1" style="font-size: 0.75rem;"></i>
+                                                {{ __('ลบ') }}
                                             </button>
                                         </form>
                                     </td>

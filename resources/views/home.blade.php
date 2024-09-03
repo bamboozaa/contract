@@ -162,63 +162,67 @@
     </div> --}}
     <div class="row g-4">
         <div class="col-6 col-lg-4 col-xl-3 col-xxl-3">
-          <div class="card text-white bg-info">
-            <div class="card-body">
-              <div class="text-white text-opacity-75 text-end">
-                <i class="bi bi-tag fs-1"></i>
-              </div>
-              <div class="fs-4 fw-semibold">{{ count($contracts) . __(' รายการ') }}</div>
-              <div class="small text-white text-opacity-75 text-uppercase fw-semibold text-truncate">{{ __('สัญญาทั้งหมด') }}</div>
-              {{-- <div class="progress progress-white progress-thin mt-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <div class="text-white text-opacity-75 text-end">
+                        <i class="bi bi-tag fs-1"></i>
+                    </div>
+                    <div class="fs-4 fw-semibold">{{ count($contracts) . __(' รายการ') }}</div>
+                    <div class="small text-white text-opacity-75 text-uppercase fw-semibold text-truncate">
+                        {{ __('สัญญาทั้งหมด') }}</div>
+                    {{-- <div class="progress progress-white progress-thin mt-3">
                 <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
               </div> --}}
+                </div>
             </div>
-          </div>
         </div>
         <!-- /.col-->
         <div class="col-6 col-lg-4 col-xl-3 col-xxl-3">
-          <div class="card text-white bg-success">
-            <div class="card-body">
-              <div class="text-white text-opacity-75 text-end">
-                <i class="bi bi-tag fs-1"></i>
-              </div>
-              <div class="fs-4 fw-semibold">{{ count($contracts_1) . __(' รายการ') }}</div>
-              <div class="small text-white text-opacity-75 text-uppercase fw-semibold text-truncate">{{ __('สัญญาซื้อขาย') }}</div>
-              {{-- <div class="progress progress-white progress-thin mt-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <div class="text-white text-opacity-75 text-end">
+                        <i class="bi bi-tag fs-1"></i>
+                    </div>
+                    <div class="fs-4 fw-semibold">{{ count($contracts_1) . __(' รายการ') }}</div>
+                    <div class="small text-white text-opacity-75 text-uppercase fw-semibold text-truncate">
+                        {{ __('สัญญาซื้อขาย') }}</div>
+                    {{-- <div class="progress progress-white progress-thin mt-3">
                 <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
               </div> --}}
+                </div>
             </div>
-          </div>
         </div>
         <!-- /.col-->
         <div class="col-6 col-lg-4 col-xl-3 col-xxl-3">
-          <div class="card text-white bg-warning">
-            <div class="card-body">
-              <div class="text-white text-opacity-75 text-end">
-                <i class="bi bi-tag fs-1"></i>
-              </div>
-              <div class="fs-4 fw-semibold">{{ count($contracts_3) . __(' รายการ') }}</div>
-              <div class="small text-white text-opacity-75 text-uppercase fw-semibold text-truncate">{{ __('สัญญาซื้อเช่า') }}</div>
-              {{-- <div class="progress progress-white progress-thin mt-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <div class="text-white text-opacity-75 text-end">
+                        <i class="bi bi-tag fs-1"></i>
+                    </div>
+                    <div class="fs-4 fw-semibold">{{ count($contracts_3) . __(' รายการ') }}</div>
+                    <div class="small text-white text-opacity-75 text-uppercase fw-semibold text-truncate">
+                        {{ __('สัญญาซื้อเช่า') }}</div>
+                    {{-- <div class="progress progress-white progress-thin mt-3">
                 <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
               </div> --}}
+                </div>
             </div>
-          </div>
         </div>
         <!-- /.col-->
         <div class="col-6 col-lg-4 col-xl-3 col-xxl-3">
-          <div class="card text-white bg-primary">
-            <div class="card-body">
-              <div class="text-white text-opacity-75 text-end">
-                <i class="bi bi-tag fs-1"></i>
-              </div>
-              <div class="fs-4 fw-semibold">{{ count($contracts_2) . __(' รายการ') }}</div>
-              <div class="small text-white text-opacity-75 text-uppercase fw-semibold text-truncate">{{ __('สัญญาจ้าง') }}</div>
-              {{-- <div class="progress progress-white progress-thin mt-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <div class="text-white text-opacity-75 text-end">
+                        <i class="bi bi-tag fs-1"></i>
+                    </div>
+                    <div class="fs-4 fw-semibold">{{ count($contracts_2) . __(' รายการ') }}</div>
+                    <div class="small text-white text-opacity-75 text-uppercase fw-semibold text-truncate">
+                        {{ __('สัญญาจ้าง') }}</div>
+                    {{-- <div class="progress progress-white progress-thin mt-3">
                 <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
               </div> --}}
+                </div>
             </div>
-          </div>
         </div>
         {{-- <div class="col-6 col-lg-4 col-xl-3 col-xxl-3">
           <div class="card text-white bg-danger">
@@ -232,8 +236,9 @@
             </div>
           </div>
         </div> --}}
-      </div>
-    {{-- <br> --}}
+    </div>
+
+
     {{-- <div class="table-responsive">
         <table class="table border mb-0">
             <thead class="table-light fw-semibold">
