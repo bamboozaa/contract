@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
             $table->char('contract_no')->comment('เลขที่สัญญา): เลขที่ระบุสัญญา');
-            $table->char('contract_year')->comment('ปีการศึกษา');
+            $table->char('contractid')->nullable()->comment('เลขที่สัญญาเช่ากองอาคาร');
+            $table->char('contract_year')->comment('ปีการศึกษา พ.ศ.');
             $table->integer('dep_id');
             $table->string('contract_name')->comment(' (ชื่อสัญญา): ชื่อหรือคำอธิบายของสัญญา');
             $table->string('partners')->comment(' (ชื่อคู่สัญญา): ชื่อหรือคำอธิบายของคู่สัญญา');
