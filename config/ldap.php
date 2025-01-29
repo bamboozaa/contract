@@ -143,7 +143,7 @@ return [
                 |
                 */
 
-                'hosts' => explode(' ', env('LDAP_HOSTS', 'cdc1.utcc-net.utcc-domain.local')),
+                'hosts' => explode(' ', env('LDAP_HOSTS', 'look.utcc.ac.th')),
                 // 'hosts' => explode(' ', env('LDAP_HOSTS', 'corp-dc1.corp.acme.org corp-dc2.corp.acme.org')),
 
                 /*
@@ -199,8 +199,8 @@ return [
                 |
                 */
 
-                'username' => env('LDAP_USERNAME', 'komsan_aia@utcc.ac.th'),
-                'password' => env('LDAP_PASSWORD', 'KA423244055'),
+                'username' => env('LDAP_USERNAME', 'helpdesk@utcc.ac.th'),
+                'password' => env('LDAP_PASSWORD', 'passwordutcc2021'),
 
                 /*
                 |--------------------------------------------------------------------------
