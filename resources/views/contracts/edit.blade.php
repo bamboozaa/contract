@@ -161,8 +161,8 @@
             <fieldset class="border rounded-3 p-3 mb-3">
                 <legend class="float-none fs-5 w-auto px-3">{{ __('รายละเอียดในสัญญา') }}</legend>
 
-                <div class="row mb-1">
-                    <div class="col-md-3">
+                <div class="row mb-3">
+                    <div class="col-md-6">
                         <label for="contract_type" class="form-label">{{ __('ประเภทสัญญา') }}</label>
                         {!! Form::select(
                             'contract_type',
@@ -183,7 +183,24 @@
                         @enderror
 
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
+                        <label for="contractid" class="form-label">{{ __('วันที่ในสัญญา') }}</label>
+                        {!! Form::text('contractid', null, [
+                            'class' => 'form-control' . ($errors->has('contractid') ? ' is-invalid' : ''),
+                            'id' => 'contractid',
+                            'placeholder' => 'Contract ID',
+                        ]) !!}
+
+                        @error('contractid')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
                         <label for="contract_date" class="form-label">{{ __('วันที่ในสัญญา') }}</label>
                         {!! Form::date('contract_date', old('name', $contract->contract_date), [
                             'class' => 'form-control text-info' . ($errors->has('contract_date') ? ' is-invalid' : ''),
@@ -198,7 +215,7 @@
                         @enderror
 
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="start_date" class="form-label">{{ __('วันเริ่มสัญญา') }}</label>
                         {!! Form::date('start_date', old('name', $contract->start_date), [
                             'class' => 'form-control text-info' . ($errors->has('start_date') ? ' is-invalid' : ''),
@@ -213,7 +230,7 @@
                         @enderror
 
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="end_date" class="form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
                         {!! Form::date('end_date', old('name', $contract->end_date), [
                             'class' => 'form-control text-info' . ($errors->has('end_date') ? ' is-invalid' : ''),

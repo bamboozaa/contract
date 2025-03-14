@@ -12,6 +12,7 @@ class Contract extends Model
     protected $table = 'contracts';
     protected $fillable = [
         'contract_no',
+        'contractid',
         'contract_year',
         'dep_id',
         'contract_name',

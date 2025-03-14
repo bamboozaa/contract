@@ -95,7 +95,7 @@
                                     </a>
                                 </td>
                                 <td class="align-top" scope="col">{{ $contract->contract_name }}</td>
-                                <td class="align-top" scope="col">{{ $contract->department['dep_name'] }}</td>
+                                <td class="text-nowrap align-top" scope="col">{{ $contract->department['dep_name'] }}</td>
                                 <td class="align-top" scope="col">{{ $contract->partners }}</td>
                                 {{-- <td scope="col">{{ \Carbon\Carbon::parse($contract->start_date)->format('d/m/Y') }}</td>
                                 <td scope="col">{{ \Carbon\Carbon::parse($contract->end_date)->format('d/m/Y') }}</td> --}}
