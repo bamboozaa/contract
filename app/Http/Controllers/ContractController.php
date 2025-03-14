@@ -188,10 +188,6 @@ class ContractController extends Controller
     public function update(UpdateContractRequest $request, Contract $contract)
     {
         if ($request->input('contract_type') == 3 && !is_null($request->input('contractid'))) {
-            $client = new Client();
-            $headers = [
-               'Content-Type' => 'application/json'
-            ];
 
             $contractId = $request->input('contractid');
 
