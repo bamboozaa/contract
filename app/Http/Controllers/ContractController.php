@@ -86,7 +86,7 @@ class ContractController extends Controller
 
             $contractId = $request->input('contractid');
 
-            $url = 'http://10.7.45.123/api/contractslegal/' . $contractId . '?check=RCM';
+            $url = 'http://10.7.45.125/api/contractslegal/' . $contractId . '?check=RCM';
             $body = [
                 "legalID" => "นตก.(ส)" . " " . $request->input('contract_no') . "/" . $request->input('contract_year'),
                 "signDate" => $request->input('contract_date'),
@@ -202,7 +202,7 @@ class ContractController extends Controller
             try {
                 $response = Http::withHeaders([
                     'Content-Type' => 'application/json',
-                ])->post('http://10.7.45.123/api/contractslegal/' . $contractId . '?check=RCM', $body);
+                ])->post('http://10.7.45.125/api/contractslegal/' . $contractId . '?check=RCM', $body);
 
                 // Access the response
                 $statusCode = $response->status();
