@@ -186,7 +186,7 @@
                     <div class="col-md-6">
                         <label for="contractid" class="form-label">{{ __('Contract ID') }}</label>
                         {!! Form::text('contractid', old('name', $contract->contractid), [
-                            'class' => 'form-control' . ($errors->has('contractid') ? ' is-invalid' : ''),
+                            'class' => 'form-control text-info' . ($errors->has('contractid') ? ' is-invalid' : ''),
                             'id' => 'contractid',
                             'placeholder' => 'Contract ID',
                         ]) !!}
