@@ -52,36 +52,85 @@
         {{-- <div class="alert alert-info" role="alert">Sample table page</div> --}}
 
         <div class="card-body">
-            <div class="ms-auto mb-2">
-                <form method="GET" action="{{ route('contracts.index') }}" enctype="multipart/form-data">
+            <div class="mb-4">
+                <form method="GET" action="{{ route('contracts.index') }}" class="row g-3">
                     @csrf
-                    <div class="d-flex">
-
-                        <select class = "form-select rounded shadow w-auto me-3" name="contract_year">
-                            <option value="">{{ __('--- กรุณาเลือก ปี ---') }}</option>
-                            @for ($year = $minYear->contract_year; $year <= $maxYear->contract_year; $year++)
-                                <option value="{{ $year }}">{{ $year }}</option>
-                            @endfor
-                        </select>
-                        <button class="btn btn-primary border-0 mb-1 rounded shadow"
-                            type="submit">{{ __('ค้นหา') }}</button>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">ปีสัญญา</label>
+                            <select class="form-select" name="contract_year">
+                                <option value="">{{ __('ทั้งหมด') }}</option>
+                                @for ($year = $minYear->contract_year; $year <= $maxYear->contract_year; $year++)
+                                    <option value="{{ $year }}"
+                                        {{ request('contract_year') == $year ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                    {{-- <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">สถานะ</label>
+                            <select class="form-select" name="status">
+                                <option value="">ทั้งหมด</option>
+                                <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>ร่างสัญญา</option>
+                                <option value="2" {{ request('status') == '2' ? 'selected' : '' }}>เสนอตรวจร่าง
+                                </option>
+                                <option value="3" {{ request('status') == '3' ? 'selected' : '' }}>แจ้งลงนามสัญญา
+                                </option>
+                                <option value="4" {{ request('status') == '4' ? 'selected' : '' }}>เสนอผู้บริหารลงนาม
+                                </option>
+                                <option value="5" {{ request('status') == '5' ? 'selected' : '' }}>
+                                    เสร็จสิ้น(คืนคู่ฉบับ)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">ค้นหา</label>
+                            <input type="text" class="form-control" name="search" value="{{ request('search') }}"
+                                placeholder="ค้นหาจากเลขที่สัญญา, ชื่อสัญญา, หรือบริษัทคู่สัญญา">
+                        </div>
+                    </div> --}}
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="form-label">&nbsp;</label>
+                            <button class="btn btn-primary w-100" type="submit">
+                                <i class="bi bi-search me-2"></i>{{ __('ค้นหา') }}
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col" class="text-nowrap">{{ __('เลขที่สัญญา (นตก.)') }}</th>
-                        <th scope="col">{{ __('ชื่อสัญญา') }}</th>
-                        <th scope="col" class="text-nowrap">{{ __('หน่วยงานต้นเรื่อง') }}</th>
-                        <th scope="col" class="text-nowrap">{{ __('บริษัทคู่สัญญา	') }}</th>
-                        {{-- <th scope="col">{{ __('วันเริ่มต้นสัญญา') }}</th>
-                        <th scope="col">{{ __('วันสิ้นสุดสัญญา') }}</th> --}}
-                        <th scope="col" class="text-nowrap">{{ __('ประเภทสัญญา') }}</th>
-                        <th scope="col" class="text-nowrap">{{ __('ผู้ได้รับมอบหมาย') }}</th>
-                        <th class="text-center" scope="col">{{ __('สถานะ') }}</th>
+                        <th class="text-nowrap">
+                            <i class="bi bi-file-text me-2"></i>{{ __('เลขที่สัญญา') }}
+                        </th>
+                        <th>
+                            <i class="bi bi-card-text me-2"></i>{{ __('ชื่อสัญญา') }}
+                        </th>
+                        <th class="text-nowrap">
+                            <i class="bi bi-building me-2"></i>{{ __('หน่วยงานต้นเรื่อง') }}
+                        </th>
+                        <th class="text-nowrap">
+                            <i class="bi bi-people me-2"></i>{{ __('บริษัทคู่สัญญา') }}
+                        </th>
+                        <th class="text-nowrap">
+                            <i class="bi bi-tags me-2"></i>{{ __('ประเภทสัญญา') }}
+                        </th>
+                        <th class="text-nowrap">
+                            <i class="bi bi-person me-2"></i>{{ __('ผู้ได้รับมอบหมาย') }}
+                        </th>
+                        <th class="text-center">
+                            <i class="bi bi-activity me-2"></i>{{ __('สถานะ') }}
+                        </th>
                         @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
-                            <th class="text-center" scope="col">{{ __('จัดการ') }}</th>
+                            <th class="text-center">
+                                <i class="bi bi-gear me-2"></i>{{ __('จัดการ') }}
+                            </th>
                         @endif
                     </tr>
                 </thead>
@@ -95,7 +144,8 @@
                                     </a>
                                 </td>
                                 <td class="align-top" scope="col">{{ $contract->contract_name }}</td>
-                                <td class="text-nowrap align-top" scope="col">{{ $contract->department['dep_name'] }}</td>
+                                <td class="text-nowrap align-top" scope="col">{{ $contract->department['dep_name'] }}
+                                </td>
                                 <td class="align-top" scope="col">{{ $contract->partners }}</td>
                                 {{-- <td scope="col">{{ \Carbon\Carbon::parse($contract->start_date)->format('d/m/Y') }}</td>
                                 <td scope="col">{{ \Carbon\Carbon::parse($contract->end_date)->format('d/m/Y') }}</td> --}}

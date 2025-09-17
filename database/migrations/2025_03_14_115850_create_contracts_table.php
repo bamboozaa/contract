@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('contract_name')->comment(' (ชื่อสัญญา): ชื่อหรือคำอธิบายของสัญญา');
             $table->string('partners')->comment(' (ชื่อคู่สัญญา): ชื่อหรือคำอธิบายของคู่สัญญา');
             $table->decimal('acquisition_value', 10, 2)->comment('(มูลค่างาน): ชื่อหรือคำอธิบายของมูลค่างานตามสัญญา');
-            $table->string('fund')->comment('(กองทุน): ชื่อหรือคำอธิบายของกองทุน');
+            $table->string('fund')->nullable()->comment('(กองทุน): ชื่อหรือคำอธิบายของกองทุน');
             $table->integer('contract_type')->comment('ประเภทสัญญา');
             $table->date('contract_date')->nullable()->comment('วันที่ลงนามในสัญญา');
             $table->date('start_date')->nullable()->comment('(วันที่เริ่มสัญญา): วันที่สัญญาเริ่มต้น');
