@@ -25,18 +25,33 @@ class ContractController extends Controller
         $department = trim($department, ')');
         $dep_id = Department::select('id')->where('dep_name', 'like', $department)->get();
 
-        $c_year = ($request->input('contract_year') ? $request->input('contract_year') : 'IS NOT NULL');
+        // $c_year = ($request->input('contract_year') ? $request->input('contract_year') : 'IS NOT NULL');
+        $c_year = $request->input('contract_year');
 
-        $minYear = Contract::select('contract_year')->orderBy('contract_year', 'ASC') ->first();
-        $maxYear = Contract::select('contract_year')->orderBy('contract_year', 'DESC') ->first();
+        $minYear = Contract::select('contract_year')->orderBy('contract_year', 'ASC')->first();
+        $maxYear = Contract::select('contract_year')->orderBy('contract_year', 'DESC')->first();
 
-        if (Auth::user()->role === 0) {
-            if (is_null($request->input('contract_year'))) $contracts = Contract::where('dep_id', $dep_id[0]->id)->get();
-            if (!is_null($request->input('contract_year'))) $contracts = Contract::where('dep_id', $dep_id[0]->id)->where('contract_year', $c_year)->get();
-        } else {
-            if (is_null($request->input('contract_year'))) $contracts = Contract::get();
-            if (!is_null($request->input('contract_year'))) $contracts = Contract::where('contract_year', $c_year)->get();
+        // if (Auth::user()->role === 0) {
+        //     if (is_null($request->input('contract_year'))) $contracts = Contract::where('dep_id', $dep_id[0]->id)->get();
+        //     if (!is_null($request->input('contract_year'))) $contracts = Contract::where('dep_id', $dep_id[0]->id)->where('contract_year', $c_year)->get();
+        // } else {
+        //     if (is_null($request->input('contract_year'))) $contracts = Contract::get();
+        //     if (!is_null($request->input('contract_year'))) $contracts = Contract::where('contract_year', $c_year)->get();
+        // }
+
+        // Build query
+        $query = Contract::with(['department', 'user'])->orderBy('contract_year', 'DESC')->orderBy('contract_no', 'DESC');
+
+        if (Auth::user()->role === 0 && !empty($dep_id)) {
+            $query->where('dep_id', $dep_id[0]->id);
         }
+
+        if (!is_null($c_year)) {
+            $query->where('contract_year', $c_year);
+        }
+
+        // Get paginated results
+        $contracts = $query->paginate(10)->appends(request()->query());
 
         return view('contracts.index', compact('contracts', 'minYear', 'maxYear'));
     }
@@ -62,7 +77,7 @@ class ContractController extends Controller
 
         $exists = Contract::where('contract_year', $currentYearTH)->exists();
 
-        $contract_query = Contract::select('contract_no', 'contract_year')->orderBy('contract_year', 'DESC')->orderBy('contract_no', 'DESC') ->first();
+        $contract_query = Contract::select('contract_no', 'contract_year')->orderBy('contract_year', 'DESC')->orderBy('contract_no', 'DESC')->first();
 
         if ($exists) {
             $contract_no = $contract_query->contract_no + 1;
@@ -81,7 +96,7 @@ class ContractController extends Controller
         if ($request->input('contract_type') == 3 && !is_null($request->input('contractid'))) {
             $client = new Client();
             $headers = [
-               'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json'
             ];
 
             $contractId = $request->input('contractid');
@@ -134,7 +149,7 @@ class ContractController extends Controller
             }
 
             if ($file = $request->file('formFile')) {
-                $file_name =time().$file->getClientOriginalName();
+                $file_name = time() . $file->getClientOriginalName();
                 $file->move('uploads', $file_name);
                 $contract = Contract::create($request->all());
                 $contract->formFile = $file_name;
@@ -150,7 +165,7 @@ class ContractController extends Controller
         }
 
         if ($file = $request->file('formFile')) {
-            $file_name =time().$file->getClientOriginalName();
+            $file_name = time() . $file->getClientOriginalName();
             $file->move('uploads', $file_name);
             $contract = Contract::create($request->all());
             $contract->formFile = $file_name;
@@ -207,14 +222,13 @@ class ContractController extends Controller
                 // Access the response
                 $statusCode = $response->status();
                 $responseBody = $response->json();
-
             } catch (\Exception $e) {
                 return response()->json(['error' => 'Error inserting record', 'error' => $e->getMessage()], 500);
             }
 
             if ($request->hasfile('formFile')) {
                 $file = $request->file('formFile');
-                $file_name =time().$file->getClientOriginalName();
+                $file_name = time() . $file->getClientOriginalName();
                 $fileToDelete = public_path('uploads/' . $contract->formFile);
                 is_null($contract->formFile) ? "" : unlink($fileToDelete);
                 $file->move('uploads', $file_name);
@@ -248,12 +262,10 @@ class ContractController extends Controller
             \Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
 
             return redirect()->route('contracts.index');
-
-
         }
         if ($request->hasfile('formFile')) {
             $file = $request->file('formFile');
-            $file_name =time().$file->getClientOriginalName();
+            $file_name = time() . $file->getClientOriginalName();
             $fileToDelete = public_path('uploads/' . $contract->formFile);
             is_null($contract->formFile) ? "" : unlink($fileToDelete);
             $file->move('uploads', $file_name);

@@ -4,18 +4,8 @@
 // Variables
 @import 'variables';
 
-$enable-ltr: true; /* stylelint-disable-line scss/dollar-variable-default */
-$enable-rtl: true; /* stylelint-disable-line scss/dollar-variable-default */
-
-// Import styles
-@import "@coreui/coreui/scss/coreui";
-
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
-@import "layout";
-
-@import "custom";
-
-// Bootstrap icon
+// Bootstrap Icons
 @import 'bootstrap-icons/font/bootstrap-icons.css';

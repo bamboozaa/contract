@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 @section('title', 'Create Contract')
 
 @section('importcss')
@@ -41,72 +41,80 @@
         </div>
 
         <div class="card-body">
-            <fieldset class="border rounded-3 p-3 mb-3">
-                <legend class="float-none fs-5 w-auto px-3">{{ __('ข้อมูลสัญญา') }}</legend>
-                <div class="row mb-3">
-                    <div class="col-md-2">
-                        <label for="contract_no" class="form-label required">เลขที่สัญญา นตก. (ส)</label>
-                        <input type="text" class="form-control" id="contract_no" name="contract_no" required>
-                        <div class="invalid-feedback">
-                            Please provide contract no.
+            <!-- ข้อมูลสัญญา -->
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0"><i class="bi bi-file-text me-2"></i>{{ __('ข้อมูลสัญญา') }}</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-2">
+                            <label for="contract_no" class="form-label required">{{ __('เลขที่สัญญา') }}</label>
+                            <div class="input-group">
+                                <span class="input-group-text">{{ __('นตก.(ส)') }}</span>
+                                <input type="text" class="form-control" id="contract_no" name="contract_no" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="contract_year" class="form-label required">ปีการศึกษา</label>
-                        <input type="text" class="form-control" id="contract_year" name="contract_year" required>
-                        <div class="invalid-feedback">
-                            Please provide your contract year.
+                        <div class="col-md-2">
+                            <label for="contract_year" class="form-label required">ปีการศึกษา</label>
+                            <input type="text" class="form-control" id="contract_year" name="contract_year" required>
+                            <div class="invalid-feedback">
+                                Please provide your contract year.
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="dep_id" class="form-label required">{{ __('หน่วยงานต้นเรื่อง') }}</label>
-                        {!! Form::select('dep_id', $departments, null, [
-                            'class' => 'form-select' . ($errors->has('dep_id') ? ' is-invalid' : ''),
-                            'placeholder' => 'กรุณาเลือก หน่วยงานต้นเรื่อง',
-                            'id' => 'dep_id',
-                            'aria-label' => 'Floating label select departments',
-                        ]) !!}
+                        <div class="col-md-4">
+                            <label for="dep_id" class="form-label required">{{ __('หน่วยงานต้นเรื่อง') }}</label>
+                            {!! Form::select('dep_id', $departments, null, [
+                                'class' => 'form-select' . ($errors->has('dep_id') ? ' is-invalid' : ''),
+                                'placeholder' => 'กรุณาเลือก หน่วยงานต้นเรื่อง',
+                                'id' => 'dep_id',
+                                'aria-label' => 'Floating label select departments',
+                            ]) !!}
 
-                        @error('dep_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                            @error('dep_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col-md-4">
+                            <label for="contract_name" class="form-label required">{{ __('ชื่อสัญญา') }}</label>
+                            <input type="text" class="form-control" id="contract_name" name="contract_name" required>
+                            <div class="invalid-feedback">
+                                Please provide your contract name.
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <label for="contract_name" class="form-label required">{{ __('ชื่อสัญญา') }}</label>
-                        <input type="text" class="form-control" id="contract_name" name="contract_name" required>
-                        <div class="invalid-feedback">
-                            Please provide your contract name.
+
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="fund" class="form-label">{{ __('กองทุน') }}</label>
+                            <input type="text" class="form-control" id="fund" name="fund">
+                            <div class="invalid-feedback">
+                                Please provide fund.
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="acquisition_value"
+                                class="form-label required">{{ __('มูลค่างานตามสัญญา (จำนวนเงิน)') }}</label>
+                            <input type="text" class="form-control" id="acquisition_value" name="acquisition_value"
+                                required>
+                            <div class="invalid-feedback">
+                                Please provide acquisition_value.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="partners" class="form-label required">{{ __('ชื่อคู่สัญญา') }}</label>
+                            <input type="text" class="form-control" id="partners" name="partners" required>
+                            <div class="invalid-feedback">
+                                Please provide partners.
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <label for="fund" class="form-label">{{ __('กองทุน') }}</label>
-                        <input type="text" class="form-control" id="fund" name="fund">
-                        <div class="invalid-feedback">
-                            Please provide fund.
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="acquisition_value" class="form-label required">{{ __('มูลค่างานตามสัญญา (จำนวนเงิน)') }}</label>
-                        <input type="text" class="form-control" id="acquisition_value" name="acquisition_value" required>
-                        <div class="invalid-feedback">
-                            Please provide acquisition_value.
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="partners" class="form-label required">{{ __('ชื่อคู่สัญญา') }}</label>
-                        <input type="text" class="form-control" id="partners" name="partners" required>
-                        <div class="invalid-feedback">
-                            Please provide partners.
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-
+            <!-- รายละเอียดในสัญญา -->
             <fieldset class="border rounded-3 p-3 mb-3">
                 <legend class="float-none fs-5 w-auto px-3">{{ __('รายละเอียดในสัญญา') }}</legend>
 
