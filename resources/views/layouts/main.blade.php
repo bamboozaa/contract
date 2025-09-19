@@ -18,7 +18,7 @@
     @yield('importjs')
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
@@ -72,11 +72,12 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <div class="row">
+    <!-- Main Layout Container -->
+    <div class="container-fluid flex-fill">
+        <div class="row h-100">
             <!-- Sidebar -->
             <div class="col-lg-2 col-md-3 p-0">
-                <div class="sidebar">
+                <div class="sidebar h-100">
                     <ul class="nav flex-column py-3">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="/">
@@ -120,7 +121,7 @@
 
             <!-- Main Content -->
             <div class="col-lg-10 col-md-9">
-                <div class="main-content">
+                <div class="main-content h-100">
                     @yield('content')
                 </div>
             </div>
