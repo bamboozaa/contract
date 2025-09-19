@@ -5,9 +5,11 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb my-0 ms-2">
                 <li class="breadcrumb-item">
-                    <span>Home</span>
+                    <span class="text-decoration-none"><i class="bi bi-house-door me-1"></i>{{ __('หน้าหลัก') }}</span>
                 </li>
-                <li class="breadcrumb-item active"><span>Dashboard</span></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <span><i class="bi bi-speedometer2 me-1"></i>{{ __('แดชบอร์ด') }}</span>
+                </li>
             </ol>
         </nav>
     </div>
