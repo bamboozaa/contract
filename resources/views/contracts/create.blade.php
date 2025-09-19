@@ -47,7 +47,7 @@
                     <h6 class="mb-0"><i class="bi bi-file-text me-2"></i>{{ __('ข้อมูลสัญญา') }}</h6>
                 </div>
                 <div class="card-body">
-                    <div class="row g-3">
+                    <div class="row g-3 mb-3">
                         <div class="col-md-2">
                             <label for="contract_no" class="form-label required">{{ __('เลขที่สัญญา') }}</label>
                             <div class="input-group">
