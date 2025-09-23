@@ -19,7 +19,7 @@
         .page-header {
             background: linear-gradient(135deg, var(--utcc-blue) 0%, var(--utcc-light-blue) 100%);
             color: white;
-            margin: -1rem -1rem 1.5rem -1rem;
+            margin: -1rem -1rem 0rem -1rem;
             padding: 1.5rem;
             border-radius: 0.375rem 0.375rem 0 0;
         }
