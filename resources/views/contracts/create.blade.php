@@ -15,7 +15,9 @@
 
 @section('importjs')
     @parent
-    <script type="module"></script>
+    <script>
+        
+    </script>
 @stop
 
 @section('content')
