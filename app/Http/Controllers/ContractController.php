@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ContractController extends Controller
 {
@@ -25,19 +26,11 @@ class ContractController extends Controller
         $department = trim($department, ')');
         $dep_id = Department::select('id')->where('dep_name', 'like', $department)->get();
 
-        // $c_year = ($request->input('contract_year') ? $request->input('contract_year') : 'IS NOT NULL');
         $c_year = $request->input('contract_year');
-
+        $status = $request->input('status');
+        $contract_type = $request->input('contract_type');
         $minYear = Contract::select('contract_year')->orderBy('contract_year', 'ASC')->first();
         $maxYear = Contract::select('contract_year')->orderBy('contract_year', 'DESC')->first();
-
-        // if (Auth::user()->role === 0) {
-        //     if (is_null($request->input('contract_year'))) $contracts = Contract::where('dep_id', $dep_id[0]->id)->get();
-        //     if (!is_null($request->input('contract_year'))) $contracts = Contract::where('dep_id', $dep_id[0]->id)->where('contract_year', $c_year)->get();
-        // } else {
-        //     if (is_null($request->input('contract_year'))) $contracts = Contract::get();
-        //     if (!is_null($request->input('contract_year'))) $contracts = Contract::where('contract_year', $c_year)->get();
-        // }
 
         // Build query
         $query = Contract::with(['department', 'user'])->orderBy('contract_year', 'DESC')->orderBy('contract_no', 'DESC');
@@ -48,6 +41,14 @@ class ContractController extends Controller
 
         if (!is_null($c_year)) {
             $query->where('contract_year', $c_year);
+        }
+
+        if (!is_null($status)) {
+            $query->where('status', $status);
+        }
+
+        if (!is_null($contract_type)) {
+            $query->where('contract_type', $contract_type);
         }
 
         // Get paginated results
@@ -159,7 +160,7 @@ class ContractController extends Controller
             }
 
             session()->flash('success', 'Contract created successfully.');
-            \Log::info("Contract NO(" . $request->contract_no . "/" . $request->contract_year . ") Create finished by " . Auth::user()->name);
+            Log::info("Contract NO(" . $request->contract_no . "/" . $request->contract_year . ") Create finished by " . Auth::user()->name);
 
             return redirect()->route('contracts.index');
         }
@@ -175,7 +176,7 @@ class ContractController extends Controller
         }
 
         session()->flash('success', 'Contract created successfully.');
-        \Log::info("Contract NO(" . $request->contract_no . "/" . $request->contract_year . ") Create finished by " . Auth::user()->name);
+        Log::info("Contract NO(" . $request->contract_no . "/" . $request->contract_year . ") Create finished by " . Auth::user()->name);
 
         return redirect()->route('contracts.index');
     }
@@ -259,7 +260,7 @@ class ContractController extends Controller
             $contract->update($data);
 
             session()->flash('success', 'Contract updated successfully.');
-            \Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
+            Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
 
             return redirect()->route('contracts.index');
         }
@@ -296,7 +297,7 @@ class ContractController extends Controller
         $contract->update($data);
 
         session()->flash('success', 'Contract updated successfully.');
-        \Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
+        Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
 
         return redirect()->route('contracts.index');
     }

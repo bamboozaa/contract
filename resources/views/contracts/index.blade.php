@@ -108,7 +108,7 @@
                 <div class="card-body">
                     <form method="GET" action="{{ route('contracts.index') }}" class="row g-3 align-items-end">
                         @csrf
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-calendar-event me-2"></i>ปีสัญญา
                             </label>
@@ -120,6 +120,32 @@
                                         {{ $year }}
                                     </option>
                                 @endfor
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-activity me-2"></i>สถานะสัญญา
+                            </label>
+                            <select class="form-select" name="status">
+                                <option value="">{{ __('ทั้งหมด') }}</option>
+                                <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>ร่างสัญญา</option>
+                                <option value="2" {{ request('status') == '2' ? 'selected' : '' }}>เสนอตรวจร่าง</option>
+                                <option value="3" {{ request('status') == '3' ? 'selected' : '' }}>แจ้งลงนามสัญญา</option>
+                                <option value="4" {{ request('status') == '4' ? 'selected' : '' }}>เสนอผู้บริหารลงนาม</option>
+                                <option value="5" {{ request('status') == '5' ? 'selected' : '' }}>เสร็จสิ้น(คืนคู่ฉบับ)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-tags me-2"></i>ประเภทสัญญา
+                            </label>
+                            <select class="form-select" name="contract_type">
+                                <option value="">{{ __('ทั้งหมด') }}</option>
+                                <option value="1" {{ request('contract_type') == '1' ? 'selected' : '' }}>สัญญาซื้อขาย</option>
+                                <option value="2" {{ request('contract_type') == '2' ? 'selected' : '' }}>สัญญาจ้าง</option>
+                                <option value="3" {{ request('contract_type') == '3' ? 'selected' : '' }}>สัญญาเช่า</option>
+                                <option value="4" {{ request('contract_type') == '4' ? 'selected' : '' }}>สัญญาอนุมัติให้ใช้สิทธิ์</option>
+                                <option value="5" {{ request('contract_type') == '5' ? 'selected' : '' }}>บันทึกข้อตกลง</option>
                             </select>
                         </div>
                         <div class="col-md-3">
