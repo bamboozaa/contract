@@ -33,7 +33,7 @@ class ContractController extends Controller
         $maxYear = Contract::select('contract_year')->orderBy('contract_year', 'DESC')->first();
 
         // Build query
-        $query = Contract::with(['department', 'user'])->orderBy('contract_year', 'DESC')->orderBy('contract_no', 'DESC');
+        $query = Contract::with(['department', 'user'])->orderBy('contract_year', 'ASC')->orderBy('contract_no', 'ASC');
 
         if (Auth::user()->role === 0 && !empty($dep_id)) {
             $query->where('dep_id', $dep_id[0]->id);
@@ -110,17 +110,6 @@ class ContractController extends Controller
                 "endDate" => $request->input('end_date')
             ];
 
-            // $body = '{
-            //     "legalID": "นตก๒๕๖๗-2568TT",
-            //     "signDate": "2024-10-31",
-            //     "startDate": "2024-11-01",
-            //     "endDate": "2025-01-31"
-            // }';
-            // dd($body);
-
-            // $request = new Request('POST', $url , $headers, $body);
-
-            // $res = $client->sendAsync($request)->wait();
             try {
                 $response = Http::withOptions(['verify' => false])->withHeaders([
                     'Content-Type' => 'application/json',
@@ -129,21 +118,6 @@ class ContractController extends Controller
                 // Access the response
                 $statusCode = $response->status();
                 $responseBody = $response->json();
-
-
-
-                // $request = new Request('POST', 'http://10.7.45.123/api/contractslegal/' . $contractId . '?check=RCM' , $headers, $body);
-                // $response = $client->sendAsync($request)->wait();
-
-                // return $res->getBody();
-
-                // $response = $client->post($url , $headers, $body);
-                // $response = $client->request('POST', $url , $headers, $body);
-
-                // $responseBody = json_decode($response->getBody(), true);
-
-
-                // return response()->json(['success' => 'Record inserted successfully'], 200);
 
             } catch (\Exception $e) {
                 return response()->json(['error' => 'Error inserting record', 'error' => $e->getMessage()], 500);
