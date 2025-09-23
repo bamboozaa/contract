@@ -121,7 +121,7 @@ class ContractController extends Controller
 
             // $res = $client->sendAsync($request)->wait();
             try {
-                $response = Http::withHeaders([
+                $response = Http::withOption(['verify' => false])->withHeaders([
                     'Content-Type' => 'application/json',
                 ])->post('http://10.7.45.125/api/contractslegal/' . $contractId . '?check=RCM', $body);
 

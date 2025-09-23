@@ -275,7 +275,7 @@
                         <div class="form-group">
                             <div class="form-floating">
                                 {!! Form::text('guarantee_amount', null, [
-                                    'class' => 'form-control form-control' . ($errors->has('guarantee_amount') ? ' is-invalid' : ''),
+                                    'class' => 'form-control' . ($errors->has('guarantee_amount') ? ' is-invalid' : ''),
                                     'id' => 'guarantee_amount',
                                     'placeholder' => 'จำนวนเงินประกันสัญญา',
                                 ]) !!}
