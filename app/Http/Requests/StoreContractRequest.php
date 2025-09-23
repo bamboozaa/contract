@@ -37,6 +37,7 @@ class StoreContractRequest extends FormRequest
             'condition' => 'nullable',
             // 'formFile' => 'nullable|file|mimes:pdf|max:2048'
             'formFile' => 'nullable|file|mimes:pdf',
+            'status' => 'required',
         ];
     }
 
@@ -56,6 +57,7 @@ class StoreContractRequest extends FormRequest
             // 'guarantee_amount.required' => 'กรุณากรอกมูลค่าประกันสัญญา',
             // 'duration.required' => 'กรุณาเลือกระยะเวลาค้ำประกันปฏิบัติตามสัญญา',
             // 'condition.required' => 'กรุณาเลือกเงื่อนไขการคืนหลักประกันสัญญา',
+            'status.required' => 'กรุณาเลือกสถานะสัญญา',
         ];
     }
 }

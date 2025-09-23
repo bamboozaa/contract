@@ -114,97 +114,133 @@
                 </div>
             </div>
 
+
+            {{-- <fieldset class="border rounded-3 p-3 mb-3">
+                <legend class="float-none fs-5 w-auto px-3">{{ __('รายละเอียดในสัญญา') }}</legend> --}}
+
             <!-- รายละเอียดในสัญญา -->
-            <fieldset class="border rounded-3 p-3 mb-3">
-                <legend class="float-none fs-5 w-auto px-3">{{ __('รายละเอียดในสัญญา') }}</legend>
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0"><i class="bi-file-earmark-text me-2"></i>{{ __('รายละเอียดในสัญญา') }}</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="contract_type" class="form-label required">{{ __('ประเภทสัญญา') }}</label>
+                            {!! Form::select(
+                                'contract_type',
+                                [1 => 'สัญญาซื้อขาย', 2 => 'สัญญาจ้าง', 3 => 'สัญญาเช่า', 4 => 'สัญญาอนุมัติให้ใช้สิทธิ์', 5 => 'บันทึกข้อตกลง'],
+                                null,
+                                [
+                                    'class' => 'form-select form-select' . ($errors->has('contract_type') ? ' is-invalid' : ''),
+                                    'placeholder' => 'กรุณาเลือก ประเภทสัญญา',
+                                    'id' => 'contract_type',
+                                    'aria-label' => 'Floating label select contract_type',
+                                ],
+                            ) !!}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="status" class="form-label required">{{ __('สถานะสัญญา') }}</label>
+                            {!! Form::select(
+                                'status',
+                                [
+                                    '1' => 'ร่างสัญญา',
+                                    '2' => 'เสนอตรวจร่าง',
+                                    '3' => 'แจ้งลงนามสัญญา',
+                                    '4' => 'เสนอผู้บริหารลงนาม',
+                                    '5' => 'เสร็จสิ้น(คืนคู่ฉบับ)',
+                                ],
+                                null,
+                                [
+                                    'class' => 'form-select' . ($errors->has('status') ? ' is-invalid' : ''),
+                                    'placeholder' => 'กรุณาเลือก สถานะสัญญา',
+                                    'id' => 'status',
+                                    'aria-label' => 'Floating label select status',
+                                    'required' => true,
+                                ],
+                            ) !!}
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="contract_type" class="form-label required">{{ __('ประเภทสัญญา') }}</label>
-                        {!! Form::select(
-                            'contract_type',
-                            [1 => 'สัญญาซื้อขาย', 2 => 'สัญญาจ้าง', 3 => 'สัญญาเช่า', 4 => 'สัญญาอนุมัติให้ใช้สิทธิ์', 5 => 'บันทึกข้อตกลง'],
-                            null,
-                            [
-                                'class' => 'form-select form-select' . ($errors->has('contract_type') ? ' is-invalid' : ''),
-                                'placeholder' => 'กรุณาเลือก ประเภทสัญญา',
-                                'id' => 'contract_type',
-                                'aria-label' => 'Floating label select contract_type',
-                            ],
-                        ) !!}
+                            @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col-md-4">
+                            <label for="contractid" class="form-label">{{ __('Contract ID') }}</label>
+                            {!! Form::text('contractid', null, [
+                                'class' => 'form-control' . ($errors->has('contractid') ? ' is-invalid' : ''),
+                                'id' => 'contractid',
+                                'placeholder' => 'Contract ID',
+                            ]) !!}
+
+                            @error('contractid')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="contractid" class="form-label">{{ __('Contract ID') }}</label>
-                        {!! Form::text('contractid', null, [
-                            'class' => 'form-control' . ($errors->has('contractid') ? ' is-invalid' : ''),
-                            'id' => 'contractid',
-                            'placeholder' => 'Contract ID',
-                        ]) !!}
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-floating">
+                                    {!! Form::date('contract_date', null, [
+                                        'class' => 'form-control form-control' . ($errors->has('contract_date') ? ' is-invalid' : ''),
+                                        'id' => 'contract_date',
+                                        'placeholder' => 'dd/mm/yyyy',
+                                    ]) !!}
+                                    <label for="contract_date" class="form-label">{{ __('วันที่ในสัญญา') }}</label>
 
-                        @error('contractid')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                                    @error('contract_date')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-floating">
+                                    {!! Form::date('start_date', null, [
+                                        'class' => 'form-control form-control' . ($errors->has('start_date') ? ' is-invalid' : ''),
+                                        'id' => 'start_date',
+                                        'placeholder' => 'dd/mm/yyyy',
+                                    ]) !!}
+                                    <label for="start_date" class="form-label">{{ __('วันเริ่มสัญญา') }}</label>
+
+                                    @error('start_date')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-floating">
+                                    {!! Form::date('end_date', null, [
+                                        'class' => 'form-control form-control' . ($errors->has('end_date') ? ' is-invalid' : ''),
+                                        'id' => 'end_date',
+                                        'placeholder' => 'dd/mm/yyyy',
+                                    ]) !!}
+                                    <label for="end_date" class="form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
+
+                                    @error('end_date')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="form-floating">
-                                {!! Form::date('contract_date', null, [
-                                    'class' => 'form-control form-control' . ($errors->has('contract_date') ? ' is-invalid' : ''),
-                                    'id' => 'contract_date',
-                                    'placeholder' => 'dd/mm/yyyy',
-                                ]) !!}
-                                <label for="contract_date" class="form-label">{{ __('วันที่ในสัญญา') }}</label>
+            </div>
 
-                                @error('contract_date')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="form-floating">
-                                {!! Form::date('start_date', null, [
-                                    'class' => 'form-control form-control' . ($errors->has('start_date') ? ' is-invalid' : ''),
-                                    'id' => 'start_date',
-                                    'placeholder' => 'dd/mm/yyyy',
-                                ]) !!}
-                                <label for="start_date" class="form-label">{{ __('วันเริ่มสัญญา') }}</label>
-
-                                @error('start_date')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="form-floating">
-                                {!! Form::date('end_date', null, [
-                                    'class' => 'form-control form-control' . ($errors->has('end_date') ? ' is-invalid' : ''),
-                                    'id' => 'end_date',
-                                    'placeholder' => 'dd/mm/yyyy',
-                                ]) !!}
-                                <label for="end_date" class="form-label">{{ __('วันสิ้นสุดสัญญา') }}</label>
-
-                                @error('end_date')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+            {{-- </fieldset> --}}
 
             <fieldset class="border rounded-3 p-3">
                 <legend class="float-none fs-5 w-auto px-3">{{ __('ข้อมูลหลักประกันสัญญา') }}</legend>
@@ -323,7 +359,6 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-
             </div>
 
             <div class="card-footer">
@@ -336,14 +371,6 @@
                         {{ __('บันทึกสัญญา') }}
                     </button>
                 </div>
-                {{-- <div class="d-grid col-2 mx-auto">
-                    <button type="submit" class="btn btn-labeled btn-primary">
-                        <span class="btn-label">
-                            <i class="bi bi-floppy me-1" style="font-size: 1rem;"></i>
-                        </span>
-                        {{ __('บันทึกสัญญา') }}
-                    </button>
-                </div> --}}
             </div>
         </div>
 
