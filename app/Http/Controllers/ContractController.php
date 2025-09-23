@@ -215,7 +215,7 @@ class ContractController extends Controller
             ];
 
             try {
-                $response = Http::withHeaders([
+                $response = Http::withOptions(['verify' => false])->withHeaders([
                     'Content-Type' => 'application/json',
                 ])->post('http://10.7.45.125/api/contractslegal/' . $contractId . '?check=RCM', $body);
 
