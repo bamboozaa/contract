@@ -78,7 +78,7 @@
         </div>
 
         <!-- Contract Header -->
-        <div class="row mb-4">
+        {{-- <div class="row mb-4">
             <div class="col-12">
                 <div class="card info-card">
                     <div class="card-header contract-header text-center py-4">
@@ -88,7 +88,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Navigation Tabs -->
         <nav>
@@ -314,11 +314,11 @@
                             <h5 class="mt-3">ไฟล์เอกสารสัญญา</h5>
                             <p class="text-muted">{{ $contract->formFile }}</p>
                             <div class="mt-3">
-                                <a href="{{ asset('storage/contracts/' . $contract->formFile) }}"
+                                <a href="{{ asset('uploads/' . $contract->formFile) }}"
                                    class="btn btn-primary me-2" target="_blank">
                                     <i class="bi bi-eye me-2"></i>ดูไฟล์
                                 </a>
-                                <a href="{{ asset('storage/contracts/' . $contract->formFile) }}"
+                                <a href="{{ asset('uploads/' . $contract->formFile) }}"
                                    class="btn btn-success" download>
                                     <i class="bi bi-download me-2"></i>ดาวน์โหลด
                                 </a>
