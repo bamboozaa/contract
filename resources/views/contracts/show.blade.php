@@ -341,12 +341,14 @@
                 <a href="{{ route('contracts.index') }}" class="btn btn-secondary me-2">
                     <i class="bi bi-arrow-left me-2"></i>กลับหน้ารายการ
                 </a>
-                <a href="{{ route('contracts.edit', $contract) }}" class="btn btn-warning me-2">
-                    <i class="bi bi-pencil me-2"></i>แก้ไขสัญญา
-                </a>
-                <button class="btn btn-info" onclick="window.print()">
-                    <i class="bi bi-printer me-2"></i>พิมพ์รายละเอียด
-                </button>
+                @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
+                    <a href="{{ route('contracts.edit', $contract) }}" class="btn btn-warning me-2">
+                        <i class="bi bi-pencil me-2"></i>แก้ไขสัญญา
+                    </a>
+                    <button class="btn btn-info" onclick="window.print()">
+                        <i class="bi bi-printer me-2"></i>พิมพ์รายละเอียด
+                    </button>
+                @endif
             </div>
         </div>
     </div>

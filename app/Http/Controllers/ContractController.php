@@ -222,6 +222,7 @@ class ContractController extends Controller
                 'acquisition_value' => $request->input('acquisition_value'),
                 'fund' => $request->input('fund'),
                 'contract_type' => $request->input('contract_type'),
+                'contract_date' => $request->input('contract_date'),
                 'start_date' => $request->input('start_date'),
                 'end_date' => $request->input('end_date'),
                 'types_of_guarantee' => $request->input('types_of_guarantee'),
