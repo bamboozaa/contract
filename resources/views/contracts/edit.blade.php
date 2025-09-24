@@ -699,37 +699,79 @@
             }, false);
         })();
 
-        // File upload preview
-        document.getElementById('formFile').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const fileName = file.name;
-                const fileSize = (file.size / 1024 / 1024).toFixed(2);
-                console.log(`Selected file: ${fileName} (${fileSize} MB)`);
-            }
-        });
-
-        // Auto format number inputs
-        document.getElementById('acquisition_value').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/,/g, '');
-            if (!isNaN(value) && value !== '') {
-                e.target.value = parseFloat(value).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
+        document.addEventListener('DOMContentLoaded', function() {
+            // File upload preview
+            const formFile = document.getElementById('formFile');
+            if (formFile) {
+                formFile.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const fileName = file.name;
+                        const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                        console.log(`Selected file: ${fileName} (${fileSize} MB)`);
+                    }
                 });
             }
+
+            // Auto format number inputs
+            // const acquisitionValue = document.getElementById('acquisition_value');
+            // if (acquisitionValue) {
+            //     acquisitionValue.addEventListener('input', function(e) {
+            //         let value = e.target.value.replace(/,/g, '');
+            //         if (!isNaN(value) && value !== '') {
+            //             e.target.value = parseFloat(value).toLocaleString('en-US', {
+            //                 minimumFractionDigits: 2,
+            //                 maximumFractionDigits: 2
+            //             });
+            //         }
+            //     });
+            // }
+
+            // const guaranteeAmount = document.getElementById('guarantee_amount');
+            // if (guaranteeAmount) {
+            //     guaranteeAmount.addEventListener('input', function(e) {
+            //         let value = e.target.value.replace(/,/g, '');
+            //         if (!isNaN(value) && value !== '') {
+            //             e.target.value = parseFloat(value).toLocaleString('en-US', {
+            //                 minimumFractionDigits: 2,
+            //                 maximumFractionDigits: 2
+            //             });
+            //         }
+            //     });
+            // }
         });
 
-        if (document.getElementById('guarantee_amount')) {
-            document.getElementById('guarantee_amount').addEventListener('input', function(e) {
-                let value = e.target.value.replace(/,/g, '');
-                if (!isNaN(value) && value !== '') {
-                    e.target.value = parseFloat(value).toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    });
-                }
-            });
-        }
+        // // File upload preview
+        // document.getElementById('formFile').addEventListener('change', function(e) {
+        //     const file = e.target.files[0];
+        //     if (file) {
+        //         const fileName = file.name;
+        //         const fileSize = (file.size / 1024 / 1024).toFixed(2);
+        //         console.log(`Selected file: ${fileName} (${fileSize} MB)`);
+        //     }
+        // });
+
+        // // Auto format number inputs
+        // document.getElementById('acquisition_value').addEventListener('input', function(e) {
+        //     let value = e.target.value.replace(/,/g, '');
+        //     if (!isNaN(value) && value !== '') {
+        //         e.target.value = parseFloat(value).toLocaleString('en-US', {
+        //             minimumFractionDigits: 2,
+        //             maximumFractionDigits: 2
+        //         });
+        //     }
+        // });
+
+        // if (document.getElementById('guarantee_amount')) {
+        //     document.getElementById('guarantee_amount').addEventListener('input', function(e) {
+        //         let value = e.target.value.replace(/,/g, '');
+        //         if (!isNaN(value) && value !== '') {
+        //             e.target.value = parseFloat(value).toLocaleString('en-US', {
+        //                 minimumFractionDigits: 2,
+        //                 maximumFractionDigits: 2
+        //             });
+        //         }
+        //     });
+        // }
     </script>
 @stop
