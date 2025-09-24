@@ -83,7 +83,7 @@
                 <div class="card info-card">
                     <div class="card-header contract-header text-center py-4">
                         {{-- <h2 class="mb-2"><i class="bi bi-file-earmark-text me-2"></i>รายละเอียดสัญญา</h2> --}}
-                        <h4 class="mb-0 mb-2">เลขที่สัญญา: {{ $contract->contract_no . '/' . $contract->contract_year }}</h4>
+                        <h4 class="mb-0 mb-2">เลขที่สัญญา: {{ __('นตก.(ส) ') . $contract->contract_no . '/' . $contract->contract_year }}</h4>
                         <p class="mb-0">{{ $contract->contract_name }}</p>
 
                     </div>
@@ -125,8 +125,8 @@
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr>
-                                            <th width="250" class="text-muted"><i class="bi bi-hash me-2"></i>เลขที่สัญญา (นตก.)</th>
-                                            <td class="fw-bold">{{ $contract->contract_no . '/' . $contract->contract_year }}</td>
+                                            <th width="250" class="text-muted"><i class="bi bi-hash me-2"></i>เลขที่สัญญา</th>
+                                            <td class="fw-bold">{{ __('นตก.(ส) ') . $contract->contract_no . '/' . $contract->contract_year }}</td>
                                         </tr>
                                         <tr>
                                             <th class="text-muted"><i class="bi bi-building me-2"></i>หน่วยงานต้นเรื่อง</th>
