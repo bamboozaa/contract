@@ -12,6 +12,16 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
+    <script type="module">
+        @if (session('error'))
+            Swal.fire({
+                title: 'เกิดข้อผิดพลาด',
+                text: '{{ session('error') }}',
+                icon: 'error'
+            });
+        @endif
+    </script>
+
     <!-- Custom Style -->
     {{ Html::style('css/main.css') }}
     @yield('importcss')
@@ -59,7 +69,8 @@
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); this.closest('form').submit();">
                                         <i class="bi bi-box-arrow-right me-2"></i>
                                         {{ __('ออกจากระบบ') }}
                                     </a>
@@ -86,7 +97,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('contracts.*') ? 'active' : '' }}" href="{{ route('contracts.index') }}">
+                            <a class="nav-link {{ request()->routeIs('contracts.*') ? 'active' : '' }}"
+                                href="{{ route('contracts.index') }}">
                                 <i class="bi bi-file-earmark-text"></i>
                                 จัดการสัญญา
                             </a>

@@ -94,6 +94,19 @@ class ContractController extends Controller
      */
     public function store(StoreContractRequest $request)
     {
+        // ตรวจสอบว่าเลขที่สัญญาและปีสัญญาไม่ซ้ำกัน ยกเว้นเลขที่สัญญาเป็น "-"
+        if ($request->input('contract_no') !== '-') {
+            $exists = Contract::where('contract_no', $request->input('contract_no'))
+                ->where('contract_year', $request->input('contract_year'))
+                ->exists();
+
+            if ($exists) {
+                // ใช้ session()->flash() เพื่อส่ง error
+                session()->flash('error', 'เลขที่สัญญาและปีสัญญานี้มีอยู่ในระบบแล้ว');
+                return redirect()->back()->withInput();
+            }
+        }
+
         if ($request->input('contract_type') == 3 && !is_null($request->input('contractid'))) {
             $client = new Client();
             $headers = [
@@ -177,7 +190,6 @@ class ContractController extends Controller
     public function update(UpdateContractRequest $request, Contract $contract)
     {
         if ($request->input('contract_type') == 3 && !is_null($request->input('contractid'))) {
-
             $contractId = $request->input('contractid');
 
             $url = 'http://10.7.45.125/api/contractslegal/' . $contractId . '?check=RCM';
@@ -191,89 +203,114 @@ class ContractController extends Controller
             try {
                 $response = Http::withOptions(['verify' => false])->withHeaders([
                     'Content-Type' => 'application/json',
-                ])->post('http://10.7.45.125/api/contractslegal/' . $contractId . '?check=RCM', $body);
+                ])->post($url, $body);
 
-                // Access the response
-                $statusCode = $response->status();
-                $responseBody = $response->json();
+                // ตรวจสอบสถานะการตอบกลับจาก API
+                if ($response->failed()) {
+                    return response()->json(['error' => 'Failed to call API', 'details' => $response->body()], 500);
+                }
             } catch (\Exception $e) {
-                return response()->json(['error' => 'Error inserting record', 'error' => $e->getMessage()], 500);
+                return response()->json(['error' => 'Error calling API', 'details' => $e->getMessage()], 500);
             }
 
-            if ($request->hasfile('formFile')) {
+            // จัดการไฟล์อัปโหลด
+            if ($request->hasFile('formFile')) {
                 $file = $request->file('formFile');
-                $file_name = time() . $file->getClientOriginalName();
-                $fileToDelete = public_path('uploads/' . $contract->formFile);
-                is_null($contract->formFile) ? "" : unlink($fileToDelete);
-                $file->move('uploads', $file_name);
-                $file_name = $contract->formFile;
-                $data = ['formFile' => $file_name];
-                $contract->update($data);
+                $file_name = time() . '_' . $file->getClientOriginalName();
+
+                // ลบไฟล์เก่า (ถ้ามี)
+                if (!is_null($contract->formFile)) {
+                    $fileToDelete = public_path('uploads/' . $contract->formFile);
+                    if (file_exists($fileToDelete)) {
+                        unlink($fileToDelete);
+                    }
+                }
+
+                // อัปโหลดไฟล์ใหม่
+                $file->move(public_path('uploads'), $file_name);
+
+                // อัปเดตชื่อไฟล์ในฐานข้อมูล
+                $contract->formFile = $file_name;
             }
 
-            $data = [
-                'contract_no' => $request->input('contract_no'),
-                'contractid' => $request->input('contractid'),
-                'contract_year' => $request->input('contract_year'),
-                'dep_id' => $request->input('dep_id'),
-                'contract_name' => $request->input('contract_name'),
-                'partners' => $request->input('partners'),
-                'acquisition_value' => $request->input('acquisition_value'),
-                'fund' => $request->input('fund'),
-                'contract_type' => $request->input('contract_type'),
-                'contract_date' => $request->input('contract_date'),
-                'start_date' => $request->input('start_date'),
-                'end_date' => $request->input('end_date'),
-                'types_of_guarantee' => $request->input('types_of_guarantee'),
-                'guarantee_amount' => $request->input('guarantee_amount'),
-                'duration' => $request->input('duration'),
-                'condition' => $request->input('condition'),
-                'status' => $request->input('status'),
-            ];
+            // อัปเดตข้อมูลในฐานข้อมูล
+            $data = $request->only([
+                'contract_no',
+                'contractid',
+                'contract_year',
+                'dep_id',
+                'contract_name',
+                'partners',
+                'acquisition_value',
+                'fund',
+                'contract_type',
+                'contract_date',
+                'start_date',
+                'end_date',
+                'types_of_guarantee',
+                'guarantee_amount',
+                'duration',
+                'condition',
+                'status',
+            ]);
 
             $contract->update($data);
 
+            // ตั้งค่า session success และบันทึก log
+            session()->flash('success', 'Contract updated successfully.');
+            Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
+
+            return redirect()->route('contracts.index');
+        } else {
+            // จัดการไฟล์อัปโหลด
+            if ($request->hasFile('formFile')) {
+                $file = $request->file('formFile');
+                $file_name = time() . '_' . $file->getClientOriginalName();
+
+                // ลบไฟล์เก่า (ถ้ามี)
+                if (!is_null($contract->formFile)) {
+                    $fileToDelete = public_path('uploads/' . $contract->formFile);
+                    if (file_exists($fileToDelete)) {
+                        unlink($fileToDelete);
+                    }
+                }
+
+                // อัปโหลดไฟล์ใหม่
+                $file->move(public_path('uploads'), $file_name);
+
+                // อัปเดตชื่อไฟล์ในฐานข้อมูล
+                $contract->formFile = $file_name;
+            }
+
+            // อัปเดตข้อมูลในฐานข้อมูล
+            $data = $request->only([
+                'contract_no',
+                'contractid',
+                'contract_year',
+                'dep_id',
+                'contract_name',
+                'partners',
+                'acquisition_value',
+                'fund',
+                'contract_type',
+                'contract_date',
+                'start_date',
+                'end_date',
+                'types_of_guarantee',
+                'guarantee_amount',
+                'duration',
+                'condition',
+                'status',
+            ]);
+
+            $contract->update($data);
+
+            // ตั้งค่า session success และบันทึก log
             session()->flash('success', 'Contract updated successfully.');
             Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
 
             return redirect()->route('contracts.index');
         }
-        if ($request->hasfile('formFile')) {
-            $file = $request->file('formFile');
-            $file_name = time() . $file->getClientOriginalName();
-            $fileToDelete = public_path('uploads/' . $contract->formFile);
-            is_null($contract->formFile) ? "" : unlink($fileToDelete);
-            $file->move('uploads', $file_name);
-            $file_name = $contract->formFile;
-            $data = ['formFile' => $file_name];
-            $contract->update($data);
-        }
-
-        $data = [
-            'contract_no' => $request->input('contract_no'),
-            'contractid' => $request->input('contractid'),
-            'contract_year' => $request->input('contract_year'),
-            'dep_id' => $request->input('dep_id'),
-            'contract_name' => $request->input('contract_name'),
-            'partners' => $request->input('partners'),
-            'acquisition_value' => $request->input('acquisition_value'),
-            'fund' => $request->input('fund'),
-            'contract_type' => $request->input('contract_type'),
-            'start_date' => $request->input('start_date'),
-            'end_date' => $request->input('end_date'),
-            'types_of_guarantee' => $request->input('types_of_guarantee'),
-            'guarantee_amount' => $request->input('guarantee_amount'),
-            'duration' => $request->input('duration'),
-            'condition' => $request->input('condition'),
-            'status' => $request->input('status'),
-        ];
-
-        $contract->update($data);
-
-        session()->flash('success', 'Contract updated successfully.');
-        Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
-
-        return redirect()->route('contracts.index');
     }
 
     /**
