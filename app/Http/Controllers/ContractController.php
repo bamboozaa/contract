@@ -118,7 +118,6 @@ class ContractController extends Controller
                 // Access the response
                 $statusCode = $response->status();
                 $responseBody = $response->json();
-
             } catch (\Exception $e) {
                 return response()->json(['error' => 'Error inserting record', 'error' => $e->getMessage()], 500);
             }
@@ -282,9 +281,12 @@ class ContractController extends Controller
      */
     public function destroy(Contract $contract)
     {
+        // ตรวจสอบว่าไฟล์มีอยู่จริงก่อนลบ
         if (!is_null($contract->formFile)) {
             $fileToDelete = public_path('uploads/' . $contract->formFile);
-            unlink($fileToDelete);
+            if (file_exists($fileToDelete)) {
+                unlink($fileToDelete);
+            }
         }
 
         $contract->delete();
