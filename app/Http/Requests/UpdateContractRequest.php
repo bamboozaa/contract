@@ -30,11 +30,11 @@ class UpdateContractRequest extends FormRequest
             'acquisition_value' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'fund' => 'required|string|max:255',
             'contract_type' => 'required',
-            // 'contract_date' => 'required',
-            'types_of_guarantee' => 'required',
-            'guarantee_amount' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'duration' => 'required',
-            'condition' => 'required',
+            'contract_date' => 'required',
+            // 'types_of_guarantee' => 'required',
+            // 'guarantee_amount' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            // 'duration' => 'required',
+            // 'condition' => 'required',
             // 'formFile' => 'nullable|file|mimes:pdf|max:2048'
             'formFile' => 'nullable|file|mimes:pdf',
             'status' => 'required',
@@ -52,11 +52,11 @@ class UpdateContractRequest extends FormRequest
             'acquisition_value.required' => 'กรุณากรอกมูลค่างานตามสัญญา',
             'fund.required' => 'กรุณากรอกข้อมูลกองทุน',
             'contract_type.required' => 'กรุณาเลือกประเภทสัญญา',
-            // 'contract_date.required' => 'กรุณาเลือกวันที่ลงนามในสัญญา',
-            'types_of_guarantee.required' => 'กรุณาเลือกชนิดประกันสัญญา',
-            'guarantee_amount.required' => 'กรุณากรอกมูลค่าประกันสัญญา',
-            'duration.required' => 'กรุณาเลือกระยะเวลาค้ำประกันปฏิบัติตามสัญญา',
-            'condition.required' => 'กรุณาเลือกเงื่อนไขการคืนหลักประกันสัญญา',
+            'contract_date.required' => 'กรุณาเลือกวันที่ลงนามในสัญญา',
+            // 'types_of_guarantee.required' => 'กรุณาเลือกชนิดประกันสัญญา',
+            // 'guarantee_amount.required' => 'กรุณากรอกมูลค่าประกันสัญญา',
+            // 'duration.required' => 'กรุณาเลือกระยะเวลาค้ำประกันปฏิบัติตามสัญญา',
+            // 'condition.required' => 'กรุณาเลือกเงื่อนไขการคืนหลักประกันสัญญา',
         ];
     }
 }

@@ -16,7 +16,7 @@
 @section('importjs')
     @parent
     <script>
-        
+
     </script>
 @stop
 
@@ -115,10 +115,6 @@
                     </div>
                 </div>
             </div>
-
-
-            {{-- <fieldset class="border rounded-3 p-3 mb-3">
-                <legend class="float-none fs-5 w-auto px-3">{{ __('รายละเอียดในสัญญา') }}</legend> --}}
 
             <!-- รายละเอียดในสัญญา -->
             <div class="card mb-4">
@@ -242,8 +238,7 @@
                 </div>
             </div>
 
-            {{-- </fieldset> --}}
-
+            <!-- ข้อมูลหลักประกันสัญญา -->
             <fieldset class="border rounded-3 p-3">
                 <legend class="float-none fs-5 w-auto px-3">{{ __('ข้อมูลหลักประกันสัญญา') }}</legend>
                 <div class="row mb-1">

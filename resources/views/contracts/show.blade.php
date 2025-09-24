@@ -78,17 +78,18 @@
         </div>
 
         <!-- Contract Header -->
-        {{-- <div class="row mb-4">
+        <div class="row mb-4">
             <div class="col-12">
                 <div class="card info-card">
                     <div class="card-header contract-header text-center py-4">
-                        <h2 class="mb-2"><i class="bi bi-file-earmark-text me-2"></i>รายละเอียดสัญญา</h2>
-                        <h4 class="mb-0">{{ $contract->contract_name }}</h4>
-                        <p class="mb-0 mt-2">เลขที่สัญญา: {{ $contract->contract_no . '/' . $contract->contract_year }}</p>
+                        {{-- <h2 class="mb-2"><i class="bi bi-file-earmark-text me-2"></i>รายละเอียดสัญญา</h2> --}}
+                        <h4 class="mb-0 mb-2">เลขที่สัญญา: {{ $contract->contract_no . '/' . $contract->contract_year }}</h4>
+                        <p class="mb-0">{{ $contract->contract_name }}</p>
+
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
         <!-- Navigation Tabs -->
         <nav>
