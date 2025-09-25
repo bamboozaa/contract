@@ -59,6 +59,34 @@
             });
         @endif
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const form = this.closest('.delete-form');
+                    const contractId = this.getAttribute('data-id');
+
+                    Swal.fire({
+                        title: 'คุณแน่ใจหรือไม่?',
+                        text: `คุณต้องการลบสัญญา ID: ${contractId} หรือไม่?`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'ใช่, ลบเลย!',
+                        cancelButtonText: 'ยกเลิก'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // ส่งฟอร์มเมื่อผู้ใช้ยืนยัน
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 @stop
 
 @section('content')
@@ -257,12 +285,10 @@
                                                     title="แก้ไขข้อมูล">
                                                     <i class="bi bi-pencil"></i>
                                                 </a>
-                                                <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST" class="d-inline delete-form">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm"
-                                                        onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้?')"
-                                                        data-bs-toggle="tooltip" title="ลบข้อมูล">
+                                                    <button type="button" class="btn btn-outline-danger btn-sm delete-btn" data-id="{{ $contract->id }}" data-bs-toggle="tooltip" title="ลบข้อมูล">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                 </form>
