@@ -145,7 +145,7 @@ class ContractController extends Controller
                 $contract = Contract::create($request->all());
             }
 
-            session()->flash('success', 'Contract created successfully.');
+            session()->flash('success', 'สร้างสัญญาเรียบร้อยแล้ว');
             Log::info("Contract NO(" . $request->contract_no . "/" . $request->contract_year . ") Create finished by " . Auth::user()->name);
 
             return redirect()->route('contracts.index');
@@ -161,7 +161,7 @@ class ContractController extends Controller
             $contract = Contract::create($request->all());
         }
 
-        session()->flash('success', 'Contract created successfully.');
+        session()->flash('success', 'สร้างสัญญาเรียบร้อยแล้ว');
         Log::info("Contract NO(" . $request->contract_no . "/" . $request->contract_year . ") Create finished by " . Auth::user()->name);
 
         return redirect()->route('contracts.index');
@@ -258,7 +258,7 @@ class ContractController extends Controller
             $contract->update($data);
 
             // ตั้งค่า session success และบันทึก log
-            session()->flash('success', 'Contract updated successfully.');
+            session()->flash('success', 'อัปเดตสัญญาเรียบร้อยแล้ว');
             Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
 
             return redirect()->route('contracts.index');
@@ -307,7 +307,7 @@ class ContractController extends Controller
             $contract->update($data);
 
             // ตั้งค่า session success และบันทึก log
-            session()->flash('success', 'Contract updated successfully.');
+            session()->flash('success', 'อัปเดตสัญญาเรียบร้อยแล้ว');
             Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
 
             return redirect()->route('contracts.index');
@@ -329,7 +329,7 @@ class ContractController extends Controller
 
         $contract->delete();
 
-        session()->flash('success', 'Contract deleted successfully.');
+        session()->flash('success', 'ลบสัญญาเรียบร้อยแล้ว');
 
         return redirect()->route('contracts.index');
     }
