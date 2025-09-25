@@ -26,12 +26,37 @@
     {{ Html::style('css/main.css') }}
     @yield('importcss')
     @yield('importjs')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+
+            // แสดง/ซ่อน Sidebar
+            sidebarToggle.addEventListener('click', function () {
+                sidebar.classList.toggle('show');
+                sidebarOverlay.classList.toggle('show');
+            });
+
+            // คลิกที่ Overlay เพื่อปิด Sidebar
+            sidebarOverlay.addEventListener('click', function () {
+                sidebar.classList.remove('show');
+                sidebarOverlay.classList.remove('show');
+            });
+        });
+    </script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
+            <!-- Sidebar Toggle Button -->
+            <button class="btn btn-primary d-lg-none me-2" id="sidebarToggle">
+                <i class="bi bi-list"></i>
+            </button>
+
             <a class="navbar-brand d-flex align-items-center" href="#">
                 <img alt="" style="border-radius: 50%"
                     src="{{ URL::asset('images/logo/logo-UTCC_SubMain-3.png') }}" alt="UTCC Logo" class="me-2">
@@ -87,8 +112,9 @@
     <div class="container-fluid flex-fill">
         <div class="row h-100">
             <!-- Sidebar -->
+            <div class="sidebar-overlay" id="sidebarOverlay"></div>
             <div class="col-lg-2 col-md-3 p-0">
-                <div class="sidebar h-100">
+                <div class="sidebar h-100" id="sidebar">
                     <ul class="nav flex-column py-3">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="/">

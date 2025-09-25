@@ -130,7 +130,27 @@ body {
     height: 100%;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     border-right: 1px solid #e9ecef;
+}
 
+/* แสดง Sidebar เมื่อเปิด */
+.sidebar.show {
+    transform: translateX(0);
+}
+
+/* Overlay สำหรับหน้าจอเล็ก */
+.sidebar-overlay {
+    position: fixed;
+    top: 76px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 76px);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+.sidebar-overlay.show {
+    display: block;
 }
 
 .main-content {
@@ -227,6 +247,7 @@ body {
     }
 
     .main-content {
+        background-color: var(--utcc-light-gray);
         margin-left: 0;
         width: 100%;
     }
