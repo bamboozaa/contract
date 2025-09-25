@@ -71,7 +71,7 @@
 
                     Swal.fire({
                         title: 'คุณแน่ใจหรือไม่?',
-                        text: `คุณต้องการลบสัญญา ID: ${contractId} หรือไม่?`,
+                        text: `คุณต้องการลบสัญญานี้หรือไม่?`,
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#d33',

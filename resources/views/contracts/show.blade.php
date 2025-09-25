@@ -338,7 +338,7 @@
         <!-- Action Buttons -->
         <div class="row mt-4">
             <div class="col-12 text-center">
-                <a href="{{ route('contracts.index') }}" class="btn btn-secondary me-2">
+                <a href="javascript:history.back()" class="btn btn-secondary me-2">
                     <i class="bi bi-arrow-left me-2"></i>กลับหน้ารายการ
                 </a>
                 @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
