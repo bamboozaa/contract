@@ -285,7 +285,7 @@
                                                     title="แก้ไขข้อมูล">
                                                     <i class="bi bi-pencil"></i>
                                                 </a>
-                                                <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST" class="d-inline delete-form">
+                                                <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST" class="d-inline delete-form ms-2">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-outline-danger btn-sm delete-btn" data-id="{{ $contract->id }}" data-bs-toggle="tooltip" title="ลบข้อมูล">
