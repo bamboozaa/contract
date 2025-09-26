@@ -58,6 +58,28 @@
             font-size: 0.875rem;
             /* ปรับขนาดฟอนต์ */
         }
+
+        /* ปรับขนาดตัวอักษรใน thead */
+        .table thead th {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #495057;
+            padding: 0.75rem 0.5rem;
+            border-bottom: 2px solid #dee2e6;
+            background-color: #f8f9fa;
+        }
+
+        .table thead th i {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* ปรับขนาดตัวอักษรใน tbody */
+        .table tbody td {
+            font-size: 0.875rem;
+            padding: 0.75rem 0.5rem;
+            vertical-align: top;
+        }
     </style>
 @stop
 
@@ -243,24 +265,24 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th style="width: 11%;">
+                            <th style="width: 10%;">
                                 <i class="bi bi-hash me-2"></i>{{ __('เลขที่สัญญา') }}
                             </th>
-                            <th style="width: 25%;">
+                            <th style="width: 22%;">
                                 <i class="bi bi-file-text me-2"></i>{{ __('ชื่อสัญญา') }}
                             </th>
-                            <th style="width: 15%;">
+                            <th style="width: 12%;">
                                 <i class="bi bi-building me-2"></i>{{ __('หน่วยงาน') }}
                             </th>
-                            <th style="width: 15%;">
+                            <th style="width: 12%;">
                                 <i class="bi bi-people me-2"></i>{{ __('คู่สัญญา') }}
                             </th>
-                            <th style="width: 12%;">
+                            <th style="width: 10%;">
                                 <i class="bi bi-tags me-2"></i>{{ __('ประเภท') }}
                             </th>
-                            {{-- <th style="width: 10%;">
-                                <i class="bi bi-person me-2"></i>{{ __('ผู้ได้รับมอบหมาย') }}
-                            </th> --}}
+                            <th style="width: 10%;">
+                                <i class="bi bi-calendar-x me-2"></i>{{ __('วันหมดสัญญา') }}
+                            </th>
                             <th style="width: 10%;">
                                 <i class="bi bi-activity me-2"></i>{{ __('สถานะ') }}
                             </th>
@@ -274,6 +296,26 @@
                     <tbody>
                         @if (count($contracts) > 0)
                             @foreach ($contracts as $key => $contract)
+                                @php
+                                    $today = \Carbon\Carbon::now();
+                                    $endDate = null;
+                                    $daysLeft = 0;
+                                    $isExpired = false;
+                                    $isExpiring = false;
+
+                                    // ตรวจสอบว่า end_date มีค่าและไม่เป็น null
+                                    if (!empty($contract->end_date)) {
+                                        try {
+                                            $endDate = \Carbon\Carbon::parse($contract->end_date);
+                                            $daysLeft = $today->diffInDays($endDate);
+                                            $isExpired = $endDate->lt($today);
+                                            $isExpiring = $endDate->between($today, $today->copy()->addDays(30));
+                                        } catch (\Exception $e) {
+                                            // หาก parse ไม่ได้ ให้ตั้งค่าเป็น null
+                                            $endDate = null;
+                                        }
+                                    }
+                                @endphp
                                 <tr>
                                     <td class="text-center">
                                         <a href="{{ route('contracts.show', $contract->id) }}"
@@ -308,6 +350,42 @@
                                             <span class="badge bg-dark status-badge">บันทึกข้อตกลง</span>
                                         @endif
                                     </td>
+
+                                    <td>
+                                        @if ($endDate)
+                                            <div class="d-flex flex-column">
+                                                <small
+                                                    class="fw-semibold
+                                                @if ($isExpired) text-danger
+                                                @elseif ($isExpiring) text-warning
+                                                @else text-success @endif" style="font-size: 0.75rem;">
+                                                    {{ $endDate->format('d/m/') . ($endDate->year + 543) }}
+                                                </small>
+                                                {{-- @if ($isExpired)
+                                                    <span class="badge bg-danger status-badge mt-1" style="font-size: 0.6rem;">
+                                                        <i class="bi bi-x-circle me-1" style="font-size: 0.55rem;"></i>หมดอายุแล้ว
+                                                    </span>
+                                                @elseif ($isExpiring)
+                                                    <span class="badge bg-warning status-badge mt-1" style="font-size: 0.6rem;">
+                                                        <i class="bi bi-exclamation-triangle me-1" style="font-size: 0.55rem;"></i>เหลือ
+                                                        {{ $daysLeft }} วัน
+                                                    </span>
+                                                @else
+                                                    <span class="badge bg-success status-badge mt-1" style="font-size: 0.6rem;">
+                                                        <i class="bi bi-check-circle me-1" style="font-size: 0.55rem;"></i>ยังใช้งานได้
+                                                    </span>
+                                                @endif --}}
+                                            </div>
+                                        @else
+                                            <div class="d-flex flex-column">
+                                                <small class="text-muted" style="font-size: 0.75rem;">ไม่ระบุ</small>
+                                                {{-- <span class="badge bg-secondary status-badge mt-1" style="font-size: 0.6rem;">
+                                                    <i class="bi bi-question-circle me-1" style="font-size: 0.55rem;"></i>ไม่ทราบ
+                                                </span> --}}
+                                            </div>
+                                        @endif
+                                    </td>
+
                                     <td>
                                         @if ($contract->status === 1)
                                             <span class="badge bg-light text-dark status-badge">ร่างสัญญา</span>
