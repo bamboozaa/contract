@@ -399,9 +399,6 @@
                     </h2>
                     <p class="section-subtitle">จำแนกตามประเภทของสัญญาแต่ละชนิด</p>
                 </div>
-                <div class="badge bg-light text-dark fs-6">
-                    {{ count($contracts) }} สัญญา
-                </div>
             </div>
         </div>
         <div class="card-body p-4">
