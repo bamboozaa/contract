@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'All Contracts')
+@section('title', 'รายการสัญญา')
 
 @section('importcss')
     @parent
