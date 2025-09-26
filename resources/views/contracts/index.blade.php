@@ -61,11 +61,11 @@
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const deleteButtons = document.querySelectorAll('.delete-btn');
 
             deleteButtons.forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const form = this.closest('.delete-form');
                     const contractId = this.getAttribute('data-id');
 
@@ -136,7 +136,7 @@
                 <div class="card-body">
                     <form method="GET" action="{{ route('contracts.index') }}" class="row g-3 align-items-end">
                         @csrf
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-calendar-event me-2"></i>ปีสัญญา
                             </label>
@@ -150,32 +150,57 @@
                                 @endfor
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-activity me-2"></i>สถานะสัญญา
                             </label>
                             <select class="form-select" name="status">
                                 <option value="">{{ __('ทั้งหมด') }}</option>
                                 <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>ร่างสัญญา</option>
-                                <option value="2" {{ request('status') == '2' ? 'selected' : '' }}>เสนอตรวจร่าง</option>
-                                <option value="3" {{ request('status') == '3' ? 'selected' : '' }}>แจ้งลงนามสัญญา</option>
-                                <option value="4" {{ request('status') == '4' ? 'selected' : '' }}>เสนอผู้บริหารลงนาม</option>
-                                <option value="5" {{ request('status') == '5' ? 'selected' : '' }}>เสร็จสิ้น(คืนคู่ฉบับ)</option>
+                                <option value="2" {{ request('status') == '2' ? 'selected' : '' }}>เสนอตรวจร่าง
+                                </option>
+                                <option value="3" {{ request('status') == '3' ? 'selected' : '' }}>แจ้งลงนามสัญญา
+                                </option>
+                                <option value="4" {{ request('status') == '4' ? 'selected' : '' }}>เสนอผู้บริหารลงนาม
+                                </option>
+                                <option value="5" {{ request('status') == '5' ? 'selected' : '' }}>
+                                    เสร็จสิ้น(คืนคู่ฉบับ)</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-tags me-2"></i>ประเภทสัญญา
                             </label>
                             <select class="form-select" name="contract_type">
                                 <option value="">{{ __('ทั้งหมด') }}</option>
-                                <option value="1" {{ request('contract_type') == '1' ? 'selected' : '' }}>สัญญาซื้อขาย</option>
-                                <option value="2" {{ request('contract_type') == '2' ? 'selected' : '' }}>สัญญาจ้าง</option>
-                                <option value="3" {{ request('contract_type') == '3' ? 'selected' : '' }}>สัญญาเช่า</option>
-                                <option value="4" {{ request('contract_type') == '4' ? 'selected' : '' }}>สัญญาอนุมัติให้ใช้สิทธิ์</option>
-                                <option value="5" {{ request('contract_type') == '5' ? 'selected' : '' }}>บันทึกข้อตกลง</option>
+                                <option value="1" {{ request('contract_type') == '1' ? 'selected' : '' }}>สัญญาซื้อขาย
+                                </option>
+                                <option value="2" {{ request('contract_type') == '2' ? 'selected' : '' }}>สัญญาจ้าง
+                                </option>
+                                <option value="3" {{ request('contract_type') == '3' ? 'selected' : '' }}>สัญญาเช่า
+                                </option>
+                                <option value="4" {{ request('contract_type') == '4' ? 'selected' : '' }}>
+                                    สัญญาอนุมัติให้ใช้สิทธิ์</option>
+                                <option value="5" {{ request('contract_type') == '5' ? 'selected' : '' }}>
+                                    บันทึกข้อตกลง</option>
                             </select>
                         </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-building me-2"></i>หน่วยงาน
+                            </label>
+                            <select class="form-select" name="department_id">
+                                <option value="">{{ __('ทั้งหมด') }}</option>
+                                @foreach ($departments as $department)
+                                    <option value="{{ $department->id }}"
+                                        {{ request('department_id') == $department->id ? 'selected' : '' }}>
+                                        {{ $department->dep_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <button class="btn btn-primary w-100" type="submit">
@@ -285,10 +310,14 @@
                                                     title="แก้ไขข้อมูล">
                                                     <i class="bi bi-pencil"></i>
                                                 </a>
-                                                <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST" class="d-inline delete-form ms-2">
+                                                <form action="{{ route('contracts.destroy', $contract->id) }}"
+                                                    method="POST" class="d-inline delete-form ms-2">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" class="btn btn-outline-danger btn-sm delete-btn" data-id="{{ $contract->id }}" data-bs-toggle="tooltip" title="ลบข้อมูล">
+                                                    <button type="button"
+                                                        class="btn btn-outline-danger btn-sm delete-btn"
+                                                        data-id="{{ $contract->id }}" data-bs-toggle="tooltip"
+                                                        title="ลบข้อมูล">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                 </form>

@@ -29,6 +29,7 @@ class ContractController extends Controller
         $c_year = $request->input('contract_year');
         $status = $request->input('status');
         $contract_type = $request->input('contract_type');
+        $department_id = $request->input('department_id'); // รับค่าหน่วยงานจาก request
         $minYear = Contract::select('contract_year')->orderBy('contract_year', 'ASC')->first();
         $maxYear = Contract::select('contract_year')->orderBy('contract_year', 'DESC')->first();
 
@@ -51,10 +52,17 @@ class ContractController extends Controller
             $query->where('contract_type', $contract_type);
         }
 
+        if (!is_null($department_id)) {
+            $query->where('dep_id', $department_id); // กรองตามหน่วยงาน
+        }
+
         // Get paginated results
         $contracts = $query->paginate(10)->appends(request()->query());
 
-        return view('contracts.index', compact('contracts', 'minYear', 'maxYear'));
+        // ดึงข้อมูลหน่วยงานทั้งหมดสำหรับ Filter
+        $departments = Department::orderBy('dep_name', 'ASC')->get();
+
+        return view('contracts.index', compact('contracts', 'minYear', 'maxYear', 'departments'));
     }
 
     /**
