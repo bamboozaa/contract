@@ -47,11 +47,16 @@
         }
 
         .text-truncate {
-            white-space: normal; /* อนุญาตให้ข้อความขึ้นบรรทัดใหม่ */
-            word-wrap: break-word; /* ตัดข้อความเมื่อเกินความกว้าง */
-            overflow: visible; /* ซ่อนข้อความที่เกิน */
-            text-overflow: ellipsis; /* เพิ่ม ... เมื่อข้อความถูกตัด */
-            font-size: 0.875rem; /* ปรับขนาดฟอนต์ */
+            white-space: normal;
+            /* อนุญาตให้ข้อความขึ้นบรรทัดใหม่ */
+            word-wrap: break-word;
+            /* ตัดข้อความเมื่อเกินความกว้าง */
+            overflow: visible;
+            /* ซ่อนข้อความที่เกิน */
+            text-overflow: ellipsis;
+            /* เพิ่ม ... เมื่อข้อความถูกตัด */
+            font-size: 0.875rem;
+            /* ปรับขนาดฟอนต์ */
         }
     </style>
 @stop
@@ -98,6 +103,13 @@
 @stop
 
 @section('content')
+    <!-- แจ้งเตือน -->
+    {{-- @if (session('warning'))
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle me-2"></i>{{ session('warning') }}
+        </div>
+    @endif --}}
+
     <!-- Page Header -->
     <div class="container-fluid mb-4">
         <div class="row">
@@ -270,8 +282,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <div class="text-truncate" style=""
-                                            title="{{ $contract->contract_name }}">
+                                        <div class="text-truncate" style="" title="{{ $contract->contract_name }}">
                                             {{ $contract->contract_name }}
                                         </div>
                                     </td>

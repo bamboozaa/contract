@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Contract;
 use App\Models\Department;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -50,7 +51,9 @@ class HomeController extends Controller
         }
 
         $users = User::all();
+        $today = Carbon::now();
+        $contractsExpiringIn30Days = Contract::whereBetween('end_date', [$today, $today->copy()->addDays(30)])->get();
 
-        return view('home', compact('users', 'contracts', 'contracts_1', 'contracts_2', 'contracts_3', 'contracts_4', 'contracts_5'));
+        return view('home', compact('users', 'contracts', 'contracts_1', 'contracts_2', 'contracts_3', 'contracts_4', 'contracts_5', 'contractsExpiringIn30Days'));
     }
 }

@@ -20,6 +20,11 @@ class ContractController extends Controller
      */
     public function index(Request $request)
     {
+        // เรียกใช้ฟังก์ชันตรวจสอบสัญญาใกล้หมดอายุ
+        // $this->checkExpiringContracts();
+        $expiry_status = $request->input('expiry_status');
+        $today = Carbon::now();
+
         $department = Auth::user()->department;
         $left_pos = strripos($department, '(') + 1;
         $department = substr($department, $left_pos, strlen($department));
@@ -54,6 +59,17 @@ class ContractController extends Controller
 
         if (!is_null($department_id)) {
             $query->where('dep_id', $department_id); // กรองตามหน่วยงาน
+        }
+
+        if ($expiry_status === 'active') {
+            // สัญญายังไม่หมดอายุ
+            $query->where('end_date', '>', $today->copy()->addDays(30));
+        } elseif ($expiry_status === 'expired') {
+            // สัญญาหมดอายุแล้ว
+            $query->where('end_date', '<', $today);
+        } elseif ($expiry_status === 'expiring') {
+            // สัญญาใกล้หมดอายุใน 30 วัน
+            $query->whereBetween('end_date', [$today, $today->copy()->addDays(30)]);
         }
 
         // Get paginated results
@@ -339,6 +355,36 @@ class ContractController extends Controller
 
         session()->flash('success', 'ลบสัญญาเรียบร้อยแล้ว');
 
-        return redirect()->route('contracts.index');
+        // return redirect()->route('contracts.index');
+        return redirect()->back();
+    }
+
+    public function checkExpiringContracts()
+    {
+        // กำหนดช่วงเวลาการแจ้งเตือน (30 วัน, 15 วัน, 7 วัน)
+        $today = Carbon::now();
+        $daysToNotify = [30, 15, 7];
+
+        foreach ($daysToNotify as $days) {
+            $startDate = $today;
+            $endDate = $today->copy()->addDays($days);
+
+            // ดึงข้อมูลสัญญาที่อยู่ในช่วงเวลาการแจ้งเตือน
+            $expiringContracts = Contract::whereBetween('end_date', [$startDate, $endDate])->get();
+
+            foreach ($expiringContracts as $contract) {
+                // ส่งการแจ้งเตือน
+                $this->sendNotification($contract, $days);
+            }
+        }
+    }
+
+    private function sendNotification($contract, $days)
+    {
+        // ตัวอย่างการแจ้งเตือนผ่าน Session
+        session()->flash('warning', "สัญญาเลขที่ {$contract->contract_no}/{$contract->contract_year} จะหมดอายุในอีก {$days} วัน");
+
+        // หรือส่งอีเมลแจ้งเตือน
+        // Mail::to(Auth::user()->email)->send(new ContractExpiringNotification($contract, $daysLeft));
     }
 }

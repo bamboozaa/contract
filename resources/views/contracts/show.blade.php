@@ -10,24 +10,29 @@
             color: white;
             border-radius: 10px 10px 0 0;
         }
+
         .contract-status {
             font-size: 0.9rem;
             padding: 0.5rem 1rem;
             border-radius: 20px;
         }
+
         .info-card {
             border: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
+
         .tab-content {
             background: white;
             border-radius: 0 0 10px 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .nav-tabs {
             border-bottom: none;
         }
+
         .nav-tabs .nav-link {
             border: none;
             background: #f8f9fa;
@@ -35,22 +40,26 @@
             border-radius: 10px 10px 0 0;
             color: #6c757d;
         }
+
         .nav-tabs .nav-link.active {
             background: white;
             color: #495057;
             border-bottom: 3px solid #667eea;
         }
+
         .contract-value {
             font-size: 1.2rem;
             font-weight: bold;
             color: #28a745;
         }
+
         .file-attachment {
             background: #f8f9fa;
             padding: 1rem;
             border-radius: 8px;
             border: 2px dashed #dee2e6;
         }
+
         .contract-id-highlight {
             background: linear-gradient(45deg, #ff6b6b, #ee5a24);
             color: white;
@@ -83,7 +92,8 @@
                 <div class="card info-card">
                     <div class="card-header contract-header text-center py-4">
                         {{-- <h2 class="mb-2"><i class="bi bi-file-earmark-text me-2"></i>รายละเอียดสัญญา</h2> --}}
-                        <h4 class="mb-0 mb-2">เลขที่สัญญา: {{ __('นตก.(ส) ') . $contract->contract_no . '/' . $contract->contract_year }}</h4>
+                        <h4 class="mb-0 mb-2">เลขที่สัญญา:
+                            {{ __('นตก.(ส) ') . $contract->contract_no . '/' . $contract->contract_year }}</h4>
                         <p class="mb-0">{{ $contract->contract_name }}</p>
 
                     </div>
@@ -106,11 +116,11 @@
                     type="button" role="tab" aria-controls="nav-guarantee" aria-selected="false">
                     <i class="bi bi-shield-check me-2"></i>{{ __('หลักประกันสัญญา') }}
                 </button>
-                @if($contract->formFile)
-                <button class="nav-link" id="nav-files-tab" data-bs-toggle="tab" data-bs-target="#nav-files"
-                    type="button" role="tab" aria-controls="nav-files" aria-selected="false">
-                    <i class="bi bi-paperclip me-2"></i>{{ __('ไฟล์แนบ') }}
-                </button>
+                @if ($contract->formFile)
+                    <button class="nav-link" id="nav-files-tab" data-bs-toggle="tab" data-bs-target="#nav-files"
+                        type="button" role="tab" aria-controls="nav-files" aria-selected="false">
+                        <i class="bi bi-paperclip me-2"></i>{{ __('ไฟล์แนบ') }}
+                    </button>
                 @endif
             </div>
         </nav>
@@ -125,8 +135,11 @@
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr>
-                                            <th width="250" class="text-muted"><i class="bi bi-hash me-2"></i>เลขที่สัญญา</th>
-                                            <td class="fw-bold">{{ __('นตก.(ส) ') . $contract->contract_no . '/' . $contract->contract_year }}</td>
+                                            <th width="250" class="text-muted"><i class="bi bi-hash me-2"></i>เลขที่สัญญา
+                                            </th>
+                                            <td class="fw-bold">
+                                                {{ __('นตก.(ส) ') . $contract->contract_no . '/' . $contract->contract_year }}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th class="text-muted"><i class="bi bi-building me-2"></i>หน่วยงานต้นเรื่อง</th>
@@ -145,7 +158,8 @@
                                             <td>{{ $contract->fund ?: 'ไม่ระบุ' }}</td>
                                         </tr>
                                         <tr>
-                                            <th class="text-muted"><i class="bi bi-person-check me-2"></i>ผู้ที่ได้รับมอบหมาย</th>
+                                            <th class="text-muted"><i
+                                                    class="bi bi-person-check me-2"></i>ผู้ที่ได้รับมอบหมาย</th>
                                             <td>{{ $contract->user['fullname'] ?? 'ไม่ระบุ' }}</td>
                                         </tr>
                                     </tbody>
@@ -167,7 +181,10 @@
                                             4 => ['class' => 'bg-primary', 'text' => 'เสนอผู้บริหารลงนาม'],
                                             5 => ['class' => 'bg-success', 'text' => 'เสร็จสิ้น(คืนคู่ฉบับ)'],
                                         ];
-                                        $status = $statusConfig[$contract->status] ?? ['class' => 'bg-dark', 'text' => 'ไม่ระบุ'];
+                                        $status = $statusConfig[$contract->status] ?? [
+                                            'class' => 'bg-dark',
+                                            'text' => 'ไม่ระบุ',
+                                        ];
                                     @endphp
                                     <span class="badge {{ $status['class'] }} contract-status">
                                         {{ $status['text'] }}
@@ -186,7 +203,8 @@
                         <table class="table table-borderless">
                             <tbody>
                                 <tr>
-                                    <th width="250" class="text-muted"><i class="bi bi-diagram-3 me-2"></i>ประเภทสัญญา</th>
+                                    <th width="250" class="text-muted"><i class="bi bi-diagram-3 me-2"></i>ประเภทสัญญา
+                                    </th>
                                     <td>
                                         @php
                                             $contractTypes = [
@@ -194,10 +212,11 @@
                                                 2 => 'สัญญาจ้าง',
                                                 3 => 'สัญญาเช่า',
                                                 4 => 'สัญญาอนุมัติให้ใช้สิทธิ์',
-                                                5 => 'บันทึกข้อตกลง'
+                                                5 => 'บันทึกข้อตกลง',
                                             ];
                                         @endphp
-                                        <span class="badge bg-primary">{{ $contractTypes[$contract->contract_type] ?? 'ไม่ระบุ' }}</span>
+                                        <span
+                                            class="badge bg-primary">{{ $contractTypes[$contract->contract_type] ?? 'ไม่ระบุ' }}</span>
                                     </td>
                                 </tr>
                                 @if ($contract->contract_type === 3 && $contract->contractid)
@@ -212,37 +231,36 @@
                                     <th class="text-muted"><i class="bi bi-calendar-event me-2"></i>วันที่ในสัญญา</th>
                                     <td>{{ \Carbon\Carbon::parse($contract->contract_date)->thaidate() }}</td>
                                 </tr>
-                                @if ($contract->contract_type === 3)
-                                    <tr>
-                                        <th class="text-muted"><i class="bi bi-calendar-plus me-2"></i>วันเริ่มสัญญา</th>
-                                        <td>{{ \Carbon\Carbon::parse($contract->start_date)->thaidate() }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-muted"><i class="bi bi-calendar-x me-2"></i>วันสิ้นสุดสัญญา</th>
-                                        <td>{{ \Carbon\Carbon::parse($contract->end_date)->thaidate() }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-muted"><i class="bi bi-clock me-2"></i>ระยะเวลาสัญญา</th>
-                                        <td>
-                                            @php
-                                                $start = \Carbon\Carbon::parse($contract->start_date);
-                                                $end = \Carbon\Carbon::parse($contract->end_date);
-                                                $diffInDays = $start->diffInDays($end);
-                                                $diffInMonths = $start->diffInMonths($end);
-                                                $diffInYears = $start->diffInYears($end);
-                                            @endphp
-                                            <span class="badge bg-info">
-                                                @if($diffInYears > 0)
-                                                    {{ $diffInYears }} ปี {{ $diffInMonths % 12 }} เดือน
-                                                @elseif($diffInMonths > 0)
-                                                    {{ $diffInMonths }} เดือน
-                                                @else
-                                                    {{ $diffInDays }} วัน
-                                                @endif
-                                            </span>
-                                        </td>
-                                    </tr>
-                                @endif
+
+                                <tr>
+                                    <th class="text-muted"><i class="bi bi-calendar-plus me-2"></i>วันเริ่มสัญญา</th>
+                                    <td>{{ \Carbon\Carbon::parse($contract->start_date)->thaidate() }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted"><i class="bi bi-calendar-x me-2"></i>วันสิ้นสุดสัญญา</th>
+                                    <td>{{ \Carbon\Carbon::parse($contract->end_date)->thaidate() }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted"><i class="bi bi-clock me-2"></i>ระยะเวลาสัญญา</th>
+                                    <td>
+                                        @php
+                                            $start = \Carbon\Carbon::parse($contract->start_date);
+                                            $end = \Carbon\Carbon::parse($contract->end_date);
+                                            $diffInDays = $start->diffInDays($end);
+                                            $diffInMonths = $start->diffInMonths($end);
+                                            $diffInYears = $start->diffInYears($end);
+                                        @endphp
+                                        <span class="badge bg-info">
+                                            @if ($diffInYears > 0)
+                                                {{ $diffInYears }} ปี {{ $diffInMonths % 12 }} เดือน
+                                            @elseif($diffInMonths > 0)
+                                                {{ $diffInMonths }} เดือน
+                                            @else
+                                                {{ $diffInDays }} วัน
+                                            @endif
+                                        </span>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -256,33 +274,38 @@
                         <table class="table table-borderless">
                             <tbody>
                                 <tr>
-                                    <th width="250" class="text-muted"><i class="bi bi-shield-check me-2"></i>ชนิดหลักประกันสัญญา</th>
+                                    <th width="250" class="text-muted"><i
+                                            class="bi bi-shield-check me-2"></i>ชนิดหลักประกันสัญญา</th>
                                     <td>
                                         @php
                                             $guaranteeTypes = [
                                                 1 => 'หลักประกันที่เป็นเงินสด',
                                                 2 => 'หลักประกันที่เป็นหนังสือค้ำประกัน',
                                                 3 => 'หลักประกันที่เป็นเช็คธนาคาร',
-                                                4 => 'หลักประกันที่เป็นพันธบัตรรัฐบาลไทย'
+                                                4 => 'หลักประกันที่เป็นพันธบัตรรัฐบาลไทย',
                                             ];
                                         @endphp
                                         {{ $guaranteeTypes[$contract->types_of_guarantee] ?? 'ไม่ระบุ' }}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-muted"><i class="bi bi-currency-exchange me-2"></i>มูลค่าหลักประกัน</th>
+                                    <th class="text-muted"><i class="bi bi-currency-exchange me-2"></i>มูลค่าหลักประกัน
+                                    </th>
                                     <td>
-                                        <span class="contract-value">{{ number_format($contract->guarantee_amount) }} บาท</span>
-                                        @if($contract->acquisition_value > 0)
+                                        <span class="contract-value">{{ number_format($contract->guarantee_amount) }}
+                                            บาท</span>
+                                        @if ($contract->acquisition_value > 0)
                                             <br><small class="text-muted">
-                                                คิดเป็น {{ number_format(($contract->guarantee_amount / $contract->acquisition_value) * 100, 2) }}%
+                                                คิดเป็น
+                                                {{ number_format(($contract->guarantee_amount / $contract->acquisition_value) * 100, 2) }}%
                                                 ของมูลค่างานตามสัญญา
                                             </small>
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-muted"><i class="bi bi-clock-history me-2"></i>ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา</th>
+                                    <th class="text-muted"><i
+                                            class="bi bi-clock-history me-2"></i>ระยะเวลาค้ำประกันการปฏิบัติตามสัญญา</th>
                                     <td>
                                         @php
                                             $durations = [1 => '1 ปี', 2 => '2 ปี', 3 => '3 ปี', 4 => 'อื่น ๆ'];
@@ -291,7 +314,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-muted"><i class="bi bi-arrow-return-left me-2"></i>เงื่อนไขการคืนหลักประกัน</th>
+                                    <th class="text-muted"><i
+                                            class="bi bi-arrow-return-left me-2"></i>เงื่อนไขการคืนหลักประกัน</th>
                                     <td>
                                         @php
                                             $conditions = [1 => '3 เดือน', 2 => '6 เดือน', 3 => '1 ปี'];
@@ -306,32 +330,32 @@
             </div>
 
             <!-- ไฟล์แนบ -->
-            @if($contract->formFile)
-            <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
-                <div class="card">
-                    <div class="card-body p-4">
-                        <div class="file-attachment text-center">
-                            <i class="bi bi-file-earmark-pdf" style="font-size: 3rem; color: #dc3545;"></i>
-                            <h5 class="mt-3">ไฟล์เอกสารสัญญา</h5>
-                            <p class="text-muted">{{ $contract->formFile }}</p>
-                            <div class="mt-3">
-                                <a href="{{ asset('uploads/' . $contract->formFile) }}"
-                                   class="btn btn-primary me-2" target="_blank">
-                                    <i class="bi bi-eye me-2"></i>ดูไฟล์
-                                </a>
-                                <a href="{{ asset('uploads/' . $contract->formFile) }}"
-                                   class="btn btn-success" download>
-                                    <i class="bi bi-download me-2"></i>ดาวน์โหลด
-                                </a>
+            @if ($contract->formFile)
+                <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <div class="file-attachment text-center">
+                                <i class="bi bi-file-earmark-pdf" style="font-size: 3rem; color: #dc3545;"></i>
+                                <h5 class="mt-3">ไฟล์เอกสารสัญญา</h5>
+                                <p class="text-muted">{{ $contract->formFile }}</p>
+                                <div class="mt-3">
+                                    <a href="{{ asset('uploads/' . $contract->formFile) }}" class="btn btn-primary me-2"
+                                        target="_blank">
+                                        <i class="bi bi-eye me-2"></i>ดูไฟล์
+                                    </a>
+                                    <a href="{{ asset('uploads/' . $contract->formFile) }}" class="btn btn-success"
+                                        download>
+                                        <i class="bi bi-download me-2"></i>ดาวน์โหลด
+                                    </a>
+                                </div>
+                                <small class="text-muted d-block mt-2">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    ไฟล์ PDF • อัปโหลดเมื่อ {{ \Carbon\Carbon::parse($contract->created_at)->thaidate() }}
+                                </small>
                             </div>
-                            <small class="text-muted d-block mt-2">
-                                <i class="bi bi-info-circle me-1"></i>
-                                ไฟล์ PDF • อัปโหลดเมื่อ {{ \Carbon\Carbon::parse($contract->created_at)->thaidate() }}
-                            </small>
                         </div>
                     </div>
                 </div>
-            </div>
             @endif
         </div>
 
