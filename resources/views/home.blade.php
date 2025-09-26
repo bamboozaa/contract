@@ -632,7 +632,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <i class="bi bi-calendar-event me-1"></i>
-                                    <strong>วันสิ้นสุด:</strong> {{ $endDate->format('d/m/Y') }}
+                                    <strong>วันสิ้นสุด:</strong> {{ $endDate->format('d/m/') . ($endDate->year + 543) }}
                                 </div>
                             </div>
                             @if ($contract->partners)
