@@ -514,8 +514,8 @@
                 </div>
             </div>
         </div>
-        <div class="card-body p-4">
-            <div class="row g-4">
+        <div class="card-body p-3"> <!-- เปลี่ยนจาก p-4 เป็น p-3 -->
+            <div class="row g-3"> <!-- เปลี่ยนจาก g-4 เป็น g-3 -->
                 @php
                     $today = \Carbon\Carbon::now();
 
@@ -534,32 +534,32 @@
                 @endphp
 
                 <!-- สัญญายังไม่หมดอายุ -->
-                <div class="col-6 col-lg-4">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <a href="{{ route('contracts.index', ['expiry_status' => 'active']) }}" class="card-link">
-                        <div class="card text-white bg-gradient-active stats-card">
-                            <div class="card-body text-center p-4">
-                                <div class="stats-icon">
+                        <div class="card text-white bg-gradient-active stats-card stats-card-compact">
+                            <div class="card-body text-center p-3"> <!-- เปลี่ยนจาก p-4 เป็น p-3 -->
+                                <div class="stats-icon-small"> <!-- ใช้ไอคอนขนาดเล็ก -->
                                     <i class="bi bi-check-circle"></i>
                                 </div>
-                                <div class="stats-number">{{ count($activeContracts) }}</div>
-                                <div class="stats-label">ยังไม่หมดอายุ</div>
-                                <div class="stats-description">สัญญาที่ใช้งานได้</div>
+                                <div class="stats-number-small">{{ count($activeContracts) }}</div>
+                                <div class="stats-label-small">ยังไม่หมดอายุ</div>
+                                <div class="stats-description-small">สัญญาที่ใช้งานได้</div>
                             </div>
                         </div>
                     </a>
                 </div>
 
                 <!-- สัญญาหมดอายุแล้ว -->
-                <div class="col-6 col-lg-4">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <a href="{{ route('contracts.index', ['expiry_status' => 'expired']) }}" class="card-link">
-                        <div class="card text-white bg-gradient-expired stats-card">
-                            <div class="card-body text-center p-4">
-                                <div class="stats-icon">
+                        <div class="card text-white bg-gradient-expired stats-card stats-card-compact">
+                            <div class="card-body text-center p-3">
+                                <div class="stats-icon-small">
                                     <i class="bi bi-x-circle"></i>
                                 </div>
-                                <div class="stats-number">{{ count($expiredContracts) }}</div>
-                                <div class="stats-label">หมดอายุแล้ว</div>
-                                <div class="stats-description">สัญญาที่หมดอายุ</div>
+                                <div class="stats-number-small">{{ count($expiredContracts) }}</div>
+                                <div class="stats-label-small">หมดอายุแล้ว</div>
+                                <div class="stats-description-small">สัญญาที่หมดอายุ</div>
                             </div>
                         </div>
                     </a>
@@ -568,14 +568,14 @@
                 <!-- สัญญาใกล้หมดอายุ 30 วัน -->
                 <div class="col-12 col-lg-4">
                     <a href="{{ route('contracts.index', ['expiry_status' => 'expiring']) }}" class="card-link">
-                        <div class="card text-white bg-gradient-expiring stats-card">
-                            <div class="card-body text-center p-4">
-                                <div class="stats-icon pulse-animation">
+                        <div class="card text-white bg-gradient-expiring stats-card stats-card-compact">
+                            <div class="card-body text-center p-3">
+                                <div class="stats-icon-small pulse-animation">
                                     <i class="bi bi-exclamation-triangle"></i>
                                 </div>
-                                <div class="stats-number">{{ count($expiringContracts) }}</div>
-                                <div class="stats-label">ใกล้หมดอายุ 30 วัน</div>
-                                <div class="stats-description">ต้องการความสนใจ</div>
+                                <div class="stats-number-small">{{ count($expiringContracts) }}</div>
+                                <div class="stats-label-small">ใกล้หมดอายุ 30 วัน</div>
+                                <div class="stats-description-small">ต้องการความสนใจ</div>
                             </div>
                         </div>
                     </a>
