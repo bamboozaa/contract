@@ -70,6 +70,12 @@ class ContractController extends Controller
         } elseif ($expiry_status === 'expiring') {
             // สัญญาใกล้หมดอายุใน 30 วัน
             $query->whereBetween('end_date', [$today, $today->copy()->addDays(30)]);
+        } elseif ($expiry_status === 'no_expiry') {
+            // สัญญาที่ไม่มีวันหมดอายุ (NULL หรือ ค่าว่าง)
+            $query->where(function ($q) {
+                $q->whereNull('end_date')
+                  ->orWhere('end_date', '');
+            });
         }
 
         // Get paginated results

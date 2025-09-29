@@ -200,6 +200,10 @@
             background: linear-gradient(135deg, #fd7e14 0%, #e55100 100%);
         }
 
+        .bg-gradient-no-expiry {
+            background: linear-gradient(135deg, #6f42c1 0%, #563d7c 100%);
+        }
+
         .pulse-animation {
             animation: pulse 2s infinite;
         }
@@ -521,20 +525,26 @@
 
                     // สัญญาที่ยังไม่หมดอายุ (วันสิ้นสุดมากกว่าวันปัจจุบัน)
                     $activeContracts = $contracts->filter(function ($contract) use ($today) {
-                        return \Carbon\Carbon::parse($contract->end_date)->gt($today->copy()->addDays(30));
+                        return !empty($contract->end_date) &&
+                            \Carbon\Carbon::parse($contract->end_date)->gt($today->copy()->addDays(30));
                     });
 
                     // สัญญาที่หมดอายุแล้ว (วันสิ้นสุดน้อยกว่าวันปัจจุบัน)
                     $expiredContracts = $contracts->filter(function ($contract) use ($today) {
-                        return \Carbon\Carbon::parse($contract->end_date)->lt($today);
+                        return !empty($contract->end_date) && \Carbon\Carbon::parse($contract->end_date)->lt($today);
                     });
 
                     // สัญญาที่กำลังจะหมดอายุใน 30 วัน
                     $expiringContracts = $contractsExpiringIn30Days;
+
+                    // สัญญาที่ไม่มีวันหมดอายุ (end_date เป็น null หรือ empty)
+                    $noExpiryContracts = $contracts->filter(function ($contract) {
+                        return empty($contract->end_date) || is_null($contract->end_date);
+                    });
                 @endphp
 
                 <!-- สัญญายังไม่หมดอายุ -->
-                <div class="col-12 col-sm-6 col-lg-4">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <a href="{{ route('contracts.index', ['expiry_status' => 'active']) }}" class="card-link">
                         <div class="card text-white bg-gradient-active stats-card stats-card-compact">
                             <div class="card-body text-center p-3"> <!-- เปลี่ยนจาก p-4 เป็น p-3 -->
@@ -550,7 +560,7 @@
                 </div>
 
                 <!-- สัญญาหมดอายุแล้ว -->
-                <div class="col-12 col-sm-6 col-lg-4">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <a href="{{ route('contracts.index', ['expiry_status' => 'expired']) }}" class="card-link">
                         <div class="card text-white bg-gradient-expired stats-card stats-card-compact">
                             <div class="card-body text-center p-3">
@@ -566,7 +576,7 @@
                 </div>
 
                 <!-- สัญญาใกล้หมดอายุ 30 วัน -->
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <a href="{{ route('contracts.index', ['expiry_status' => 'expiring']) }}" class="card-link">
                         <div class="card text-white bg-gradient-expiring stats-card stats-card-compact">
                             <div class="card-body text-center p-3">
@@ -576,6 +586,22 @@
                                 <div class="stats-number-small">{{ count($expiringContracts) }}</div>
                                 <div class="stats-label-small">ใกล้หมดอายุ 30 วัน</div>
                                 <div class="stats-description-small">ต้องการความสนใจ</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- สัญญาที่ไม่มีวันหมดอายุ -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="{{ route('contracts.index', ['expiry_status' => 'no_expiry']) }}" class="card-link">
+                        <div class="card text-white bg-gradient-no-expiry stats-card stats-card-compact">
+                            <div class="card-body text-center p-3">
+                                <div class="stats-icon-small">
+                                    <i class="bi bi-infinity"></i>
+                                </div>
+                                <div class="stats-number-small">{{ count($noExpiryContracts) }}</div>
+                                <div class="stats-label-small">ไม่มีวันหมดอายุ</div>
+                                <div class="stats-description-small">สัญญาถาวร</div>
                             </div>
                         </div>
                     </a>
