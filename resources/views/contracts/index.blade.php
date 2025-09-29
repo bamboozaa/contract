@@ -42,8 +42,8 @@
         }
 
         .status-badge {
-            font-size: 0.75rem;
-            padding: 0.375rem 0.75rem;
+            font-size: 0.65rem;
+            padding: 0.25rem 0.5rem;
         }
 
         .text-truncate {
@@ -55,30 +55,84 @@
             /* ซ่อนข้อความที่เกิน */
             text-overflow: ellipsis;
             /* เพิ่ม ... เมื่อข้อความถูกตัด */
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             /* ปรับขนาดฟอนต์ */
         }
 
         /* ปรับขนาดตัวอักษรใน thead */
         .table thead th {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             color: #495057;
-            padding: 0.75rem 0.5rem;
+            padding: 0.6rem 0.4rem;
             border-bottom: 2px solid #dee2e6;
             background-color: #f8f9fa;
         }
 
         .table thead th i {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             opacity: 0.8;
         }
 
         /* ปรับขนาดตัวอักษรใน tbody */
         .table tbody td {
-            font-size: 0.875rem;
-            padding: 0.75rem 0.5rem;
+            font-size: 0.8rem;
+            padding: 0.6rem 0.4rem;
             vertical-align: top;
+        }
+
+        /* ปรับขนาดตัวอักษรใน small elements */
+        .table tbody td small {
+            font-size: 0.75rem; /* เล็กลงอีก */
+        }
+
+        /* ปรับขนาดตัวอักษรสำหรับลิงก์สัญญา */
+        .contract-link {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .table thead th {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.3rem;
+            }
+
+            .table thead th i {
+                font-size: 0.7rem;
+            }
+
+            .table tbody td {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.3rem;
+            }
+
+            .status-badge {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.4rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .table thead th {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.2rem;
+            }
+
+            .table thead th i {
+                font-size: 0.65rem;
+            }
+
+            .table tbody td {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.2rem;
+            }
+
+            .status-badge {
+                font-size: 0.55rem;
+                padding: 0.15rem 0.3rem;
+            }
         }
     </style>
 @stop

@@ -13,6 +13,7 @@
 
     <!-- Custom Style -->
     {{ Html::style('css/main.css') }}
+    
     @yield('importcss')
     @yield('importjs')
 </head>
