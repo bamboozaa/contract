@@ -13,7 +13,7 @@
 
     <!-- Custom Style -->
     {{ Html::style('css/main.css') }}
-    
+
     @yield('importcss')
     @yield('importjs')
 </head>
@@ -50,7 +50,7 @@
                         <i class="bi bi-person-circle me-2"></i>{{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end pt-0">
-                        <a class="dropdown-item" href="{{ route('profile.show') }}">
+                        <a class="dropdown-item" href="{{ route('users.profile') }}">
                             <svg class="icon me-2">
                                 <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
                             </svg>

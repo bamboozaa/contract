@@ -85,7 +85,7 @@
                             <span>{{ __('ข้อมูลผู้ใช้งาน') }}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>โปรไฟล์</a>
+                            <li><a class="dropdown-item" href="{{ route('users.profile', Auth::user()->id) }}"><i class="bi bi-person me-2"></i>โปรไฟล์</a>
                             </li>
                             {{-- <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>ตั้งค่า</a></li> --}}
                             <li>

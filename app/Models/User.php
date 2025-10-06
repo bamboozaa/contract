@@ -10,6 +10,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class User extends Authenticatable
 {
@@ -76,4 +78,10 @@ class User extends Authenticatable
         return $this->hasOne(Contract::class);
     }
 
+    public function updateProfile(Request $request)
+    {
+        $user = User::find(Auth::id()); // More explicit approach
+
+        // ...rest of your code
+    }
 }
