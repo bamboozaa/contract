@@ -145,7 +145,7 @@ class ContractController extends Controller
 
             $contractId = $request->input('contractid');
 
-            $url = 'http://10.7.45.125/api/contractslegal/' . $contractId . '?check=RCM';
+            $url = 'https://lcms.utcc.ac.th/api/contractslegal/' . $contractId . '?check=RCM';
             $body = [
                 "legalID" => "นตก.(ส)" . " " . $request->input('contract_no') . "/" . $request->input('contract_year'),
                 "signDate" => $request->input('contract_date'),
@@ -156,7 +156,7 @@ class ContractController extends Controller
             try {
                 $response = Http::withOptions(['verify' => false])->withHeaders([
                     'Content-Type' => 'application/json',
-                ])->post('http://10.7.45.125/api/contractslegal/' . $contractId . '?check=RCM', $body);
+                ])->post($url, $body);
 
                 // Access the response
                 $statusCode = $response->status();
@@ -223,7 +223,8 @@ class ContractController extends Controller
         if ($request->input('contract_type') == 3 && !is_null($request->input('contractid'))) {
             $contractId = $request->input('contractid');
 
-            $url = 'http://10.7.45.125/api/contractslegal/' . $contractId . '?check=RCM';
+            // $url = 'http://10.7.45.125/api/contractslegal/' . $contractId . '?check=RCM';
+            $url = 'https://lcms.utcc.ac.th/api/contractslegal/' . $contractId . '?check=RCM';
             $body = [
                 "legalID" => "นตก.(ส)" . " " . $request->input('contract_no') . "/" . $request->input('contract_year'),
                 "signDate" => $request->input('contract_date'),
