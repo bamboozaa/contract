@@ -219,7 +219,7 @@
                                             class="badge bg-primary">{{ $contractTypes[$contract->contract_type] ?? 'ไม่ระบุ' }}</span>
                                     </td>
                                 </tr>
-                                @if ($contract->contract_type === 3 && $contract->contractid)
+                                @if (($contract->contract_type === 3 || $contract->contract_type === 5) && $contract->contractid)
                                     <tr>
                                         <th class="text-muted"><i class="bi bi-key me-2"></i>Contract ID</th>
                                         <td>

@@ -137,7 +137,7 @@ class ContractController extends Controller
             }
         }
 
-        if ($request->input('contract_type') == 3 && !is_null($request->input('contractid'))) {
+        if (($request->input('contract_type') == 3 || $request->input('contract_type') == 5) && !is_null($request->input('contractid'))) {
             $client = new Client();
             $headers = [
                 'Content-Type' => 'application/json'
@@ -220,7 +220,7 @@ class ContractController extends Controller
      */
     public function update(UpdateContractRequest $request, Contract $contract)
     {
-        if ($request->input('contract_type') == 3 && !is_null($request->input('contractid'))) {
+        if (($request->input('contract_type') == 3 || $request->input('contract_type') == 5) && !is_null($request->input('contractid'))) {
             $contractId = $request->input('contractid');
 
             // $url = 'http://10.7.45.125/api/contractslegal/' . $contractId . '?check=RCM';
