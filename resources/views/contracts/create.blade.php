@@ -276,7 +276,7 @@
 
 @section('importjs')
     @parent
-    
+
 @stop
 
 @section('content')
@@ -626,32 +626,71 @@
                 });
             }
 
-            // Auto format number inputs
-            // const acquisitionValue = document.getElementById('acquisition_value');
-            // if (acquisitionValue) {
-            //     acquisitionValue.addEventListener('input', function(e) {
-            //         let value = e.target.value.replace(/,/g, '');
-            //         if (!isNaN(value) && value !== '') {
-            //             e.target.value = parseFloat(value).toLocaleString('en-US', {
-            //                 minimumFractionDigits: 2,
-            //                 maximumFractionDigits: 2
-            //             });
-            //         }
-            //     });
-            // }
+            // Auto format acquisition value with comma
+            const acquisitionValue = document.getElementById('acquisition_value');
+            if (acquisitionValue) {
+                acquisitionValue.addEventListener('input', function(e) {
+                    let value = e.target.value;
 
-            // const guaranteeAmount = document.getElementById('guarantee_amount');
-            // if (guaranteeAmount) {
-            //     guaranteeAmount.addEventListener('input', function(e) {
-            //         let value = e.target.value.replace(/,/g, '');
-            //         if (!isNaN(value) && value !== '') {
-            //             e.target.value = parseFloat(value).toLocaleString('en-US', {
-            //                 minimumFractionDigits: 2,
-            //                 maximumFractionDigits: 2
-            //             });
-            //         }
-            //     });
-            // }
+                    // Remove all non-digit characters except decimal point
+                    value = value.replace(/[^\d.]/g, '');
+
+                    // Ensure only one decimal point
+                    const parts = value.split('.');
+                    if (parts.length > 2) {
+                        value = parts[0] + '.' + parts.slice(1).join('');
+                    }
+
+                    // Format with comma
+                    if (value !== '') {
+                        const [integerPart, decimalPart] = value.split('.');
+                        const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        e.target.value = decimalPart !== undefined ? formattedInteger + '.' + decimalPart : formattedInteger;
+                    }
+                });
+
+                // Store original value without comma before submit
+                const form = acquisitionValue.closest('form');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        // Remove comma before submitting
+                        acquisitionValue.value = acquisitionValue.value.replace(/,/g, '');
+                    });
+                }
+            }
+
+            // Auto format guarantee amount with comma
+            const guaranteeAmount = document.getElementById('guarantee_amount');
+            if (guaranteeAmount) {
+                guaranteeAmount.addEventListener('input', function(e) {
+                    let value = e.target.value;
+
+                    // Remove all non-digit characters except decimal point
+                    value = value.replace(/[^\d.]/g, '');
+
+                    // Ensure only one decimal point
+                    const parts = value.split('.');
+                    if (parts.length > 2) {
+                        value = parts[0] + '.' + parts.slice(1).join('');
+                    }
+
+                    // Format with comma
+                    if (value !== '') {
+                        const [integerPart, decimalPart] = value.split('.');
+                        const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        e.target.value = decimalPart !== undefined ? formattedInteger + '.' + decimalPart : formattedInteger;
+                    }
+                });
+
+                // Store original value without comma before submit
+                const form = guaranteeAmount.closest('form');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        // Remove comma before submitting
+                        guaranteeAmount.value = guaranteeAmount.value.replace(/,/g, '');
+                    });
+                }
+            }
         });
     </script>
 @stop
