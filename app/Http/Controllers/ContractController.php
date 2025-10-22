@@ -357,6 +357,7 @@ class ContractController extends Controller
                 'status',
             ]);
 
+            Log::info('Contract update data for ID ' . $contract->id . ' (else branch): ', $data);
             $contract->update($data);
 
             // ตั้งค่า session success และบันทึก log
