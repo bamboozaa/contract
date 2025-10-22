@@ -28,7 +28,7 @@ class UpdateContractRequest extends FormRequest
             'contract_name' => 'required|string|max:255',
             'partners' => 'required|string|max:255',
             'acquisition_value' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'fund' => 'required|string|max:255',
+            'fund' => 'nullable|string|max:255',
             'contract_type' => 'required',
             'contract_date' => 'required',
             // 'types_of_guarantee' => 'required',

@@ -375,6 +375,9 @@
                                         <a href="{{ route('contracts.show', $contract->id) }}"
                                             class="contract-link fw-semibold">
                                             {{ $contract->contract_no }}/{{ $contract->contract_year }}
+                                            @if($contract->formFile)
+                                                <i class="bi bi-paperclip text-muted ms-1" title="มีไฟล์แนบ"></i>
+                                            @endif
                                         </a>
                                     </td>
                                     <td>

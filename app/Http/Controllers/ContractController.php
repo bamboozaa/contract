@@ -165,14 +165,15 @@ class ContractController extends Controller
                 return response()->json(['error' => 'Error inserting record', 'error' => $e->getMessage()], 500);
             }
 
-            if ($file = $request->file('formFile')) {
-                $file_name = time() . $file->getClientOriginalName();
-                $file->move('uploads', $file_name);
-                $contract = Contract::create($request->all());
+            if ($request->hasFile('formFile')) {
+                $file = $request->file('formFile');
+                $file_name = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads'), $file_name);
+                $contract = Contract::create($request->except('formFile'));
                 $contract->formFile = $file_name;
                 $contract->save();
             } else {
-                $contract = Contract::create($request->all());
+                $contract = Contract::create($request->except('formFile'));
             }
 
             session()->flash('success', 'สร้างสัญญาเรียบร้อยแล้ว');
@@ -181,14 +182,15 @@ class ContractController extends Controller
             return redirect()->route('contracts.index');
         }
 
-        if ($file = $request->file('formFile')) {
-            $file_name = time() . $file->getClientOriginalName();
-            $file->move('uploads', $file_name);
-            $contract = Contract::create($request->all());
+        if ($request->hasFile('formFile')) {
+            $file = $request->file('formFile');
+            $file_name = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $file_name);
+            $contract = Contract::create($request->except('formFile'));
             $contract->formFile = $file_name;
             $contract->save();
         } else {
-            $contract = Contract::create($request->all());
+            $contract = Contract::create($request->except('formFile'));
         }
 
         session()->flash('success', 'สร้างสัญญาเรียบร้อยแล้ว');
