@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class ContractController extends Controller
 {
@@ -168,7 +169,11 @@ class ContractController extends Controller
             if ($request->hasFile('formFile')) {
                 $file = $request->file('formFile');
                 if ($file && $file->isValid()) {
-                    $file_name = time() . '_' . $file->getClientOriginalName();
+                    // Sanitize ชื่อไฟล์เพื่อลบอักขระพิเศษ
+                    $originalName = $file->getClientOriginalName();
+                    $fileInfo = pathinfo($originalName);
+                    $safeName = Str::slug($fileInfo['filename']);
+                    $file_name = time() . '_' . $safeName . '.' . $fileInfo['extension'];
                     $file->move(public_path('uploads'), $file_name);
                     $contract = Contract::create($request->except('formFile'));
                     $contract->formFile = $file_name;
@@ -190,7 +195,11 @@ class ContractController extends Controller
         if ($request->hasFile('formFile')) {
             $file = $request->file('formFile');
             if ($file && $file->isValid()) {
-                $file_name = time() . '_' . $file->getClientOriginalName();
+                // Sanitize ชื่อไฟล์เพื่อลบอักขระพิเศษ
+                $originalName = $file->getClientOriginalName();
+                $fileInfo = pathinfo($originalName);
+                $safeName = Str::slug($fileInfo['filename']);
+                $file_name = time() . '_' . $safeName . '.' . $fileInfo['extension'];
                 $file->move(public_path('uploads'), $file_name);
                 $contract = Contract::create($request->except('formFile'));
                 $contract->formFile = $file_name;
@@ -232,6 +241,8 @@ class ContractController extends Controller
      */
     public function update(UpdateContractRequest $request, Contract $contract)
     {
+        Log::info('Starting contract update for ID ' . $contract->id . ', contract_type: ' . $request->input('contract_type') . ', contractid: ' . $request->input('contractid'));
+
         if (($request->input('contract_type') == 3 || $request->input('contract_type') == 5) && !is_null($request->input('contractid'))) {
             $contractId = $request->input('contractid');
 
@@ -261,7 +272,11 @@ class ContractController extends Controller
             if ($request->hasFile('formFile')) {
                 $file = $request->file('formFile');
                 if ($file && $file->isValid()) {
-                    $file_name = time() . '_' . $file->getClientOriginalName();
+                    // Sanitize ชื่อไฟล์เพื่อลบอักขระพิเศษ
+                    $originalName = $file->getClientOriginalName();
+                    $fileInfo = pathinfo($originalName);
+                    $safeName = Str::slug($fileInfo['filename']);
+                    $file_name = time() . '_' . $safeName . '.' . $fileInfo['extension'];
 
                     // ลบไฟล์เก่า (ถ้ามี)
                     if (!is_null($contract->formFile)) {
@@ -316,7 +331,11 @@ class ContractController extends Controller
             if ($request->hasFile('formFile')) {
                 $file = $request->file('formFile');
                 if ($file && $file->isValid()) {
-                    $file_name = time() . '_' . $file->getClientOriginalName();
+                    // Sanitize ชื่อไฟล์เพื่อลบอักขระพิเศษ
+                    $originalName = $file->getClientOriginalName();
+                    $fileInfo = pathinfo($originalName);
+                    $safeName = Str::slug($fileInfo['filename']);
+                    $file_name = time() . '_' . $safeName . '.' . $fileInfo['extension'];
 
                     // ลบไฟล์เก่า (ถ้ามี)
                     if (!is_null($contract->formFile)) {

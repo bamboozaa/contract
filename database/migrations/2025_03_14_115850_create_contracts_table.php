@@ -25,10 +25,10 @@ return new class extends Migration
             $table->date('contract_date')->nullable()->comment('วันที่ลงนามในสัญญา');
             $table->date('start_date')->nullable()->comment('(วันที่เริ่มสัญญา): วันที่สัญญาเริ่มต้น');
             $table->date('end_date')->nullable()->comment('(วันที่สิ้นสุดสัญญา): วันที่สัญญาสิ้นสุด');
-            $table->integer('types_of_guarantee')->comment('ชนิดเงินค้ำหลักประกันสัญญา');
-            $table->decimal('guarantee_amount', 10, 2)->comment('จำนวนเงินประกันสัญญา');
-            $table->integer('duration');
-            $table->integer('condition');
+            $table->integer('types_of_guarantee')->nullable()->comment('ชนิดเงินค้ำหลักประกันสัญญา');
+            $table->decimal('guarantee_amount', 10, 2)->nullable()->comment('จำนวนเงินประกันสัญญา');
+            $table->integer('duration')->nullable();
+            $table->integer('condition')->nullable();
             $table->string('formFile')->nullable();
             $table->string('assignee')->nullable();
             $table->integer('status')->default(1)->nullable();
