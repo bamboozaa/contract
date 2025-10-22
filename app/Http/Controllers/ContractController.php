@@ -167,11 +167,16 @@ class ContractController extends Controller
 
             if ($request->hasFile('formFile')) {
                 $file = $request->file('formFile');
-                $file_name = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('uploads'), $file_name);
-                $contract = Contract::create($request->except('formFile'));
-                $contract->formFile = $file_name;
-                $contract->save();
+                if ($file && $file->isValid()) {
+                    $file_name = time() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('uploads'), $file_name);
+                    $contract = Contract::create($request->except('formFile'));
+                    $contract->formFile = $file_name;
+                    $contract->save();
+                } else {
+                    session()->flash('error', 'ไฟล์ที่อัพโหลดไม่ถูกต้องหรือเสียหาย');
+                    return redirect()->back()->withInput();
+                }
             } else {
                 $contract = Contract::create($request->except('formFile'));
             }
@@ -184,11 +189,16 @@ class ContractController extends Controller
 
         if ($request->hasFile('formFile')) {
             $file = $request->file('formFile');
-            $file_name = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads'), $file_name);
-            $contract = Contract::create($request->except('formFile'));
-            $contract->formFile = $file_name;
-            $contract->save();
+            if ($file && $file->isValid()) {
+                $file_name = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads'), $file_name);
+                $contract = Contract::create($request->except('formFile'));
+                $contract->formFile = $file_name;
+                $contract->save();
+            } else {
+                session()->flash('error', 'ไฟล์ที่อัพโหลดไม่ถูกต้องหรือเสียหาย');
+                return redirect()->back()->withInput();
+            }
         } else {
             $contract = Contract::create($request->except('formFile'));
         }
@@ -250,21 +260,26 @@ class ContractController extends Controller
             // จัดการไฟล์อัปโหลด
             if ($request->hasFile('formFile')) {
                 $file = $request->file('formFile');
-                $file_name = time() . '_' . $file->getClientOriginalName();
+                if ($file && $file->isValid()) {
+                    $file_name = time() . '_' . $file->getClientOriginalName();
 
-                // ลบไฟล์เก่า (ถ้ามี)
-                if (!is_null($contract->formFile)) {
-                    $fileToDelete = public_path('uploads/' . $contract->formFile);
-                    if (file_exists($fileToDelete)) {
-                        unlink($fileToDelete);
+                    // ลบไฟล์เก่า (ถ้ามี)
+                    if (!is_null($contract->formFile)) {
+                        $fileToDelete = public_path('uploads/' . $contract->formFile);
+                        if (file_exists($fileToDelete)) {
+                            unlink($fileToDelete);
+                        }
                     }
+
+                    // อัปโหลดไฟล์ใหม่
+                    $file->move(public_path('uploads'), $file_name);
+
+                    // อัปเดตชื่อไฟล์ในฐานข้อมูล
+                    $contract->formFile = $file_name;
+                } else {
+                    session()->flash('error', 'ไฟล์ที่อัพโหลดไม่ถูกต้องหรือเสียหาย');
+                    return redirect()->back()->withInput();
                 }
-
-                // อัปโหลดไฟล์ใหม่
-                $file->move(public_path('uploads'), $file_name);
-
-                // อัปเดตชื่อไฟล์ในฐานข้อมูล
-                $contract->formFile = $file_name;
             }
 
             // อัปเดตข้อมูลในฐานข้อมูล
@@ -299,21 +314,26 @@ class ContractController extends Controller
             // จัดการไฟล์อัปโหลด
             if ($request->hasFile('formFile')) {
                 $file = $request->file('formFile');
-                $file_name = time() . '_' . $file->getClientOriginalName();
+                if ($file && $file->isValid()) {
+                    $file_name = time() . '_' . $file->getClientOriginalName();
 
-                // ลบไฟล์เก่า (ถ้ามี)
-                if (!is_null($contract->formFile)) {
-                    $fileToDelete = public_path('uploads/' . $contract->formFile);
-                    if (file_exists($fileToDelete)) {
-                        unlink($fileToDelete);
+                    // ลบไฟล์เก่า (ถ้ามี)
+                    if (!is_null($contract->formFile)) {
+                        $fileToDelete = public_path('uploads/' . $contract->formFile);
+                        if (file_exists($fileToDelete)) {
+                            unlink($fileToDelete);
+                        }
                     }
+
+                    // อัปโหลดไฟล์ใหม่
+                    $file->move(public_path('uploads'), $file_name);
+
+                    // อัปเดตชื่อไฟล์ในฐานข้อมูล
+                    $contract->formFile = $file_name;
+                } else {
+                    session()->flash('error', 'ไฟล์ที่อัพโหลดไม่ถูกต้องหรือเสียหาย');
+                    return redirect()->back()->withInput();
                 }
-
-                // อัปโหลดไฟล์ใหม่
-                $file->move(public_path('uploads'), $file_name);
-
-                // อัปเดตชื่อไฟล์ในฐานข้อมูล
-                $contract->formFile = $file_name;
             }
 
             // อัปเดตข้อมูลในฐานข้อมูล

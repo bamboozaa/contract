@@ -36,7 +36,7 @@ class StoreContractRequest extends FormRequest
             'duration' => 'nullable',
             'condition' => 'nullable',
             // 'formFile' => 'nullable|file|mimes:pdf|max:2048'
-            'formFile' => 'nullable|file|mimes:pdf',
+            'formFile' => 'nullable|file|mimes:pdf|max:2048',
             'status' => 'required',
         ];
     }
