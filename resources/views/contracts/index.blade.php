@@ -340,6 +340,9 @@
                             <th style="width: 10%;">
                                 <i class="bi bi-activity me-2"></i>{{ __('สถานะ') }}
                             </th>
+                            <th style="width: 5%;" class="text-center">
+                                <i class="bi bi-paperclip" title="ไฟล์แนบ"></i>
+                            </th>
                             @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
                                 <th style="width: 12%;" class="text-center">
                                     <i class="bi bi-gear me-2"></i>{{ __('จัดการ') }}
@@ -375,9 +378,6 @@
                                         <a href="{{ route('contracts.show', $contract->id) }}"
                                             class="contract-link fw-semibold">
                                             {{ $contract->contract_no }}/{{ $contract->contract_year }}
-                                            @if($contract->formFile)
-                                                <i class="bi bi-paperclip text-muted ms-1" title="มีไฟล์แนบ"></i>
-                                            @endif
                                         </a>
                                     </td>
                                     <td>
@@ -395,17 +395,25 @@
                                         </div>
                                     </td>
                                     <td>
-                                        @if ($contract->contract_type === 1)
-                                            <span class="badge bg-primary status-badge">สัญญาซื้อขาย</span>
-                                        @elseif ($contract->contract_type === 2)
-                                            <span class="badge bg-info status-badge">สัญญาจ้าง</span>
-                                        @elseif ($contract->contract_type === 3)
-                                            <span class="badge bg-warning status-badge">สัญญาเช่า</span>
-                                        @elseif ($contract->contract_type === 4)
-                                            <span class="badge bg-secondary status-badge">สัญญาอนุมัติให้ใช้สิทธิ์</span>
-                                        @elseif ($contract->contract_type === 5)
-                                            <span class="badge bg-dark status-badge">บันทึกข้อตกลง</span>
-                                        @endif
+                                        <div class="d-flex flex-column align-items-center">
+                                            @if ($contract->contract_type === 1)
+                                                <span class="badge bg-primary status-badge">สัญญาซื้อขาย</span>
+                                            @elseif ($contract->contract_type === 2)
+                                                <span class="badge bg-info status-badge">สัญญาจ้าง</span>
+                                            @elseif ($contract->contract_type === 3)
+                                                <span class="badge bg-warning status-badge">สัญญาเช่า</span>
+                                                @if($contract->contractid)
+                                                    <small class="text-muted mt-1" style="font-size: 0.7rem;">ID: {{ $contract->contractid }}</small>
+                                                @endif
+                                            @elseif ($contract->contract_type === 4)
+                                                <span class="badge bg-secondary status-badge">สัญญาอนุมัติให้ใช้สิทธิ์</span>
+                                            @elseif ($contract->contract_type === 5)
+                                                <span class="badge bg-dark status-badge">บันทึกข้อตกลง</span>
+                                                @if($contract->contractid)
+                                                    <small class="text-muted mt-1" style="font-size: 0.7rem;">ID: {{ $contract->contractid }}</small>
+                                                @endif
+                                            @endif
+                                        </div>
                                     </td>
 
                                     <td>
@@ -454,6 +462,11 @@
                                             <span class="badge bg-primary status-badge">เสนอผู้บริหารลงนาม</span>
                                         @elseif ($contract->status === 5)
                                             <span class="badge bg-success status-badge">เสร็จสิ้น(คืนคู่ฉบับ)</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if($contract->formFile)
+                                            <i class="bi bi-paperclip text-muted" title="มีไฟล์แนบ"></i>
                                         @endif
                                     </td>
                                     @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
