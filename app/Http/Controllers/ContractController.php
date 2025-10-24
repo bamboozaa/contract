@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\ContractAttachment;
 
 class ContractController extends Controller
 {
@@ -186,6 +187,8 @@ class ContractController extends Controller
             } else {
                 $contract = Contract::create($request->except('formFile'));
             }
+            // handle extra attachments (attachments[] with optional attachments_desc[])
+            $this->saveAttachments($request, $contract);
 
             session()->flash('success', 'สร้างสัญญาเรียบร้อยแล้ว');
             Log::info("Contract NO(" . $request->contract_no . "/" . $request->contract_year . ") Create finished by " . Auth::user()->name);
@@ -193,7 +196,7 @@ class ContractController extends Controller
             return redirect()->route('contracts.index');
         }
 
-        if ($request->hasFile('formFile')) {
+    if ($request->hasFile('formFile')) {
             $file = $request->file('formFile');
             if ($file && $file->isValid()) {
                 // Sanitize ชื่อไฟล์เพื่อลบอักขระพิเศษ
@@ -212,6 +215,8 @@ class ContractController extends Controller
         } else {
             $contract = Contract::create($request->except('formFile'));
         }
+        // handle extra attachments (attachments[] with optional attachments_desc[])
+        $this->saveAttachments($request, $contract);
 
         session()->flash('success', 'สร้างสัญญาเรียบร้อยแล้ว');
         Log::info("Contract NO(" . $request->contract_no . "/" . $request->contract_year . ") Create finished by " . Auth::user()->name);
@@ -313,11 +318,15 @@ class ContractController extends Controller
                 'guarantee_amount',
                 'duration',
                 'condition',
+                'formFile_description',
                 'status',
             ]);
 
             Log::info('Contract update data for ID ' . $contract->id . ' (else branch): ', $data);
             $contract->update($data);
+
+            // handle multiple attachments for update
+            $this->saveAttachments($request, $contract);
 
             // ตั้งค่า session success และบันทึก log
             session()->flash('success', 'อัปเดตสัญญาเรียบร้อยแล้ว');
@@ -379,6 +388,7 @@ class ContractController extends Controller
                 'guarantee_amount',
                 'duration',
                 'condition',
+                'formFile_description',
                 'status',
             ]);
 
@@ -411,6 +421,13 @@ class ContractController extends Controller
         // ตรวจสอบว่าไฟล์มีอยู่จริงก่อนลบ
         if (!is_null($contract->formFile)) {
             Storage::disk(env('UPLOAD_DISK','sftp'))->delete($contract->formFile);
+        }
+
+        // delete all attachments files on disk
+        foreach ($contract->attachments as $att) {
+            if ($att && $att->filename) {
+                Storage::disk(env('UPLOAD_DISK','sftp'))->delete($att->filename);
+            }
         }
 
         $contract->delete();
@@ -448,5 +465,33 @@ class ContractController extends Controller
 
         // หรือส่งอีเมลแจ้งเตือน
         // Mail::to(Auth::user()->email)->send(new ContractExpiringNotification($contract, $daysLeft));
+    }
+
+    /**
+     * Save uploaded attachments (attachments[] + attachments_desc[])
+     */
+    private function saveAttachments(Request $request, Contract $contract)
+    {
+        if (!$request->hasFile('attachments')) {
+            return;
+        }
+
+        $descs = $request->input('attachments_desc', []);
+        foreach ($request->file('attachments') as $i => $att) {
+            if ($att && $att->isValid()) {
+                $original = $att->getClientOriginalName();
+                $info = pathinfo($original);
+                $safe = Str::slug($info['filename']);
+                $stored = time() . '_' . $safe . '.' . $info['extension'];
+                Storage::disk(env('UPLOAD_DISK','sftp'))->put($stored, file_get_contents($att->getRealPath()));
+                ContractAttachment::create([
+                    'contract_id' => $contract->id,
+                    'filename' => $stored,
+                    'original_name' => $original,
+                    'description' => $descs[$i] ?? null,
+                    'uploaded_by' => auth()->id(),
+                ]);
+            }
+        }
     }
 }

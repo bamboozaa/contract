@@ -386,9 +386,35 @@
                                         <i class="bi bi-download me-1"></i>ดาวน์โหลด
                                     </a>
                                 </div>
-                                <small class="text-muted d-block mt-2">
-                                    อัปโหลดเมื่อ {{ \Carbon\Carbon::parse($contract->created_at)->thaidate() }}
-                                </small>
+                                    @if($contract->formFile_description)
+                                        <div class="text-muted small mt-2">คำอธิบาย: {{ $contract->formFile_description }}</div>
+                                    @endif
+                                    <small class="text-muted d-block mt-2">
+                                        อัปโหลดเมื่อ {{ \Carbon\Carbon::parse($contract->created_at)->thaidate() }}
+                                    </small>
+                            </div>
+                        </div>
+                    @endif
+                    @if ($contract->attachments && count($contract->attachments) > 0)
+                        <div class="info-section files mt-3">
+                            <h6 class="section-title">
+                                <i class="bi bi-paperclip"></i>ไฟล์แนบเพิ่มเติม
+                            </h6>
+                            <div class="list-group">
+                                @foreach ($contract->attachments as $att)
+                                    <div class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <div class="fw-semibold">{{ $att->original_name ?? $att->filename }}</div>
+                                            @if($att->description)
+                                                <div class="text-muted small">{{ $att->description }}</div>
+                                            @endif
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="{{ route('attachments.file', $att->id) }}" target="_blank" class="btn btn-sm btn-primary me-1">ดู</a>
+                                            <a href="{{ route('attachments.file', $att->id) }}?download=1" class="btn btn-sm btn-success">ดาวน์โหลด</a>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     @endif

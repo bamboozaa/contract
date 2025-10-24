@@ -569,6 +569,16 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+
+                        <div class="mt-3">
+                            <label for="formFile_description" class="form-label">คำอธิบายไฟล์หลัก</label>
+                            <textarea name="formFile_description" id="formFile_description" class="form-control" placeholder="คำอธิบายสั้น ๆ ของไฟล์หลัก (เช่น สัญญาฉบับที่ 1)"></textarea>
+                        </div>
+
+                        <hr>
+                        <label class="form-label fw-semibold mt-3">อัพโหลดไฟล์อื่น ๆ (หลายไฟล์) และเพิ่มคำอธิบาย</label>
+                        <input class="form-control mt-2" type="file" id="attachments" name="attachments[]" multiple accept=".pdf,.doc,.docx">
+                        <div id="attachments-list" class="mt-2"></div>
                     </div>
                 </div>
             </div>
@@ -690,6 +700,26 @@
                         guaranteeAmount.value = guaranteeAmount.value.replace(/,/g, '');
                     });
                 }
+            }
+
+            // Multiple attachments with descriptions
+            const attachmentsInput = document.getElementById('attachments');
+            const attachmentsList = document.getElementById('attachments-list');
+            if (attachmentsInput && attachmentsList) {
+                attachmentsInput.addEventListener('change', function(e) {
+                    attachmentsList.innerHTML = '';
+                    Array.from(attachmentsInput.files).forEach((file, idx) => {
+                        const row = document.createElement('div');
+                        row.className = 'mb-2 p-2 border rounded';
+                        row.innerHTML = `
+                            <div class="fw-semibold">${file.name} <small class="text-muted">(${(file.size/1024/1024).toFixed(2)} MB)</small></div>
+                            <div class="mt-2">
+                                <textarea name="attachments_desc[]" class="form-control" placeholder="คำอธิบายไฟล์ (เช่น สัญญาฉบับที่ 1)"></textarea>
+                            </div>
+                        `;
+                        attachmentsList.appendChild(row);
+                    });
+                });
             }
         });
     </script>

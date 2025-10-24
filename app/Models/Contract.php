@@ -27,7 +27,8 @@ class Contract extends Model
         'guarantee_amount',
         'duration',
         'condition',
-        'formFile',
+    'formFile',
+    'formFile_description',
         'assignee',
         'status',
     ];
@@ -40,5 +41,10 @@ class Contract extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assignee', 'username');
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany(ContractAttachment::class, 'contract_id');
     }
 }

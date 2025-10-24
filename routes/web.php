@@ -35,4 +35,7 @@ Route::middleware('auth')->group(function () {
     // Stream contract attachments through the app so files are accessible even if NAS HTTP is not public
     Route::get('contracts/file/{contract}', [App\Http\Controllers\ContractFileController::class, 'show'])
         ->name('contracts.file');
+    // Attachment streaming
+    Route::get('attachments/file/{attachment}', [App\Http\Controllers\AttachmentFileController::class, 'show'])
+        ->name('attachments.file');
 });
