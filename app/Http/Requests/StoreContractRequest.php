@@ -35,8 +35,8 @@ class StoreContractRequest extends FormRequest
             'guarantee_amount' => 'nullable|regex:/^\d+(\.\d{1,2})?$/',
             'duration' => 'nullable',
             'condition' => 'nullable',
-            // 'formFile' => 'nullable|file|mimes:pdf|max:2048'
-            'formFile' => 'nullable|file|mimes:pdf|max:2048',
+            // 'formFile' => 'nullable|file|mimes:pdf|max:10240'
+            'formFile' => 'nullable|file|mimes:pdf|max:10240',
             'status' => 'required',
         ];
     }
