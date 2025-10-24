@@ -56,6 +56,32 @@ return [
             'throw' => false,
         ],
 
+        'sftp' => [
+            'driver' => 'sftp',
+            'host' => env('NAS_SFTP_HOST'),
+            'username' => env('NAS_SFTP_USER'),
+            'password' => env('NAS_SFTP_PASSWORD'),
+            'port' => (int) env('NAS_SFTP_PORT', 22),
+            'root' => env('NAS_SFTP_ROOT'),
+            'timeout' => (int) env('NAS_SFTP_TIMEOUT', 30),
+            // Use NAS_URL when set; otherwise fall back to APP_URL. Trim trailing slash if present.
+            'url' => rtrim(env('NAS_URL', env('APP_URL')), '/') . '/Uploads/contracts',
+        ],
+
+        // Alias disk for NAS uploads. Use UPLOAD_DISK=nas_sftp to point
+        // application uploads to the NAS without changing code.
+        'nas_sftp' => [
+            'driver' => 'sftp',
+            'host' => env('NAS_SFTP_HOST'),
+            'username' => env('NAS_SFTP_USER'),
+            'password' => env('NAS_SFTP_PASSWORD'),
+            'port' => (int) env('NAS_SFTP_PORT', 22),
+            'root' => env('NAS_SFTP_ROOT'),
+            'timeout' => (int) env('NAS_SFTP_TIMEOUT', 30),
+            // Use NAS_URL when set; otherwise fall back to APP_URL. Trim trailing slash if present.
+            'url' => rtrim(env('NAS_URL', env('APP_URL')), '/') . '/Uploads/contracts',
+        ],
+
     ],
 
     /*

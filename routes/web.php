@@ -32,4 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', [\App\Http\Controllers\UserController::class, 'profile'])->name('users.profile');
     Route::put('profile', [\App\Http\Controllers\UserController::class, 'updateProfile'])->name('users.profile.update');
     Route::resource('contracts', App\Http\Controllers\ContractController::class);
+    // Stream contract attachments through the app so files are accessible even if NAS HTTP is not public
+    Route::get('contracts/file/{contract}', [App\Http\Controllers\ContractFileController::class, 'show'])
+        ->name('contracts.file');
 });

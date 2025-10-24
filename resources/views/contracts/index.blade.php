@@ -467,7 +467,7 @@
                                     </td>
                                     <td class="text-center">
                                         @if($contract->formFile)
-                                            <a href="{{ asset('uploads/' . $contract->formFile) }}" target="_blank" title="เปิดไฟล์แนบ">
+                                            <a href="{{ route('contracts.file', $contract->id) }}" target="_blank" title="เปิดไฟล์แนบ">
                                                 <i class="bi bi-paperclip text-primary"></i>
                                             </a>
                                         @endif

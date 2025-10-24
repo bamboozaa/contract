@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ContractController extends Controller
@@ -174,7 +175,7 @@ class ContractController extends Controller
                     $fileInfo = pathinfo($originalName);
                     $safeName = Str::slug($fileInfo['filename']);
                     $file_name = time() . '_' . $safeName . '.' . $fileInfo['extension'];
-                    $file->move(public_path('uploads'), $file_name);
+                    Storage::disk(env('UPLOAD_DISK','sftp'))->put($file_name, file_get_contents($file->getRealPath()));
                     $contract = Contract::create($request->except('formFile'));
                     $contract->formFile = $file_name;
                     $contract->save();
@@ -200,7 +201,7 @@ class ContractController extends Controller
                 $fileInfo = pathinfo($originalName);
                 $safeName = Str::slug($fileInfo['filename']);
                 $file_name = time() . '_' . $safeName . '.' . $fileInfo['extension'];
-                $file->move(public_path('uploads'), $file_name);
+                Storage::disk(env('UPLOAD_DISK','sftp'))->put($file_name, file_get_contents($file->getRealPath()));
                 $contract = Contract::create($request->except('formFile'));
                 $contract->formFile = $file_name;
                 $contract->save();
@@ -280,14 +281,11 @@ class ContractController extends Controller
 
                     // ลบไฟล์เก่า (ถ้ามี)
                     if (!is_null($contract->formFile)) {
-                        $fileToDelete = public_path('uploads/' . $contract->formFile);
-                        if (file_exists($fileToDelete)) {
-                            unlink($fileToDelete);
-                        }
+                        Storage::disk(env('UPLOAD_DISK','sftp'))->delete($contract->formFile);
                     }
 
                     // อัปโหลดไฟล์ใหม่
-                    $file->move(public_path('uploads'), $file_name);
+                    Storage::disk(env('UPLOAD_DISK','sftp'))->put($file_name, file_get_contents($file->getRealPath()));
 
                     // อัปเดตชื่อไฟล์ในฐานข้อมูล
                     $contract->formFile = $file_name;
@@ -349,14 +347,11 @@ class ContractController extends Controller
 
                     // ลบไฟล์เก่า (ถ้ามี)
                     if (!is_null($contract->formFile)) {
-                        $fileToDelete = public_path('uploads/' . $contract->formFile);
-                        if (file_exists($fileToDelete)) {
-                            unlink($fileToDelete);
-                        }
+                        Storage::disk(env('UPLOAD_DISK','sftp'))->delete($contract->formFile);
                     }
 
                     // อัปโหลดไฟล์ใหม่
-                    $file->move(public_path('uploads'), $file_name);
+                    Storage::disk(env('UPLOAD_DISK','sftp'))->put($file_name, file_get_contents($file->getRealPath()));
 
                     // อัปเดตชื่อไฟล์ในฐานข้อมูล
                     $contract->formFile = $file_name;
@@ -415,10 +410,7 @@ class ContractController extends Controller
     {
         // ตรวจสอบว่าไฟล์มีอยู่จริงก่อนลบ
         if (!is_null($contract->formFile)) {
-            $fileToDelete = public_path('uploads/' . $contract->formFile);
-            if (file_exists($fileToDelete)) {
-                unlink($fileToDelete);
-            }
+            Storage::disk(env('UPLOAD_DISK','sftp'))->delete($contract->formFile);
         }
 
         $contract->delete();
