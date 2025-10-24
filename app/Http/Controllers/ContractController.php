@@ -325,7 +325,17 @@ class ContractController extends Controller
             session()->flash('success', 'อัปเดตสัญญาเรียบร้อยแล้ว');
             Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
 
-            return redirect()->route('contracts.index');
+            // preserve filters from the request so we return to the same filtered list
+            $filters = $request->only(['filter_contract_year','filter_status','filter_contract_type','filter_department_id','filter_expiry_status','filter_page']);
+            // remove empty/null filters and rename keys
+            $filters = array_filter($filters, function ($v) {
+                return $v !== null && $v !== '';
+            });
+            $renamedFilters = [];
+            foreach ($filters as $key => $value) {
+                $renamedFilters[str_replace('filter_', '', $key)] = $value;
+            }
+            return redirect()->route('contracts.index', $renamedFilters);
         } else {
             // จัดการไฟล์อัปโหลด
             if ($request->hasFile('formFile')) {
@@ -384,7 +394,17 @@ class ContractController extends Controller
             session()->flash('success', 'อัปเดตสัญญาเรียบร้อยแล้ว');
             Log::info("Contract NO(" . $contract->contract_no . "/" . $contract->contract_year . ") Update finished by " . Auth::user()->name);
 
-            return redirect()->route('contracts.index');
+            // preserve filters from the request so we return to the same filtered list
+            $filters = $request->only(['filter_contract_year','filter_status','filter_contract_type','filter_department_id','filter_expiry_status','filter_page']);
+            // remove empty/null filters and rename keys
+            $filters = array_filter($filters, function ($v) {
+                return $v !== null && $v !== '';
+            });
+            $renamedFilters = [];
+            foreach ($filters as $key => $value) {
+                $renamedFilters[str_replace('filter_', '', $key)] = $value;
+            }
+            return redirect()->route('contracts.index', $renamedFilters);
         }
     }
 

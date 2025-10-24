@@ -472,7 +472,7 @@
                                     @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route('contracts.edit', $contract->id) }}"
+                                                <a href="{{ route('contracts.edit', $contract->id) }}{{ request()->except('page') ? '?' . http_build_query(request()->except('page')) : '' }}"
                                                     class="btn btn-outline-warning btn-sm" data-bs-toggle="tooltip"
                                                     title="แก้ไขข้อมูล">
                                                     <i class="bi bi-pencil"></i>

@@ -318,6 +318,13 @@
     {!! Form::open(['route' => ['contracts.update', $contract->id], 'method' => 'POST', 'files' => true, 'class' => 'needs-validation', 'novalidate' => true]) !!}
     @method('PATCH')
 
+    {{-- Preserve list filters so we can redirect back with the same filters --}}
+    @foreach (['contract_year','status','contract_type','department_id','expiry_status','page'] as $f)
+        @if (request()->has($f))
+            <input type="hidden" name="filter_{{ $f }}" value="{{ request($f) }}">
+        @endif
+    @endforeach
+
     <div class="main-card">
         <div class="card-body p-0">
 
