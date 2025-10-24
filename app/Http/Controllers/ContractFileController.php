@@ -11,7 +11,7 @@ class ContractFileController extends Controller
     /**
      * Stream the contract file to the browser.
      */
-    public function show(Contract $contract)
+    public function show(Request $request, Contract $contract)
     {
         if (empty($contract->formFile)) {
             abort(404);
@@ -36,9 +36,11 @@ class ContractFileController extends Controller
                 $mime = 'application/octet-stream';
             }
 
+            $disposition = $request->query('download') ? 'attachment' : 'inline';
+
             return response($contents, 200)
                 ->header('Content-Type', $mime)
-                ->header('Content-Disposition', 'inline; filename="' . basename($path) . '"');
+                ->header('Content-Disposition', $disposition . '; filename="' . basename($path) . '"');
         }
 
         $size = null;
@@ -54,6 +56,8 @@ class ContractFileController extends Controller
             $mime = 'application/octet-stream';
         }
 
+        $disposition = $request->query('download') ? 'attachment' : 'inline';
+
         return response()->stream(function () use ($stream) {
             fpassthru($stream);
             if (is_resource($stream)) {
@@ -62,7 +66,7 @@ class ContractFileController extends Controller
         }, 200, array_filter([
             'Content-Type' => $mime,
             'Content-Length' => $size,
-            'Content-Disposition' => 'inline; filename="' . basename($path) . '"',
+            'Content-Disposition' => $disposition . '; filename="' . basename($path) . '"',
         ]));
     }
 }

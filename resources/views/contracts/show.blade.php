@@ -379,10 +379,10 @@
                                 <i class="bi bi-file-earmark-pdf"></i>
                                 <h6 class="mt-2">{{ $contract->formFile }}</h6>
                                 <div class="mt-3">
-                                    <a href="{{ asset('uploads/' . $contract->formFile) }}" class="btn btn-sm btn-primary me-2" target="_blank">
+                                    <a href="{{ route('contracts.file', $contract->id) }}" class="btn btn-sm btn-primary me-2" target="_blank">
                                         <i class="bi bi-eye me-1"></i>ดูไฟล์
                                     </a>
-                                    <a href="{{ asset('uploads/' . $contract->formFile) }}" class="btn btn-sm btn-success" download>
+                                    <a href="{{ route('contracts.file', $contract->id) }}?download=1" class="btn btn-sm btn-success">
                                         <i class="bi bi-download me-1"></i>ดาวน์โหลด
                                     </a>
                                 </div>
