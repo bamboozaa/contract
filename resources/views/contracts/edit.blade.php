@@ -720,65 +720,89 @@
                 });
             }
 
-            // Auto format number inputs
-            // const acquisitionValue = document.getElementById('acquisition_value');
-            // if (acquisitionValue) {
-            //     acquisitionValue.addEventListener('input', function(e) {
-            //         let value = e.target.value.replace(/,/g, '');
-            //         if (!isNaN(value) && value !== '') {
-            //             e.target.value = parseFloat(value).toLocaleString('en-US', {
-            //                 minimumFractionDigits: 2,
-            //                 maximumFractionDigits: 2
-            //             });
-            //         }
-            //     });
-            // }
+            // Auto format acquisition value with comma
+            const acquisitionValue = document.getElementById('acquisition_value');
+            if (acquisitionValue) {
+                acquisitionValue.addEventListener('input', function(e) {
+                    let value = e.target.value;
 
-            // const guaranteeAmount = document.getElementById('guarantee_amount');
-            // if (guaranteeAmount) {
-            //     guaranteeAmount.addEventListener('input', function(e) {
-            //         let value = e.target.value.replace(/,/g, '');
-            //         if (!isNaN(value) && value !== '') {
-            //             e.target.value = parseFloat(value).toLocaleString('en-US', {
-            //                 minimumFractionDigits: 2,
-            //                 maximumFractionDigits: 2
-            //             });
-            //         }
-            //     });
-            // }
+                    // Remove all non-digit characters except decimal point
+                    value = value.replace(/[^\d.]/g, '');
+
+                    // Ensure only one decimal point
+                    const parts = value.split('.');
+                    if (parts.length > 2) {
+                        value = parts[0] + '.' + parts.slice(1).join('');
+                    }
+
+                    // Format with comma
+                    if (value !== '') {
+                        const [integerPart, decimalPart] = value.split('.');
+                        const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        e.target.value = decimalPart !== undefined ? formattedInteger + '.' + decimalPart : formattedInteger;
+                    }
+                });
+
+                // Store original value without comma before submit
+                const form = acquisitionValue.closest('form');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        // Remove comma before submitting
+                        acquisitionValue.value = acquisitionValue.value.replace(/,/g, '');
+                    });
+                }
+
+                // Format initial value
+                if (acquisitionValue.value !== '') {
+                    let value = acquisitionValue.value;
+                    const [integerPart, decimalPart] = value.split('.');
+                    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    acquisitionValue.value = decimalPart !== undefined ? formattedInteger + '.' + decimalPart : formattedInteger;
+                }
+            }
+
+            // Auto format guarantee amount with comma
+            const guaranteeAmount = document.getElementById('guarantee_amount');
+            if (guaranteeAmount) {
+                guaranteeAmount.addEventListener('input', function(e) {
+                    let value = e.target.value;
+
+                    // Remove all non-digit characters except decimal point
+                    value = value.replace(/[^\d.]/g, '');
+
+                    // Ensure only one decimal point
+                    const parts = value.split('.');
+                    if (parts.length > 2) {
+                        value = parts[0] + '.' + parts.slice(1).join('');
+                    }
+
+                    // Format with comma
+                    if (value !== '') {
+                        const [integerPart, decimalPart] = value.split('.');
+                        const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        e.target.value = decimalPart !== undefined ? formattedInteger + '.' + decimalPart : formattedInteger;
+                    }
+                });
+
+                // Store original value without comma before submit
+                const form = guaranteeAmount.closest('form');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        // Remove comma before submitting
+                        guaranteeAmount.value = guaranteeAmount.value.replace(/,/g, '');
+                    });
+                }
+
+                // Format initial value
+                if (guaranteeAmount.value !== '') {
+                    let value = guaranteeAmount.value;
+                    const [integerPart, decimalPart] = value.split('.');
+                    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    guaranteeAmount.value = decimalPart !== undefined ? formattedInteger + '.' + decimalPart : formattedInteger;
+                }
+            }
         });
 
-        // // File upload preview
-        // document.getElementById('formFile').addEventListener('change', function(e) {
-        //     const file = e.target.files[0];
-        //     if (file) {
-        //         const fileName = file.name;
-        //         const fileSize = (file.size / 1024 / 1024).toFixed(2);
-        //         console.log(`Selected file: ${fileName} (${fileSize} MB)`);
-        //     }
-        // });
 
-        // // Auto format number inputs
-        // document.getElementById('acquisition_value').addEventListener('input', function(e) {
-        //     let value = e.target.value.replace(/,/g, '');
-        //     if (!isNaN(value) && value !== '') {
-        //         e.target.value = parseFloat(value).toLocaleString('en-US', {
-        //             minimumFractionDigits: 2,
-        //             maximumFractionDigits: 2
-        //         });
-        //     }
-        // });
-
-        // if (document.getElementById('guarantee_amount')) {
-        //     document.getElementById('guarantee_amount').addEventListener('input', function(e) {
-        //         let value = e.target.value.replace(/,/g, '');
-        //         if (!isNaN(value) && value !== '') {
-        //             e.target.value = parseFloat(value).toLocaleString('en-US', {
-        //                 minimumFractionDigits: 2,
-        //                 maximumFractionDigits: 2
-        //             });
-        //         }
-        //     });
-        // }
     </script>
 @stop

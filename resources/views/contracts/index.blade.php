@@ -467,7 +467,9 @@
                                     </td>
                                     <td class="text-center">
                                         @if($contract->formFile)
-                                            <i class="bi bi-paperclip text-muted" title="มีไฟล์แนบ"></i>
+                                            <a href="{{ asset('uploads/' . $contract->formFile) }}" target="_blank" title="เปิดไฟล์แนบ">
+                                                <i class="bi bi-paperclip text-primary"></i>
+                                            </a>
                                         @endif
                                     </td>
                                     @if (\Illuminate\Support\Facades\Auth::user()->role === 1)
