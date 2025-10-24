@@ -232,11 +232,11 @@
                 <div class="card-body">
                     <form method="GET" action="{{ route('contracts.index') }}" class="row g-3 align-items-end">
                         @csrf
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-calendar-event me-2"></i>ปีสัญญา
                             </label>
-                            <select class="form-select" name="contract_year">
+                            <select class="form-select" name="contract_year" onchange="this.form.submit()">
                                 <option value="">{{ __('ทั้งหมด') }}</option>
                                 @for ($year = $minYear->contract_year; $year <= $maxYear->contract_year; $year++)
                                     <option value="{{ $year }}"
@@ -246,11 +246,11 @@
                                 @endfor
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-activity me-2"></i>สถานะสัญญา
                             </label>
-                            <select class="form-select" name="status">
+                            <select class="form-select" name="status" onchange="this.form.submit()">
                                 <option value="">{{ __('ทั้งหมด') }}</option>
                                 <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>ร่างสัญญา</option>
                                 <option value="2" {{ request('status') == '2' ? 'selected' : '' }}>เสนอตรวจร่าง
@@ -263,11 +263,11 @@
                                     เสร็จสิ้น(คืนคู่ฉบับ)</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-tags me-2"></i>ประเภทสัญญา
                             </label>
-                            <select class="form-select" name="contract_type">
+                            <select class="form-select" name="contract_type" onchange="this.form.submit()">
                                 <option value="">{{ __('ทั้งหมด') }}</option>
                                 <option value="1" {{ request('contract_type') == '1' ? 'selected' : '' }}>สัญญาซื้อขาย
                                 </option>
@@ -286,7 +286,7 @@
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-building me-2"></i>หน่วยงาน
                             </label>
-                            <select class="form-select" name="department_id">
+                            <select class="form-select" name="department_id" onchange="this.form.submit()">
                                 <option value="">{{ __('ทั้งหมด') }}</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
@@ -297,13 +297,14 @@
                             </select>
                         </div>
 
-                        <div class="col-md-3">
+                        {{-- ปุ่มค้นหาถูกลบออกเพื่อให้ filter ทำงานอัตโนมัติ --}}
+                        {{-- <div class="col-md-3">
                             <div class="form-group">
                                 <button class="btn btn-primary w-100" type="submit">
                                     <i class="bi bi-search me-2"></i>{{ __('ค้นหา') }}
                                 </button>
                             </div>
-                        </div>
+                        </div> --}}
                         {{-- <div class="col-md-5 text-end">
                             <small class="text-muted">
                                 <i class="bi bi-info-circle me-1"></i>
