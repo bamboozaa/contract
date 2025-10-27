@@ -9,6 +9,10 @@
     <title>@yield('title')</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <style>
+        body { filter: grayscale(100%) brightness(1.05); }
+    </style>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
