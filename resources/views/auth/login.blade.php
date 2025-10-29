@@ -5,7 +5,7 @@
     @parent
     {{ Html::style('css/custom.css') }}
     <style>
-        body { filter: grayscale(100%) brightness(1.05); }
+        /* body { filter: grayscale(100%) brightness(1.05); } */
         .login-container {
             min-height: 100vh;
             height: 100vh;
