@@ -14,9 +14,9 @@
     <!-- Custom Style -->
     {{ Html::style('css/main.css') }}
 
-    <style>
+    {{-- <style>
         body { filter: grayscale(100%) brightness(1.05); }
-    </style>
+    </style> --}}
 
     @yield('importcss')
     @yield('importjs')
