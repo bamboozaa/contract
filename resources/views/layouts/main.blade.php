@@ -133,6 +133,12 @@
                                 จัดการสัญญา
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('mou.*') ? 'active' : '' }}" href="{{ route('mou.index') }}">
+                                <i class="bi bi-journal-text"></i>
+                                สัญญา MOU
+                            </a>
+                        </li>
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="bi bi-plus-circle"></i>

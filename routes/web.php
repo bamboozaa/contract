@@ -38,4 +38,7 @@ Route::middleware('auth')->group(function () {
     // Attachment streaming
     Route::get('attachments/file/{attachment}', [App\Http\Controllers\AttachmentFileController::class, 'show'])
         ->name('attachments.file');
+
+    // MOU listing
+    Route::get('mou', [\App\Http\Controllers\MouController::class, 'index'])->name('mou.index');
 });
