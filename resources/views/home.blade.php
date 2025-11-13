@@ -131,7 +131,7 @@
         .stat-card .number {
             font-size: 2.5rem;
         }
-        
+
         .stat-card .icon {
             font-size: 2.5rem;
         }
@@ -141,15 +141,15 @@
         .dashboard-header h1 {
             font-size: 1.5rem;
         }
-        
+
         .stat-card {
             margin-bottom: 1rem;
         }
-        
+
         .stat-card .number {
             font-size: 2rem;
         }
-        
+
         .stat-card .icon {
             font-size: 2rem;
         }
@@ -196,14 +196,14 @@
             </a>
         </div>
 
-        <!-- ร่าง -->
+        <!-- สัญญาจ้าง -->
         <div class="col-12 col-md-6 col-lg-4 col-xl-2">
             <a href="{{ route('contracts.index', ['contract_type' => 2]) }}" class="text-decoration-none">
                 <div class="stat-card stat-card-blue">
                     <i class="bi bi-briefcase icon"></i>
                     <div class="number">{{ $contracts_2->count() }}</div>
-                    <div class="label">ร่าง</div>
-                    <div class="sublabel">ร่างงานบริการ</div>
+                    <div class="label">จ้าง</div>
+                    <div class="sublabel">สัญญาจ้าง</div>
                 </div>
             </a>
         </div>
@@ -284,7 +284,7 @@
             สัญญาใกล้หมดอายุ 30 วัน
             <span class="badge bg-danger ms-2">{{ $contractsExpiringIn30Days->count() }}</span>
         </h3>
-        
+
         <div class="table-responsive">
             <table class="table table-hover align-middle">
                 <thead class="table-light">
