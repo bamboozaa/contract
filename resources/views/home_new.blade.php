@@ -131,7 +131,7 @@
         .stat-card .number {
             font-size: 2.5rem;
         }
-        
+
         .stat-card .icon {
             font-size: 2.5rem;
         }
@@ -141,15 +141,15 @@
         .dashboard-header h1 {
             font-size: 1.5rem;
         }
-        
+
         .stat-card {
             margin-bottom: 1rem;
         }
-        
+
         .stat-card .number {
             font-size: 2rem;
         }
-        
+
         .stat-card .icon {
             font-size: 2rem;
         }
@@ -284,7 +284,7 @@
             สัญญาใกล้หมดอายุ 30 วัน
             <span class="badge bg-danger ms-2">{{ $contractsExpiringIn30Days->count() }}</span>
         </h3>
-        
+
         <div class="table-responsive">
             <table class="table table-hover align-middle">
                 <thead class="table-light">

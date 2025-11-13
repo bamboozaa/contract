@@ -54,6 +54,25 @@ class HomeController extends Controller
         $today = Carbon::now();
         $contractsExpiringIn30Days = Contract::whereBetween('end_date', [$today, $today->copy()->addDays(30)])->get();
 
-        return view('home', compact('users', 'contracts', 'contracts_1', 'contracts_2', 'contracts_3', 'contracts_4', 'contracts_5', 'contractsExpiringIn30Days'));
+        // สถิติเพิ่มเติม
+        $totalContracts = $contracts->count();
+        $contractsWithGuarantee = Contract::whereNotNull('types_of_guarantee')->where('types_of_guarantee', '>', 0)->count();
+        $totalGuaranteeAmount = Contract::whereNotNull('types_of_guarantee')->where('types_of_guarantee', '>', 0)->sum('guarantee_amount');
+        $expiredContracts = Contract::where('end_date', '<', $today)->count();
+
+        return view('home', compact(
+            'users',
+            'contracts',
+            'contracts_1',
+            'contracts_2',
+            'contracts_3',
+            'contracts_4',
+            'contracts_5',
+            'contractsExpiringIn30Days',
+            'totalContracts',
+            'contractsWithGuarantee',
+            'totalGuaranteeAmount',
+            'expiredContracts'
+        ));
     }
 }

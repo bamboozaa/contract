@@ -139,6 +139,12 @@
                                 สัญญา MOU
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('guarantee.*') ? 'active' : '' }}" href="{{ route('guarantee.index') }}">
+                                <i class="bi bi-shield-check"></i>
+                                เงินหลักประกัน
+                            </a>
+                        </li>
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="bi bi-plus-circle"></i>

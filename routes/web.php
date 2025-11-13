@@ -41,4 +41,7 @@ Route::middleware('auth')->group(function () {
 
     // MOU listing
     Route::get('mou', [\App\Http\Controllers\MouController::class, 'index'])->name('mou.index');
+
+    // Guarantee listing
+    Route::get('guarantee', [\App\Http\Controllers\GuaranteeController::class, 'index'])->name('guarantee.index');
 });
