@@ -33,6 +33,13 @@ class MouController extends Controller
             ->orderBy('type_name')
             ->get();
 
+        // Department filter options
+        $departments = DB::connection('mysql2')
+            ->table($departmentTable)
+            ->select('dep_id', 'dep_name')
+            ->orderBy('dep_name')
+            ->get();
+
         $query = DB::connection('mysql2')
             ->table($table . ' as a')
             ->leftJoin($departmentTable . ' as d', 'd.dep_id', '=', 'a.ann_dep')
@@ -68,6 +75,11 @@ class MouController extends Controller
         // Optional type filter
         if ($type = $request->input('type')) {
             $query->where('a.ann_type', $type);
+        }
+
+        // Optional department filter
+        if ($department = $request->input('department')) {
+            $query->where('a.ann_dep', $department);
         }
 
         // Optional status filter: active (not expired), soon (expiring within N days), expired, no_limit
@@ -111,6 +123,6 @@ class MouController extends Controller
     // Keep query string on pagination links (compatible across Laravel versions)
         $mous = $query->paginate(20)->appends($request->query());
 
-        return view('mou.index', compact('mous', 'years', 'types'));
+        return view('mou.index', compact('mous', 'years', 'types', 'departments'));
     }
 }

@@ -139,6 +139,16 @@ document.addEventListener('DOMContentLoaded', function () {
             if (form.requestSubmit) form.requestSubmit(); else form.submit();
         });
     }
+
+    // Department filter change -> search immediately
+    const deptSel = document.getElementById('mou-filter-department');
+    if (deptSel) {
+        deptSel.addEventListener('change', function () {
+            const pageInput = form.querySelector('input[name="page"]');
+            if (pageInput) pageInput.remove();
+            if (form.requestSubmit) form.requestSubmit(); else form.submit();
+        });
+    }
 });
 </script>
 @endsection
@@ -150,12 +160,10 @@ document.addEventListener('DOMContentLoaded', function () {
             <nav aria-label="breadcrumb" class="mb-2">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">สัญญา MOU</li>
+                    <li class="breadcrumb-item active" aria-current="page">สัญญา MOU <span class="badge bg-danger align-middle ms-2" title="จำนวนรายการทั้งหมด">{{ number_format($mous->total()) }}</span></li>
                 </ol>
             </nav>
-            <h2 class="mb-0">รายการสัญญา MOU
-                <span class="badge bg-primary align-middle ms-2" title="จำนวนรายการทั้งหมด">{{ number_format($mous->total()) }}</span>
-            </h2>
+            <h2 class="mb-0">รายการสัญญา MOU</h2>
         </div>
 
         <form id="mou-search-form" action="{{ route('mou.index') }}" method="get" class="d-flex flex-column gap-2" role="search" style="min-width: 300px;">
@@ -171,6 +179,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     <option value="">ทุกประเภท</option>
                     @foreach(($types ?? []) as $t)
                         <option value="{{ $t->type_id }}" {{ (string)$t->type_id === (string)request('type') ? 'selected' : '' }}>{{ $t->type_name }}</option>
+                    @endforeach
+                </select>
+                <select name="department" id="mou-filter-department" class="form-select" style="flex: 1; min-width: 150px;">
+                    <option value="">ทุกหน่วยงาน</option>
+                    @foreach(($departments ?? []) as $d)
+                        <option value="{{ $d->dep_id }}" {{ (string)$d->dep_id === (string)request('department') ? 'selected' : '' }}>{{ $d->dep_name }}</option>
                     @endforeach
                 </select>
                 <select name="status" id="mou-filter-status" class="form-select" style="flex: 1; min-width: 160px;">
