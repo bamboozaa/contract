@@ -225,7 +225,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     <tbody>
                         @forelse ($mous as $row)
                             <tr>
-                                <td class="mou-col-no">{{ sprintf('%02d', (int)$row->ann_no) }}/{{ $row->ann_year }}</td>
+                                <td class="mou-col-no">
+                                    @php
+                                        $pdfUrl = "http://oadoc.utcc/{$row->ann_year}/ann/{$row->ann_no}{$row->ann_year}.pdf";
+                                    @endphp
+                                    <a href="{{ $pdfUrl }}" target="_blank" class="text-decoration-none" title="เปิดไฟล์แนบ PDF">
+                                        {{ sprintf('%02d', (int)$row->ann_no) }}/{{ $row->ann_year }}
+                                    </a>
+                                </td>
                                 <td class="mou-col-item"><span class="text-ellipsis-2" title="{{ $row->ann_item }}">{{ $row->ann_item }}</span></td>
                                 <td class="mou-col-type">{{ $row->type_name ?? '-' }}</td>
                                     <td class="mou-col-date">
