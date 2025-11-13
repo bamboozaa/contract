@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <select name="status" id="mou-filter-status" class="form-select" style="flex: 1; min-width: 160px;">
                     <option value="">ทุกสถานะ</option>
                     <option value="active" {{ request('status')==='active' ? 'selected' : '' }}>ยังไม่หมดอายุ</option>
-                    <option value="soon" {{ request('status')==='soon' ? 'selected' : '' }}>กำลังหมดอายุ 60 วัน</option>
+                    <option value="soon" {{ request('status')==='soon' ? 'selected' : '' }}>กำลังหมดอายุ 90 วัน</option>
                     <option value="expired" {{ request('status')==='expired' ? 'selected' : '' }}>หมดอายุแล้ว</option>
                     <option value="no_limit" {{ request('status')==='no_limit' ? 'selected' : '' }}>ไม่มีกำหนด</option>
                 </select>
