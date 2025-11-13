@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Auto-submit on filter change
-    ['year', 'type', 'department', 'condition', 'return-status'].forEach(filterId => {
+    ['year', 'type', 'department', 'return-status'].forEach(filterId => {
         const filterEl = document.getElementById('guarantee-filter-' + filterId);
         if (filterEl) {
             filterEl.addEventListener('change', function () {
@@ -167,13 +167,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         <option value="{{ $d->id }}" {{ (string)$d->id === (string)request('department') ? 'selected' : '' }}>{{ $d->dep_name }}</option>
                     @endforeach
                 </select>
-                <select name="condition" id="guarantee-filter-condition" class="form-select" style="flex: 1; min-width: 140px;">
-                    <option value="">ทุกเงื่อนไข</option>
-                    <option value="1" {{ request('condition')==='1' ? 'selected' : '' }}>คืนเมื่อสิ้นสุด</option>
-                    <option value="2" {{ request('condition')==='2' ? 'selected' : '' }}>ไม่คืน</option>
-                </select>
-            </div>
-            <div class="d-flex gap-2 flex-wrap mt-2">
                 <select name="return_status" id="guarantee-filter-return-status" class="form-select" style="flex: 1; min-width: 180px;">
                     <option value="">สถานะการคืน: ทั้งหมด</option>
                     <option value="overdue" {{ request('return_status')==='overdue' ? 'selected' : '' }}>🔴 เกินกำหนดคืนแล้ว</option>
