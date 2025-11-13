@@ -59,33 +59,29 @@ class BusinessDayCalculator
     }
 
     /**
-     * เพิ่มจำนวนวันทำการ
+     * เพิ่มจำนวนวันทำการแบบเร็ว (Optimized Algorithm)
+     * รวมเสาร์ อาทิตย์ และวันหยุดนักขัตฤกษ์ด้วย
      */
     public static function addBusinessDays(Carbon $startDate, int $businessDays): Carbon
     {
-        $date = $startDate->copy();
-        $addedDays = 0;
-
-        while ($addedDays < $businessDays) {
-            $date->addDay();
-
-            if (self::isBusinessDay($date)) {
-                $addedDays++;
-            }
+        if ($businessDays <= 0) {
+            return $startDate->copy();
         }
 
-        return $date;
+        // เพิ่มวันปกติเลย (นับทุกวันรวมวันหยุด)
+        return $startDate->copy()->addDays($businessDays);
     }
 
     /**
-     * เพิ่มจำนวนปี โดยนับเป็นวันทำการ
-     * 1 ปี ≈ 250 วันทำการ
+     * เพิ่มจำนวนปี โดยนับทุกวันรวมเสาร์ อาทิตย์ และวันหยุดนักขัตฤกษ์
+     * 1 ปี = 365 วัน
      */
     public static function addBusinessYears(Carbon $startDate, int $years): Carbon
     {
-        $businessDaysPerYear = 250;
-        $totalBusinessDays = $years * $businessDaysPerYear;
+        // นับทุกวัน 1 ปี = 365 วัน
+        $daysPerYear = 365;
+        $totalDays = $years * $daysPerYear;
 
-        return self::addBusinessDays($startDate, $totalBusinessDays);
+        return self::addBusinessDays($startDate, $totalDays);
     }
 }

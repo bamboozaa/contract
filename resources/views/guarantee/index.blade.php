@@ -274,21 +274,29 @@ document.addEventListener('DOMContentLoaded', function () {
                                     @endif
                                 </td>
                                 <td class="guarantee-col-condition">
-                                    @if($row->duration && $row->condition != 2)
+                                    @if($row->duration && $row->condition != 2 && $row->contract_date)
                                         @php
-                                            // ใช้ contract_date (ทุกสัญญามี contract_date)
-                                            $baseDate = $row->contract_date ? \Carbon\Carbon::parse($row->contract_date) : null;
-                                            if ($baseDate) {
+                                            // คำนวณ 1 ครั้ง แล้ว reuse ค่า
+                                            if (!isset($returnDateCache)) $returnDateCache = [];
+                                            $cacheKey = $row->id;
+
+                                            if (!isset($returnDateCache[$cacheKey])) {
                                                 try {
+                                                    $baseDate = \Carbon\Carbon::parse($row->contract_date);
                                                     $returnDate = \App\Helpers\BusinessDayCalculator::addBusinessYears($baseDate, $row->duration);
-                                                    $thaiReturnDate = $returnDate->locale('th')->translatedFormat('j M') . ' ' . ($returnDate->year + 543);
+                                                    $returnDateCache[$cacheKey] = [
+                                                        'returnDate' => $returnDate,
+                                                        'thaiReturnDate' => $returnDate->locale('th')->translatedFormat('j M') . ' ' . ($returnDate->year + 543),
+                                                        'daysUntilReturn' => \Carbon\Carbon::now()->diffInDays($returnDate, false)
+                                                    ];
                                                 } catch (\Exception $e) {
-                                                    $thaiReturnDate = null;
+                                                    $returnDateCache[$cacheKey] = null;
                                                 }
                                             }
+                                            $cached = $returnDateCache[$cacheKey];
                                         @endphp
-                                        @if(isset($thaiReturnDate))
-                                            <small>{{ $thaiReturnDate }}</small>
+                                        @if($cached)
+                                            <small>{{ $cached['thaiReturnDate'] }}</small>
                                         @else
                                             <span class="text-muted">-</span>
                                         @endif
@@ -299,20 +307,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                     @endif
                                 </td>
                                 <td class="guarantee-col-condition">
-                                    @if($row->duration && $row->condition != 2)
+                                    @if($row->duration && $row->condition != 2 && $row->contract_date)
                                         @php
-                                            $today = \Carbon\Carbon::now();
-                                            $baseDate = $row->contract_date ? \Carbon\Carbon::parse($row->contract_date) : null;
-                                            if ($baseDate) {
-                                                try {
-                                                    $returnDate = \App\Helpers\BusinessDayCalculator::addBusinessYears($baseDate, $row->duration);
-                                                    $daysUntilReturn = $today->diffInDays($returnDate, false);
-                                                } catch (\Exception $e) {
-                                                    $daysUntilReturn = null;
-                                                }
-                                            }
+                                            // ใช้ค่าที่ cache ไว้แล้วจากคอลัมน์ก่อนหน้า
+                                            $cached = $returnDateCache[$row->id] ?? null;
                                         @endphp
-                                        @if(isset($daysUntilReturn))
+                                        @if($cached && isset($cached['daysUntilReturn']))
+                                            @php $daysUntilReturn = $cached['daysUntilReturn']; @endphp
                                             @if($daysUntilReturn < 0)
                                                 <span class="badge bg-danger">
                                                     <i class="bi bi-exclamation-circle-fill"></i> เกินกำหนด {{ abs($daysUntilReturn) }} วัน

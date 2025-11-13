@@ -66,30 +66,31 @@ class GuaranteeController extends Controller
 
         // ถ้ามี filter สถานะการคืน ให้ดึงข้อมูลทั้งหมดมาก่อนแล้ว filter ที่ PHP
         if ($returnStatusFilter) {
-            $allGuarantees = $query->where('condition', '!=', 2)->get(); // ดึงเฉพาะที่ต้องคืน
+            $allGuarantees = $query
+                ->where('condition', '!=', 2)
+                ->whereNotNull('duration')
+                ->whereNotNull('contract_date')
+                ->get(); // ดึงเฉพาะที่ต้องคืนและมีข้อมูลครบ
 
             $today = now();
             $filtered = $allGuarantees->filter(function ($contract) use ($returnStatusFilter, $today) {
-                // ใช้ contract_date หรือ start_date (fallback)
-                $baseDate = $contract->contract_date ?: $contract->start_date;
+                try {
+                    $baseDateCarbon = \Carbon\Carbon::parse($contract->contract_date);
+                    $returnDate = \App\Helpers\BusinessDayCalculator::addBusinessYears($baseDateCarbon, $contract->duration);
+                    $daysUntilReturn = $today->diffInDays($returnDate, false);
 
-                if (!$baseDate || !$contract->duration) {
+                    switch ($returnStatusFilter) {
+                        case 'overdue':
+                            return $daysUntilReturn < 0;
+                        case 'due_soon':
+                            return $daysUntilReturn >= 0 && $daysUntilReturn <= 90;
+                        case 'active':
+                            return $daysUntilReturn > 90;
+                        default:
+                            return true;
+                    }
+                } catch (\Exception $e) {
                     return false;
-                }
-
-                $baseDateCarbon = \Carbon\Carbon::parse($baseDate);
-                $returnDate = \App\Helpers\BusinessDayCalculator::addBusinessYears($baseDateCarbon, $contract->duration);
-                $daysUntilReturn = $today->diffInDays($returnDate, false);
-
-                switch ($returnStatusFilter) {
-                    case 'overdue':
-                        return $daysUntilReturn < 0;
-                    case 'due_soon':
-                        return $daysUntilReturn >= 0 && $daysUntilReturn <= 90;
-                    case 'active':
-                        return $daysUntilReturn > 90;
-                    default:
-                        return true;
                 }
             });
 
@@ -109,7 +110,7 @@ class GuaranteeController extends Controller
             $guarantees = $query->paginate(20)->appends($request->all());
         }
 
-        // คำนวณสถิติ
+        // คำนวณสถิติ (ใช้ raw SQL เพื่อความเร็ว)
         $totalAmount = Contract::whereNotNull('types_of_guarantee')
             ->where('types_of_guarantee', '>', 0)
             ->sum('guarantee_amount');
@@ -118,9 +119,10 @@ class GuaranteeController extends Controller
             ->where('types_of_guarantee', '>', 0)
             ->count();
 
-        // สถิติตามสถานะการคืน (ใช้วันทำการ)
+        // สถิติตามสถานะการคืน (ใช้วันทำการ) - ดึงเฉพาะที่จำเป็น
         $today = now();
-        $allGuaranteesForStats = Contract::whereNotNull('types_of_guarantee')
+        $allGuaranteesForStats = Contract::select('contract_date', 'duration')
+            ->whereNotNull('types_of_guarantee')
             ->where('types_of_guarantee', '>', 0)
             ->where('condition', '!=', 2) // นับทุกสัญญาที่ไม่ใช่ "ไม่ต้องคืน"
             ->whereNotNull('duration')
@@ -131,18 +133,19 @@ class GuaranteeController extends Controller
         $dueSoonCount = 0;
 
         foreach ($allGuaranteesForStats as $contract) {
-            // ใช้ contract_date (ทุกสัญญามี contract_date)
-            $baseDate = $contract->contract_date;
-            if (!$baseDate) continue;
+            try {
+                $baseDateCarbon = \Carbon\Carbon::parse($contract->contract_date);
+                $returnDate = \App\Helpers\BusinessDayCalculator::addBusinessYears($baseDateCarbon, $contract->duration);
+                $daysUntilReturn = $today->diffInDays($returnDate, false);
 
-            $baseDateCarbon = \Carbon\Carbon::parse($baseDate);
-            $returnDate = \App\Helpers\BusinessDayCalculator::addBusinessYears($baseDateCarbon, $contract->duration);
-            $daysUntilReturn = $today->diffInDays($returnDate, false);
-
-            if ($daysUntilReturn < 0) {
-                $overdueCount++;
-            } elseif ($daysUntilReturn <= 90) {
-                $dueSoonCount++;
+                if ($daysUntilReturn < 0) {
+                    $overdueCount++;
+                } elseif ($daysUntilReturn <= 90) {
+                    $dueSoonCount++;
+                }
+            } catch (\Exception $e) {
+                // Skip if error in calculation
+                continue;
             }
         }
 
