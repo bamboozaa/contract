@@ -10,6 +10,10 @@
     .mou-col-date { width: 180px; text-align: left; }
     .mou-col-dep { width: 200px; }
     .mou-col-type { width: 120px; text-align: center; }
+    /* Department text smaller */
+    .mou-dep { font-size: 0.9rem; line-height: 1.2; }
+    /* Date text: keep in one line and slightly smaller */
+    .mou-date { white-space: nowrap !important; font-size: 0.9rem; line-height: 1.1; }
     .text-ellipsis-2 {
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -41,6 +45,8 @@
         .mou-col-type { width: 100px; font-size: 0.9rem; }
         .mou-col-date { width: 140px; font-size: 0.9rem; }
         .mou-col-dep { width: 150px; font-size: 0.9rem; }
+        .mou-date { font-size: 0.85rem; }
+        .mou-dep { font-size: 0.85rem; }
     }
 
     @media (max-width: 991.98px) {
@@ -50,6 +56,8 @@
         .mou-col-type { width: 80px; }
         .mou-col-date { width: 120px; }
         .mou-col-dep { width: 130px; }
+        .mou-date { font-size: 0.8rem; }
+        .mou-dep { font-size: 0.8rem; }
     }
 
     @media (max-width: 768px) {
@@ -60,6 +68,8 @@
         .mou-col-date { width: 110px; white-space: normal !important; }
         .mou-col-dep { width: 100px; white-space: normal !important; }
         .text-ellipsis-2 { -webkit-line-clamp: 3; }
+        .mou-date { font-size: 0.78rem; }
+        .mou-dep { font-size: 0.78rem; }
     }
 </style>
 @endsection
@@ -215,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <tbody>
                         @forelse ($mous as $row)
                             <tr>
-                                <td class="mou-col-no">{{ $row->ann_no }}/{{ $row->ann_year }}</td>
+                                <td class="mou-col-no">{{ sprintf('%02d', (int)$row->ann_no) }}/{{ $row->ann_year }}</td>
                                 <td class="mou-col-item"><span class="text-ellipsis-2" title="{{ $row->ann_item }}">{{ $row->ann_item }}</span></td>
                                 <td class="mou-col-type">{{ $row->type_name ?? '-' }}</td>
                                     <td class="mou-col-date">
@@ -224,9 +234,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                                 $d = \Carbon\Carbon::parse($row->ann_date)->setTimezone('Asia/Bangkok')->locale('th');
                                                 $thaiDate = $d->translatedFormat('j F') . ' ' . ($d->year + 543);
                                             @endphp
-                                            {{ $thaiDate }}
+                                            <span class="mou-date">{{ $thaiDate }}</span>
                                         @else
-                                            -
+                                            <span class="mou-date">-</span>
                                         @endif
                                     </td>
                                     <td class="mou-col-date">
@@ -238,19 +248,21 @@ document.addEventListener('DOMContentLoaded', function () {
                                                 $diffDays = $today->diffInDays($d->copy()->startOfDay(), false); // < 0 = expired
                                                 $soonDays = (int) env('MOU_EXP_SOON_DAYS', 60);
                                             @endphp
-                                            @if ($diffDays < 0)
-                                                <span class="status-dot bg-danger"></span>
-                                            @elseif ($diffDays <= $soonDays)
-                                                <span class="status-dot bg-warning"></span>
-                                            @else
-                                                <span class="status-dot bg-success"></span>
-                                            @endif
-                                            {{ $thaiDate }}
+                                            <span class="mou-date">
+                                                @if ($diffDays < 0)
+                                                    <span class="status-dot bg-danger"></span>
+                                                @elseif ($diffDays <= $soonDays)
+                                                    <span class="status-dot bg-warning"></span>
+                                                @else
+                                                    <span class="status-dot bg-success"></span>
+                                                @endif
+                                                {{ $thaiDate }}
+                                            </span>
                                         @else
-                                            <span class="text-muted">ไม่มีกำหนด</span>
+                                            <span class="mou-date text-muted">ไม่มีกำหนด</span>
                                         @endif
                                     </td>
-                                <td class="mou-col-dep">{{ $row->dep_name ?? '-' }}</td>
+                                <td class="mou-col-dep"><span class="mou-dep">{{ $row->dep_name ?? '-' }}</span></td>
                             </tr>
                         @empty
                             <tr>
