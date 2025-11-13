@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Helpers;
+
+use Carbon\Carbon;
+
+class BusinessDayCalculator
+{
+    /**
+     * รายการวันหยุดนักขัตฤกษ์ประจำปี
+     * Format: 'YYYY-MM-DD'
+     */
+    private static $holidays = [
+        // 2024
+        '2024-01-01', '2024-02-26', '2024-04-06', '2024-04-13', '2024-04-14', '2024-04-15',
+        '2024-05-01', '2024-05-04', '2024-05-22', '2024-06-03', '2024-07-20', '2024-07-21',
+        '2024-07-28', '2024-08-12', '2024-10-13', '2024-10-23', '2024-12-05', '2024-12-10', '2024-12-31',
+
+        // 2025
+        '2025-01-01', '2025-02-12', '2025-04-06', '2025-04-13', '2025-04-14', '2025-04-15',
+        '2025-05-01', '2025-05-05', '2025-05-11', '2025-06-03', '2025-07-08', '2025-07-09',
+        '2025-07-28', '2025-08-12', '2025-10-13', '2025-10-23', '2025-12-05', '2025-12-10', '2025-12-31',
+
+        // 2026
+        '2026-01-01', '2026-03-03', '2026-04-06', '2026-04-13', '2026-04-14', '2026-04-15',
+        '2026-05-01', '2026-05-04', '2026-05-31', '2026-06-03', '2026-07-27', '2026-07-28',
+        '2026-08-12', '2026-10-13', '2026-10-23', '2026-12-05', '2026-12-10', '2026-12-31',
+
+        // 2027
+        '2027-01-01', '2027-02-23', '2027-04-06', '2027-04-13', '2027-04-14', '2027-04-15',
+        '2027-05-01', '2027-05-03', '2027-05-20', '2027-06-03', '2027-07-16', '2027-07-17',
+        '2027-07-28', '2027-08-12', '2027-10-13', '2027-10-23', '2027-12-05', '2027-12-10', '2027-12-31',
+    ];
+
+    /**
+     * ตรวจสอบว่าเป็นวันหยุดนักขัตฤกษ์หรือไม่
+     */
+    public static function isHoliday(Carbon $date): bool
+    {
+        return in_array($date->format('Y-m-d'), self::$holidays);
+    }
+
+    /**
+     * ตรวจสอบว่าเป็นวันทำการหรือไม่
+     */
+    public static function isBusinessDay(Carbon $date): bool
+    {
+        // เสาร์ (6) และอาทิตย์ (0)
+        if ($date->dayOfWeek === Carbon::SATURDAY || $date->dayOfWeek === Carbon::SUNDAY) {
+            return false;
+        }
+
+        // วันหยุดนักขัตฤกษ์
+        if (self::isHoliday($date)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * เพิ่มจำนวนวันทำการ
+     */
+    public static function addBusinessDays(Carbon $startDate, int $businessDays): Carbon
+    {
+        $date = $startDate->copy();
+        $addedDays = 0;
+
+        while ($addedDays < $businessDays) {
+            $date->addDay();
+
+            if (self::isBusinessDay($date)) {
+                $addedDays++;
+            }
+        }
+
+        return $date;
+    }
+
+    /**
+     * เพิ่มจำนวนปี โดยนับเป็นวันทำการ
+     * 1 ปี ≈ 250 วันทำการ
+     */
+    public static function addBusinessYears(Carbon $startDate, int $years): Carbon
+    {
+        $businessDaysPerYear = 250;
+        $totalBusinessDays = $years * $businessDaysPerYear;
+
+        return self::addBusinessDays($startDate, $totalBusinessDays);
+    }
+}

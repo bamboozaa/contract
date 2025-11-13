@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Auto-submit on filter change
-    ['year', 'type', 'department', 'condition'].forEach(filterId => {
+    ['year', 'type', 'department', 'condition', 'return-status'].forEach(filterId => {
         const filterEl = document.getElementById('guarantee-filter-' + filterId);
         if (filterEl) {
             filterEl.addEventListener('change', function () {
@@ -173,12 +173,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     <option value="2" {{ request('condition')==='2' ? 'selected' : '' }}>ไม่คืน</option>
                 </select>
             </div>
+            <div class="d-flex gap-2 flex-wrap mt-2">
+                <select name="return_status" id="guarantee-filter-return-status" class="form-select" style="flex: 1; min-width: 180px;">
+                    <option value="">สถานะการคืน: ทั้งหมด</option>
+                    <option value="overdue" {{ request('return_status')==='overdue' ? 'selected' : '' }}>🔴 เกินกำหนดคืนแล้ว</option>
+                    <option value="due_soon" {{ request('return_status')==='due_soon' ? 'selected' : '' }}>🟡 ใกล้ถึงกำหนดคืน 90 วัน</option>
+                    <option value="active" {{ request('return_status')==='active' ? 'selected' : '' }}>🟢 ยังไม่ถึงกำหนดคืน</option>
+                </select>
+            </div>
         </form>
     </div>
 
     <!-- สถิติ -->
     <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="stats-card">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
@@ -189,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="stats-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
@@ -197,6 +205,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="stats-value">{{ number_format($totalCount ?? 0) }} สัญญา</div>
                     </div>
                     <i class="bi bi-file-earmark-text" style="font-size: 3rem; opacity: 0.3;"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stats-card" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="small opacity-75">เกินกำหนดคืน / ใกล้กำหนด</div>
+                        <div class="stats-value">{{ number_format($overdueCount ?? 0) }} / {{ number_format($dueSoonCount ?? 0) }}</div>
+                    </div>
+                    <i class="bi bi-exclamation-triangle-fill" style="font-size: 3rem; opacity: 0.3;"></i>
                 </div>
             </div>
         </div>
@@ -214,7 +233,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             <th class="guarantee-col-type">ชนิดหลักประกัน</th>
                             <th class="guarantee-col-amount">มูลค่าหลักประกัน</th>
                             <th class="guarantee-col-duration">ระยะเวลา</th>
-                            <th class="guarantee-col-condition">เงื่อนไขการคืน</th>
+                            <th class="guarantee-col-condition">วันที่ต้องคืน</th>
+                            <th class="guarantee-col-condition">สถานะการคืน</th>
                             <th class="guarantee-col-dep">หน่วยงาน</th>
                         </tr>
                     </thead>
@@ -248,21 +268,69 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </td>
                                 <td class="guarantee-col-duration text-center">
                                     @if($row->duration)
-                                        {{ $row->duration }}
-                                        @if($row->duration == 1)
-                                            ปี
-                                        @else
-                                            ปี
-                                        @endif
+                                        {{ $row->duration }} ปี
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
                                 </td>
                                 <td class="guarantee-col-condition">
-                                    @if($row->condition == 1)
-                                        <span class="badge bg-primary">คืนเมื่อสิ้นสุด</span>
+                                    @if($row->duration && $row->condition != 2)
+                                        @php
+                                            // ใช้ contract_date (ทุกสัญญามี contract_date)
+                                            $baseDate = $row->contract_date ? \Carbon\Carbon::parse($row->contract_date) : null;
+                                            if ($baseDate) {
+                                                try {
+                                                    $returnDate = \App\Helpers\BusinessDayCalculator::addBusinessYears($baseDate, $row->duration);
+                                                    $thaiReturnDate = $returnDate->locale('th')->translatedFormat('j M') . ' ' . ($returnDate->year + 543);
+                                                } catch (\Exception $e) {
+                                                    $thaiReturnDate = null;
+                                                }
+                                            }
+                                        @endphp
+                                        @if(isset($thaiReturnDate))
+                                            <small>{{ $thaiReturnDate }}</small>
+                                        @else
+                                            <span class="text-muted">-</span>
+                                        @endif
                                     @elseif($row->condition == 2)
-                                        <span class="badge bg-secondary">ไม่คืน</span>
+                                        <span class="text-muted small">ไม่ต้องคืน</span>
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </td>
+                                <td class="guarantee-col-condition">
+                                    @if($row->duration && $row->condition != 2)
+                                        @php
+                                            $today = \Carbon\Carbon::now();
+                                            $baseDate = $row->contract_date ? \Carbon\Carbon::parse($row->contract_date) : null;
+                                            if ($baseDate) {
+                                                try {
+                                                    $returnDate = \App\Helpers\BusinessDayCalculator::addBusinessYears($baseDate, $row->duration);
+                                                    $daysUntilReturn = $today->diffInDays($returnDate, false);
+                                                } catch (\Exception $e) {
+                                                    $daysUntilReturn = null;
+                                                }
+                                            }
+                                        @endphp
+                                        @if(isset($daysUntilReturn))
+                                            @if($daysUntilReturn < 0)
+                                                <span class="badge bg-danger">
+                                                    <i class="bi bi-exclamation-circle-fill"></i> เกินกำหนด {{ abs($daysUntilReturn) }} วัน
+                                                </span>
+                                            @elseif($daysUntilReturn <= 90)
+                                                <span class="badge bg-warning text-dark">
+                                                    <i class="bi bi-clock-fill"></i> อีก {{ $daysUntilReturn }} วัน
+                                                </span>
+                                            @else
+                                                <span class="badge bg-success">
+                                                    <i class="bi bi-check-circle-fill"></i> ปกติ
+                                                </span>
+                                            @endif
+                                        @else
+                                            <span class="text-muted">-</span>
+                                        @endif
+                                    @elseif($row->condition == 2)
+                                        <span class="badge bg-secondary">ไม่ต้องคืน</span>
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
@@ -271,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center text-muted py-4">ไม่พบข้อมูล</td>
+                                <td colspan="9" class="text-center text-muted py-4">ไม่พบข้อมูล</td>
                             </tr>
                         @endforelse
                     </tbody>
