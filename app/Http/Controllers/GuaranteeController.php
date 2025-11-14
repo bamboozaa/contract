@@ -159,4 +159,42 @@ class GuaranteeController extends Controller
             'dueSoonCount'
         ));
     }
+
+    /**
+     * ปรับสถานะเป็นคืนเงินหลักประกันแล้ว
+     */
+    public function markAsReturned(Request $request, $id)
+    {
+        $contract = Contract::findOrFail($id);
+
+        $contract->update([
+            'is_returned' => true,
+            'returned_date' => $request->returned_date ?? now()->format('Y-m-d'),
+            'returned_note' => $request->returned_note,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'อัปเดตสถานะการคืนเงินหลักประกันสำเร็จ',
+        ]);
+    }
+
+    /**
+     * ยกเลิกสถานะการคืน
+     */
+    public function unmarkAsReturned($id)
+    {
+        $contract = Contract::findOrFail($id);
+
+        $contract->update([
+            'is_returned' => false,
+            'returned_date' => null,
+            'returned_note' => null,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'ยกเลิกสถานะการคืนเงินหลักประกันสำเร็จ',
+        ]);
+    }
 }

@@ -229,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <th class="guarantee-col-condition">วันที่ต้องคืน</th>
                             <th class="guarantee-col-condition">สถานะการคืน</th>
                             <th class="guarantee-col-dep">หน่วยงาน</th>
+                            <th class="guarantee-col-action" style="width: 120px;">จัดการ</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -300,7 +301,14 @@ document.addEventListener('DOMContentLoaded', function () {
                                     @endif
                                 </td>
                                 <td class="guarantee-col-condition">
-                                    @if($row->duration && $row->condition != 2 && $row->contract_date)
+                                    @if($row->is_returned)
+                                        <span class="badge bg-info text-dark">
+                                            <i class="bi bi-check-circle-fill"></i> คืนแล้ว
+                                        </span>
+                                        @if($row->returned_date)
+                                            <br><small class="text-muted">{{ \Carbon\Carbon::parse($row->returned_date)->locale('th')->translatedFormat('j M') . ' ' . (\Carbon\Carbon::parse($row->returned_date)->year + 543) }}</small>
+                                        @endif
+                                    @elseif($row->duration && $row->condition != 2 && $row->contract_date)
                                         @php
                                             // ใช้ค่าที่ cache ไว้แล้วจากคอลัมน์ก่อนหน้า
                                             $cached = $returnDateCache[$row->id] ?? null;
@@ -330,10 +338,25 @@ document.addEventListener('DOMContentLoaded', function () {
                                     @endif
                                 </td>
                                 <td class="guarantee-col-dep">{{ $row->department->dep_name ?? '-' }}</td>
+                                <td class="guarantee-col-action">
+                                    @if($row->condition != 2)
+                                        @if($row->is_returned)
+                                            <button class="btn btn-sm btn-outline-secondary unmark-returned-btn" data-id="{{ $row->id }}" title="ยกเลิกสถานะการคืน">
+                                                <i class="bi bi-x-circle"></i> ยกเลิก
+                                            </button>
+                                        @else
+                                            <button class="btn btn-sm btn-success mark-returned-btn" data-id="{{ $row->id }}" title="ทำเครื่องหมายว่าคืนแล้ว">
+                                                <i class="bi bi-check-circle"></i> คืนแล้ว
+                                            </button>
+                                        @endif
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9" class="text-center text-muted py-4">ไม่พบข้อมูล</td>
+                                <td colspan="10" class="text-center text-muted py-4">ไม่พบข้อมูล</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -347,4 +370,78 @@ document.addEventListener('DOMContentLoaded', function () {
         @endif
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // ปุ่มทำเครื่องหมายว่าคืนแล้ว
+    document.querySelectorAll('.mark-returned-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const contractId = this.dataset.id;
+            const today = new Date().toISOString().split('T')[0];
+
+            if (!confirm('ยืนยันการทำเครื่องหมายว่าคืนเงินหลักประกันแล้ว?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/guarantee/${contractId}/mark-returned`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        returned_date: today
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert('เกิดข้อผิดพลาด: ' + (data.message || 'ไม่สามารถอัปเดตได้'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('เกิดข้อผิดพลาดในการเชื่อมต่อ');
+            }
+        });
+    });
+
+    // ปุ่มยกเลิกสถานะการคืน
+    document.querySelectorAll('.unmark-returned-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const contractId = this.dataset.id;
+
+            if (!confirm('ยืนยันการยกเลิกสถานะการคืนเงินหลักประกัน?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/guarantee/${contractId}/unmark-returned`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert('เกิดข้อผิดพลาด: ' + (data.message || 'ไม่สามารถอัปเดตได้'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('เกิดข้อผิดพลาดในการเชื่อมต่อ');
+            }
+        });
+    });
+});
+</script>
 @endsection

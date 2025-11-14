@@ -27,8 +27,11 @@ class Contract extends Model
         'guarantee_amount',
         'duration',
         'condition',
-    'formFile',
-    'formFile_description',
+        'is_returned',
+        'returned_date',
+        'returned_note',
+        'formFile',
+        'formFile_description',
         'assignee',
         'status',
     ];

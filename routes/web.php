@@ -44,4 +44,6 @@ Route::middleware('auth')->group(function () {
 
     // Guarantee listing
     Route::get('guarantee', [\App\Http\Controllers\GuaranteeController::class, 'index'])->name('guarantee.index');
+    Route::post('guarantee/{id}/mark-returned', [\App\Http\Controllers\GuaranteeController::class, 'markAsReturned'])->name('guarantee.mark-returned');
+    Route::post('guarantee/{id}/unmark-returned', [\App\Http\Controllers\GuaranteeController::class, 'unmarkAsReturned'])->name('guarantee.unmark-returned');
 });
