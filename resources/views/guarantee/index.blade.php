@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <th class="guarantee-col-condition">วันที่ต้องคืน</th>
                             <th class="guarantee-col-condition">สถานะการคืน</th>
                             <th class="guarantee-col-dep">หน่วยงาน</th>
-                            <th class="guarantee-col-action" style="width: 120px;">จัดการ</th>
+                            {{-- <th class="guarantee-col-action" style="width: 120px;">จัดการ</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     @endif
                                 </td>
                                 <td class="guarantee-col-dep">{{ $row->department->dep_name ?? '-' }}</td>
-                                <td class="guarantee-col-action">
+                                {{-- <td class="guarantee-col-action">
                                     @if($row->condition != 2)
                                         @if($row->is_returned)
                                             <button class="btn btn-sm btn-outline-secondary unmark-returned-btn" data-id="{{ $row->id }}" title="ยกเลิกสถานะการคืน">
@@ -352,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
-                                </td>
+                                </td> --}}
                             </tr>
                         @empty
                             <tr>
