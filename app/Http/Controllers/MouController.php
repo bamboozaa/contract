@@ -98,19 +98,10 @@ class MouController extends Controller
                       ->where('a.ann_exp', '!=', '0000-00-00')
                       ->whereNotNull('a.ann_exp');
             } elseif ($status === 'active') {
-                // Active includes both not expired AND no expiration date
-                $query->where(function($q) use ($today) {
-                    $q->where(function($sq) use ($today) {
-                        // Has expiration date and not expired
-                        $sq->where('a.ann_exp', '>=', $today)
-                           ->where('a.ann_exp', '!=', '0000-00-00')
-                           ->whereNotNull('a.ann_exp');
-                    })->orWhere(function($sq) {
-                        // Or no expiration date (unlimited)
-                        $sq->where('a.ann_exp', '=', '0000-00-00')
-                           ->orWhereNull('a.ann_exp');
-                    });
-                });
+                // Active: มีกำหนดอายุและยังไม่หมดอายุ (ไม่รวมไม่มีกำหนด)
+                $query->where('a.ann_exp', '>=', $today)
+                      ->where('a.ann_exp', '!=', '0000-00-00')
+                      ->whereNotNull('a.ann_exp');
             } elseif ($status === 'no_limit') {
                 // Filter for contracts with no expiration date
                 $query->where(function($q) {
