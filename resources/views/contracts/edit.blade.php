@@ -594,6 +594,9 @@
                             <div class="col-md-6">
                                 <label for="duration" class="form-label">ระยะเวลาค้ำประกัน</label>
                                 {!! Form::select('duration', [
+                                    '0.08' => '1 เดือน',
+                                    '0.25' => '3 เดือน',
+                                    '0.5' => '6 เดือน',
                                     '1' => '1 ปี',
                                     '2' => '2 ปี',
                                     '3' => '3 ปี',
@@ -614,7 +617,8 @@
                                     '0' => '1 เดือน',
                                     '1' => '3 เดือน',
                                     '2' => '6 เดือน',
-                                    '3' => '1 ปี'
+                                    '3' => '1 ปี',
+                                    '4' => '2 ปี'
                                 ], old('condition', $contract->condition), [
                                     'class' => 'form-select' . ($errors->has('condition') ? ' is-invalid' : ''),
                                     'placeholder' => 'กรุณาเลือกเงื่อนไข'
